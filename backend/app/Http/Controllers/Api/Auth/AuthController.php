@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class AuthController extends Controller
 
 
         return response()->json([
+            'message' => "User registered successfully",
             'user' => $user,
             'token' => $token
         ], 201);
@@ -50,6 +52,7 @@ class AuthController extends Controller
         $token = $user->createToken('myapptoken')->plainTextToken;
 
         return response()->json([
+            "message"=> 'Login successful', 
             'user' => $user,
             'token' => $token
         ], 201);
@@ -59,7 +62,13 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
 
         return response()->json([
-            'message' => 'logged out'
+            'message' => 'Logged out successfully'
+        ], 200);
+    }
+
+    public function me(Request $request){
+        return response()->json([
+            'user' => $request->user()
         ], 200);
     }
 }
