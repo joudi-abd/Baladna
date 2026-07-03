@@ -39,7 +39,7 @@ class Trip extends Model
 
     public function places()
     {
-        return $this->belongsToMany(Place::class , 'trip_places');
+        return $this->belongsToMany(Place::class , 'trip_places')->withPivot('order_no');
     }
 
     public function favorites()
