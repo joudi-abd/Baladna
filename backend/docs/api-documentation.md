@@ -4,7 +4,7 @@
 
 # Register : POST '/register'
 
-Request:
+Request Body:
         { 
             "name": "test", 
             "email": "test@test.com", 
@@ -22,7 +22,7 @@ Success Response:
 
 # Login : POST '/login'
 
-Request:
+Request Body:
         { 
             "email": "ahmed@test.com", 
             "password": "123456" 
@@ -134,5 +134,94 @@ Success Response:
             "message": "Trip retrieved successfully", 
             "data": { ... } 
         }
+
+--------------------
+
+# Reviews 
+
+# Add Review : POST '/reviews'
+
+Authorization: Bearer {token}
+
+Request Body:
+        { 
+            "reviewable_type": "place" / "trip", 
+            "reviewable_id": 1, 
+            "rating": 5,
+            "comment": "place/trip is very beautiful" 
+        }
+Success Response:
+        { 
+            "success": true, 
+            "message": "Review added successfully.", 
+            "data": { ... } 
+        }
+
+----------------------
+
+# Update Review : PUT '/reviews/{review}'
+
+Authorization: Bearer {token}
+
+Request Body:
+        {  
+            "rating": 4,
+            "comment": "Update review" 
+        }
+Success Response:
+        { 
+            "success": true, 
+            "message": "Review updated successfully.", 
+            "data": { ... } 
+        }
+
+-----------------------
+
+# Delete Review : DELETE '/reviews/{review}'
+
+Authorization: Bearer {token}
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Review deleted successfully."
+        }
+
+----------------------
+
+# Place Reviews : GET '/places/{place}/reviews'
+
+
+Query Parameters:
+                per_page
+
+Authorization: Bearer {token}
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Reviews retrieved successfully", 
+            "data": [ ... ] 
+        }
+
+-----------------------
+
+# Trip Reviews : GET '/trips/{trip}/reviews'
+
+
+Query Parameters:
+                per_page
+
+Authorization: Bearer {token}
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Reviews retrieved successfully", 
+            "data": [ ... ] 
+        }
+
+-------------------------
+
 
 

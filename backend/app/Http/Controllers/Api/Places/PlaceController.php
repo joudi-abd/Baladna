@@ -7,12 +7,16 @@ use App\Http\Requests\place\IndexPlaceRequest;
 use App\Http\Requests\place\StorePlaceRequest;
 use App\Http\Requests\place\UpdatePlaceRequest;
 use App\Http\Resources\PlaceResource;
+use App\Http\Resources\ReviewResource;
 use App\Models\Place;
+use App\Services\ReviewService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class PlaceController extends Controller
 {
+    public function __construct(Private ReviewService $reviewService)
+    {    }
     public function index(IndexPlaceRequest $request)
     {
         $places = Place::query()
@@ -92,6 +96,16 @@ class PlaceController extends Controller
         ]);
     }
 
+    public function reviews(Place $place)
+    {
+        $reviews = $this->reviewService->getReviews($place, request('per_page', 10));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Reviews retrieved successfully',
+            'data' => ReviewResource::collection($reviews),
+        ]);
+    }
     // public function store(StorePlaceRequest $request)
     // {
     //     $place = Place::create($request->validated());

@@ -5,13 +5,20 @@ namespace App\Http\Controllers\Api\Trips;
 use App\Http\Requests\trip\IndexTripRequest;
 use App\Http\Requests\trip\StoreTripRequest;
 use App\Http\Requests\trip\UpdateTripRequest;
+use App\Http\Resources\ReviewResource;
 use App\Http\Resources\TripResource;
 use App\Models\Trip;
 use App\Http\Controllers\Controller;
+use App\Services\ReviewService;
 use Illuminate\Http\Request;
 
 class TripController extends Controller
 {
+
+    public function __construct(private ReviewService $reviewService)
+    {
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -73,6 +80,63 @@ class TripController extends Controller
         return TripResource::collection($trips);
     }
 
+    
+    public function show(Trip $trip)
+    {
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Trip retrieved successfully',
+            'data' => new TripResource(
+                $trip->load(
+                    'places.city',
+                    'places.category'
+                    )
+                )
+        ]);
+    }
+
+    public function reviews(Trip $trip)
+    {
+        $reviews = $this->reviewService->getReviews($trip, request('per_page', 10));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Reviews retrieved successfully',
+            'data' => ReviewResource::collection($reviews),
+        ]);
+    }
+
+    // public function update(UpdateTripRequest $request, Trip $trip)
+    // {
+        //     $data = $request->validated();
+    //     if(isset($data['places'])){
+        //         $places = $data['places'];
+        //         unset($data['places']);
+        //         $sync=[];
+        //         foreach($places as $place){
+    //             $sync[$place['place_id']] = [
+    //                 'order_no'=>$place['order_no']
+    //             ];
+    //         }
+    //         $trip->places()->sync($sync);
+    //     }
+    //     $trip->update($data);
+    //     return new TripResource(
+        //         $trip->load(
+            //             'places.city',
+            //             'places.category'
+            //         )
+            //     );
+            // }
+    // public function destroy(Trip $trip)
+// {
+    //     $trip->places()->detach();
+    //     $trip->delete();
+    //     return response()->json([
+        //         'message'=>'Trip deleted successfully.'
+        //     ]);
+        // }
     // public function store(StoreTripRequest $request)
     // {
     //     $data = $request->validated();
@@ -92,50 +156,5 @@ class TripController extends Controller
     //         $trip->load('places.city','places.category')
     //     );
     // }
-
-    public function show(Trip $trip)
-    {
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Trip retrieved successfully',
-            'data' => new TripResource(
-                $trip->load(
-                    'places.city',
-                    'places.category'
-                )
-            )
-        ]);
-    }
-
-    // public function update(UpdateTripRequest $request, Trip $trip)
-    // {
-    //     $data = $request->validated();
-    //     if(isset($data['places'])){
-    //         $places = $data['places'];
-    //         unset($data['places']);
-    //         $sync=[];
-    //         foreach($places as $place){
-    //             $sync[$place['place_id']] = [
-    //                 'order_no'=>$place['order_no']
-    //             ];
-    //         }
-    //         $trip->places()->sync($sync);
-    //     }
-    //     $trip->update($data);
-    //     return new TripResource(
-    //         $trip->load(
-    //             'places.city',
-    //             'places.category'
-    //         )
-    //     );
-    // }
-    // public function destroy(Trip $trip)
-    // {
-    //     $trip->places()->detach();
-    //     $trip->delete();
-    //     return response()->json([
-    //         'message'=>'Trip deleted successfully.'
-    //     ]);
-    // }
 }
+                    
