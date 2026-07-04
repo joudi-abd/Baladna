@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Favorites\FavoriteController;
 use App\Http\Controllers\Api\Places\PlaceController;
 use App\Http\Controllers\Api\Trips\TripController;
 use App\Http\Controllers\Api\Reviews\ReviewController;
@@ -28,10 +29,15 @@ Route::get('/trips',[TripController::class, 'index']);
 Route::get('/trips/{trip}',[TripController::class, 'show']); 
 Route::get('/trips/{trip}/reviews', [TripController::class, 'reviews']);
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/reviews', [ReviewController::class, 'store']);
-    Route::put('/reviews/{review}', [ReviewController::class, 'update']);
-    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
+Route::prefix('reviews')->middleware('auth:sanctum')->group(function () {
+    Route::post('/', [ReviewController::class, 'store']);
+    Route::put('/{review}', [ReviewController::class, 'update']);
+    Route::delete('/{review}', [ReviewController::class, 'destroy']);
 });
 
+Route::prefix('favorites')->middleware('auth:sanctum')->group(function () {
+    Route::get('/', [FavoriteController::class, 'index']);
+    Route::post('/', [FavoriteController::class, 'store']);
+    Route::delete('/{favorite}', [FavoriteController::class, 'destroy']);
+});
 

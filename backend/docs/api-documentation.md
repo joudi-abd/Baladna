@@ -223,5 +223,49 @@ Success Response:
 
 -------------------------
 
+# Favorites
 
+# Favorites : GET '/favorites'
+
+Authorization: Bearer {token}
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Favorites retrieved successfully", 
+            "data": [{ ... }] 
+        }
+
+------------------------
+
+# Add Favorites : POST '/favorites'
+
+Authorization: Bearer {token}
+
+Request Body:
+        { 
+            "favoritable_type": "place" / "trip", 
+            "favoritable_id": 1
+        }
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Added to favorites successfully", 
+            "data": { ... } 
+        }
+
+--------------------------
+
+# Delete Favorite : DELETE '/favorites/{favorite}'
+
+Authorization: Bearer {token}
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Removed from favorites successfully", 
+        }
+
+-------------------------
 
