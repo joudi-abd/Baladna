@@ -233,7 +233,7 @@ Success Response:
         { 
             "success": true, 
             "message": "Favorites retrieved successfully", 
-            "data": [{ ... }] 
+            "data": [{ } , { } , ...] 
         }
 
 ------------------------
@@ -264,8 +264,83 @@ Authorization: Bearer {token}
 Success Response:
         { 
             "success": true, 
-            "message": "Removed from favorites successfully", 
+            "message": "Removed from favorites successfully"
         }
 
 -------------------------
 
+# Cities 
+
+# Cities : GET '/cities'
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Cities retrieved successfully", 
+            "data": [{ } , { } , ...]
+        }
+
+-------------------------
+
+# Categories 
+
+# Categories : GET '/categories'
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Categories retrieved successfully", 
+            "data": [{ } , { } , ...]
+        }
+
+--------------------------
+
+# Features
+
+# Features : GET : '/features'
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Features retrieved successfully", 
+            "data": [{ } , { } , ...]
+        }
+
+--------------------------
+
+# About 
+
+# About : GET : '/about'
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Features retrieved successfully", 
+            "data": {
+                "title": " ",
+                "description": " ",
+                "email": " ",
+                "phone": " "
+            }
+        }
+
+-------------------------
+
+# Contact 
+
+# Contact : POST : '/contact'
+
+Request Body:
+        { 
+            "name": " ",
+            "email": " ",
+            "message": " ",
+            "subject": " "
+        }
+
+Success Response:
+        {
+            "success": true,
+            "message": "Contact message sent successfully",
+            "data": [ { ... } ] 
+        }

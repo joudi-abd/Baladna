@@ -51,8 +51,7 @@ class TripController extends Controller
             $query->whereHas('places', function ($q) use ($request) {
                 $q->where('city_id', $request->city_id);
             });
-        }
-        )
+        })
         ->when($request->filled('category_id'), function ($query) use ($request) {
             $query->whereHas('places', function ($q) use ($request) {
                 $q->where('category_id', $request->category_id);

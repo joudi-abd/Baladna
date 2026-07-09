@@ -1,10 +1,15 @@
 <?php
 
+use App\Http\Controllers\Api\About\AboutController;
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Contact\ContactController;
 use App\Http\Controllers\Api\Favorites\FavoriteController;
 use App\Http\Controllers\Api\Places\PlaceController;
 use App\Http\Controllers\Api\Trips\TripController;
 use App\Http\Controllers\Api\Reviews\ReviewController;
+use App\Http\Controllers\Api\Cities\CityController;
+use App\Http\Controllers\Api\Categories\CategoryController;
+use App\Http\Controllers\Api\Features\FeatureController;
 use Illuminate\Http\Request;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -40,4 +45,11 @@ Route::prefix('favorites')->middleware('auth:sanctum')->group(function () {
     Route::post('/', [FavoriteController::class, 'store']);
     Route::delete('/{favorite}', [FavoriteController::class, 'destroy']);
 });
+
+Route::get('cities', [CityController::class, 'index']);
+Route::get('categories', [CategoryController::class, 'index']);
+Route::get('features',[FeatureController::class, 'index']);
+Route::get('/about', [AboutController::class, 'index']);
+Route::post('/contact', [ContactController::class, 'store']);
+Route::get('/contact', [ContactController::class, 'index']);
 
