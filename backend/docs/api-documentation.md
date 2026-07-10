@@ -344,3 +344,72 @@ Success Response:
             "message": "Contact message sent successfully",
             "data": [ { ... } ] 
         }
+
+--------------------------
+
+# Bookings
+
+# Booking : POST '/bookings'
+
+Authorization: Bearer {token} 
+
+Request Body:
+        { 
+            "trip_id": ... ,
+            "participants_count": ... ,
+            "notes": " "
+        }
+
+Success Response:
+        {
+            "success": true,
+            "message": "Booking created successfull",
+            "data": { ... } 
+        }        
+
+-----------------------
+
+# User Bookings : GET '/my-bookings'
+
+Query Parameters:
+                status , per_page 
+
+Authorization: Bearer {token}
+
+Success Response:
+        {
+            "success": true,
+            "message": "User bookings retrieved successfully,
+            "data": [ { } { } ... ] 
+        }
+
+-----------------------
+
+# Delete Booking : DELETE '/bookings/{booking}'
+
+Authorization: Bearer {token}
+
+Success Response:
+        {
+            "success": true,
+            "message": "Booking cancelled successfully,
+        }
+
+-----------------------
+
+# Edit Booking : PUT '/bookings/{booking}'
+
+Authorization: Bearer {token}
+
+Request Body:
+        { 
+            "participants_count": ... ,
+            "notes": " "
+        }
+
+Success Response:
+        {
+            "success": true,
+            "message": "Booking updated successfully,
+            "data": { ... } 
+        }

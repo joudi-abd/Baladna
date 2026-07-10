@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Reviews\ReviewController;
 use App\Http\Controllers\Api\Cities\CityController;
 use App\Http\Controllers\Api\Categories\CategoryController;
 use App\Http\Controllers\Api\Features\FeatureController;
+use App\Http\Controllers\Api\Bookings\BookingController;
 use Illuminate\Http\Request;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -51,5 +52,13 @@ Route::get('categories', [CategoryController::class, 'index']);
 Route::get('features',[FeatureController::class, 'index']);
 Route::get('/about', [AboutController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'store']);
-Route::get('/contact', [ContactController::class, 'index']);
+Route::get('/contact', [ContactController::class, 'index']); //غير مُرسل الى الفرونت اند
+
+Route::middleware('auth:sanctum')->group(function (){
+    Route::get('my-bookings', [BookingController::class, 'index']);
+    Route::post('bookings', [BookingController::class, 'store']);
+    Route::delete('bookings/{booking}', [BookingController::class, 'destroy']);
+    Route::put('bookings/{booking}', [BookingController::class, 'update']);
+});
+
 
