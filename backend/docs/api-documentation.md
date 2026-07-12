@@ -379,7 +379,7 @@ Authorization: Bearer {token}
 Success Response:
         {
             "success": true,
-            "message": "User bookings retrieved successfully,
+            "message": "User bookings retrieved successfully",
             "data": [ { } { } ... ] 
         }
 
@@ -392,7 +392,7 @@ Authorization: Bearer {token}
 Success Response:
         {
             "success": true,
-            "message": "Booking cancelled successfully,
+            "message": "Booking cancelled successfully",
         }
 
 -----------------------
@@ -410,6 +410,107 @@ Request Body:
 Success Response:
         {
             "success": true,
-            "message": "Booking updated successfully,
+            "message": "Booking updated successfully",
+            "data": { ... } 
+        }
+
+-------------------------
+
+# Profile
+
+# Profile : GET '/profile'
+
+Authorization: Bearer {token}
+
+Success Response:
+        {
+            "success": true,
+            "message": "Profile retrieved successfully",
+            "data": { ... } 
+        }
+
+-------------------------
+
+# Update Profile : PUT '/profile'
+
+Authorization: Bearer {token}
+
+Request Body:
+        { 
+            "name": " " ,
+            "phone": " "
+        }
+
+Success Response:
+        {
+            "success": true,
+            "message": "Profile updated successfully",
+            "data": { ... } 
+        }
+
+-------------------------
+
+# Change Password : PUT '/profile/password'
+
+Authorization: Bearer {token}
+
+Request Body:
+        { 
+            "current_password": "old_password" ,
+            "password": "new_password",
+            "password_confirmation": "new_password"
+        }
+
+Success Response:
+        {
+            "success": true,
+            "message": "Password updated successfully",
+        }
+
+-------------------------
+
+# Update Profile Image : POST '/profile/image'
+
+Authorization: Bearer {token}
+
+Request Body:(form-data)
+        key: image , type: file , value: 'image file'
+
+
+Success Response:
+        {
+            "success": true,
+            "message": "Profile image updated successfully",
+            "data": { ... } 
+        }
+
+----------------------------
+
+# Notifications
+
+# Notifications : GET '/notifications'
+
+Authorization: Bearer {token} 
+
+Query Parameters:
+                is_read , per_page 
+
+Success Response:
+        {
+            "success": true,
+            "message": "Notifications retrieved successfully",
+            "data": [ { ... } ] 
+        }
+
+----------------------------
+
+# Mark Notification As Read : PUT '/notifications/{notification}
+
+Authorization: Bearer {token}
+
+Success Response:
+        {
+            "success": true,
+            "message": "Notification marked as read successfully",
             "data": { ... } 
         }

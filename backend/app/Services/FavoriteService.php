@@ -9,6 +9,9 @@ use Illuminate\Validation\ValidationException;
 
 class FavoriteService
 {
+    public function __construct(private NotificationService $notificationService)
+    {
+    }
     public function addToFavorites(array $data)
     {
         $model = match ($data['favoritable_type']) {
@@ -25,7 +28,7 @@ class FavoriteService
             ]);
             
         }
-
+        $this->notificationService->favoriteAdded(auth()->user());
         return $favoritable->favorites()->create([
             'user_id' => auth()->id(),
         ]);
@@ -42,6 +45,7 @@ class FavoriteService
         }
 
         $favorite->delete();
+        $this->notificationService->favoriteRemoved(auth()->user());
     }
 
     public function getFavorites(int $perPage = 10)

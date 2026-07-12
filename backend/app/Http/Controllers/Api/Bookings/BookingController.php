@@ -65,11 +65,6 @@ class BookingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    /**
-     * -توثيق تجريبي 
-     * 
-     * - هذه الدالة تقوم بإلغاء الحجز المحدد للمستخدم الحالي.
-     */
     public function destroy(Booking $booking)
     {
         $this->bookingService->cancelBooking($booking);

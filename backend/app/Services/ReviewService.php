@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class ReviewService
 {
+    public function __construct(private NotificationService $notificationService)
+    {
+    }
     public function create(array $data)
     {
         return DB::transaction(function () use ($data) {
@@ -27,7 +30,7 @@ class ReviewService
 
             // Update statistics
             $this->updateStatistics($reviewable);
-
+            $this->notificationService->reviewCreated(auth()->user());
             return $review;
         });
 
@@ -46,7 +49,7 @@ class ReviewService
 
             // Update statistics
             $this->updateStatistics($review->reviewable);
-
+            $this->notificationService->reviewUpdated(auth()->user());
             return $review;
         });
 
@@ -63,6 +66,7 @@ class ReviewService
 
             // Update statistics
             $this->updateStatistics($reviewable);
+            $this->notificationService->reviewDeleted(auth()->user());
         });
 
     }   

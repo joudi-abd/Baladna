@@ -11,6 +11,8 @@ use App\Http\Controllers\Api\Cities\CityController;
 use App\Http\Controllers\Api\Categories\CategoryController;
 use App\Http\Controllers\Api\Features\FeatureController;
 use App\Http\Controllers\Api\Bookings\BookingController;
+use App\Http\Controllers\Api\Profile\ProfileController;
+use App\Http\Controllers\Api\Notifications\NotificationController;
 use Illuminate\Http\Request;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -61,4 +63,14 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::put('bookings/{booking}', [BookingController::class, 'update']);
 });
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show']);
+    Route::put('/profile', [ProfileController::class, 'update']);
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword']);
+    Route::post('/profile/image', [ProfileController::class, 'updateImage']);
+});
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::put('/notifications/{notification}', [NotificationController::class, 'markAsRead']);
+});

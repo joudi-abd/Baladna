@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class BookingService{
+
+    public function __construct(private NotificationService $notificationService)
+    {
+    }
     public function store(array $data){
         return DB::transaction(function () use ($data) {
             $trip = Trip::findOrFail($data['trip_id']);
@@ -20,6 +24,7 @@ class BookingService{
                 'participants_count' => $data['participants_count'],
                 'notes' => $data['notes'] ?? null,
             ]);
+            $this->notificationService->bookingCreated(auth()->user());
             $this->updateAvailableSeats($trip, $data['participants_count']);
             return $booking;
         });
@@ -82,6 +87,7 @@ class BookingService{
         return DB::transaction(function () use ($booking) {
                 $booking->update(['status' => Booking::STATUS_CANCELLED]);
                 $booking->trip->increment('available_seats', $booking->participants_count);
+                $this->notificationService->bookingCancelled(auth()->user());
                 return $booking->fresh()->load('trip');
             });
     }
