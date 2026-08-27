@@ -101,6 +101,23 @@ class NotificationService
             'body' => 'The trip has been removed from your favorites.',
         ]);
     }
+    
+    public function paymentCompleted(User $user):Notification
+    {
+        return Notification::create([
+            'user_id' => $user->id,
+            'title' => 'Payment Completed',
+            'body' => 'Your payment has been completed successfully.',
+        ]);
+    }
 
+    public function paymentRejected(User $user):Notification
+    {
+        return Notification::create([
+            'user_id' => $user->id,
+            'title' => 'Payment Rejected',
+            'body' => 'Your payment has been rejected.',
+        ]);
+    }
 
 }

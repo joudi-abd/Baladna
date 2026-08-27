@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\About\AboutController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Contact\ContactController;
 use App\Http\Controllers\Api\Favorites\FavoriteController;
+use App\Http\Controllers\Api\Payments\PaymentController;
 use App\Http\Controllers\Api\Places\PlaceController;
 use App\Http\Controllers\Api\Trips\TripController;
 use App\Http\Controllers\Api\Reviews\ReviewController;
@@ -74,3 +75,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'index']);
     Route::put('/notifications/{notification}', [NotificationController::class, 'markAsRead']);
 });
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/payments', [PaymentController::class, 'store']);
+    Route::get('/my-payments', [PaymentController::class, 'index']);
+    Route::get('/payments/{payment}', [PaymentController::class, 'show']);
+});
+
+Route::middleware(['auth:sanctum','permission:confirm payments'])
+    ->put('payments/{payment}/approve', [PaymentController::class, 'approve']);
+
+Route::middleware(['auth:sanctum','permission:reject payments'])
+    ->put('payments/{payment}/reject', [PaymentController::class, 'reject']);

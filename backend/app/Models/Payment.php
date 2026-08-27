@@ -18,8 +18,8 @@ class Payment extends Model
     ];
 
     protected $casts = [
-        'amount' => 'float',
-        'paid_at' => 'datetime',
+        'amount' => 'decimal:2',
+        'paid_at' => 'date',
     ];
     const STATUS_PENDING = 'pending';
     const STATUS_COMPLETED = 'completed';

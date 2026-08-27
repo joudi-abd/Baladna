@@ -514,3 +514,83 @@ Success Response:
             "message": "Notification marked as read successfully",
             "data": { ... } 
         }
+
+
+-------------------------------
+# Payments
+
+# Create Payment : POST '/payments'
+Authorization: Bearer {token}
+Request Body:
+        {
+             "booking_id": ... ,
+             "payment_method": "credit_card | paypal | bank_transfer" ,
+             "proof_image": image (optional) 
+        }
+        proof_image يستخدم لإثبات التحويل عند اختيار bank_transfer.
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Payment created successfully.", 
+            "data": { ... } 
+        } 
+
+------------------------
+
+# User Payments : GET '/my-payments'
+
+Authorization: Bearer {token}
+
+Success Response:
+        {        
+            "success": true, 
+            "message": "Payment retrieved successfully.", 
+            "data": [{ ... } , { ... }]
+        } 
+
+------------------------
+
+# Show Payment : GET '/payments/{payment}'
+
+Authorization: Bearer {token}
+
+Success Response:
+        {        
+            "success": true, 
+            "message": "User payments retrieved successfully.", 
+            "data": { ... } 
+        } 
+
+-------------------------
+
+# Approve Payment : PUT '/payments/{payment}/approve'
+
+Authorization: Bearer {token}
+
+Requires confirm payments permission.
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Payment approved successfully." 
+            "data": { ... } 
+        } 
+When the payment is approved:
+Payment status → completed Booking status → confirmed Notification → sent to the user 
+
+--------------------------
+
+# Reject Payment : PUT '/payments/{payment}/reject'
+
+Authorization: Bearer {token}
+
+Requires reject payments permission.
+Success Response:
+        { 
+            "success": true, 
+            "message": "Payment rejected successfully.", 
+            "data": { ... } 
+        } 
+When the payment is rejected:
+Payment status → failed Booking status → pending Notification → sent to the user

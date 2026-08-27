@@ -91,6 +91,7 @@ class RoleAndPermissionSeeder extends Seeder
             'view payments',
             'edit payments',
             'confirm payments',
+            'reject payments',
             'refund payments',
 
 
