@@ -524,10 +524,10 @@ Authorization: Bearer {token}
 Request Body:
         {
              "booking_id": ... ,
-             "payment_method": "credit_card | paypal | bank_transfer" ,
+             "payment_method": "sham_cash | bank_transfer | cash_on_arrival" ,
              "proof_image": image (optional) 
         }
-        proof_image يستخدم لإثبات التحويل عند اختيار bank_transfer.
+        proof_image يستخدم لإثبات التحويل عند اختيار sham_cash | bank_transfer.
 
 Success Response:
         { 

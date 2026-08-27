@@ -24,9 +24,9 @@ class StorePaymentRequest extends FormRequest
     {
         return [
             'booking_id' => ['required', 'integer','exists:bookings,id'],
-            'payment_method' => ['required', 'string', 'in:credit_card,debit_card,paypal,bank_transfer'],
+            'payment_method' => ['required', 'string', 'in:sham_cash,bank_transfer,cash_on_arrival'],
             'transaction_reference' => ['nullable', 'string'],
-            'proof_image' => ['nullable', 'image','mimes:jpeg,png,jpg,webp', 'max:2048'], // Max size 2MB
+            'proof_image' => ['nullable', 'image','mimes:jpeg,png,jpg,webp', 'max:2048' , 'required_if:payment_method,bank_transfer'], // Max size 2MB
         ];
     }
 }
