@@ -1,0 +1,571 @@
+/* =====================================================
+   Trips Page
+===================================================== */
+
+:root {
+  --green: #2f8064;
+  --green-dark: #21624d;
+  --green-light: #e7f3ee;
+  --text-dark: #263b35;
+  --text: #777;
+  --border: #e7e7e7;
+  --white: #fff;
+  --bg: #fafafa;
+  --shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+.trips-page-container {
+  direction: rtl;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text-dark);
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+
+/* =====================================================
+   Hero
+===================================================== */
+
+.trips-hero {
+  min-height: 390px;
+  background:
+    linear-gradient(rgba(0, 0, 0, .42), rgba(0, 0, 0, .42)),
+    url("https://via.placeholder.com/1920x500")
+    center / cover no-repeat;
+
+  color: var(--white);
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  width: 100%;
+  padding: 70px 20px 85px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay h1 {
+  margin: 0 0 12px;
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.hero-overlay p {
+  max-width: 760px;
+  margin: 0 0 28px;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+
+/* =====================================================
+   Search
+===================================================== */
+
+.search-bar-container {
+  width: min(540px, 100%);
+  height: 58px;
+
+  display: flex;
+  direction: rtl;
+
+  background: rgba(255, 255, 255, .9);
+  border-radius: 8px;
+  overflow: hidden;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, .15);
+}
+
+.search-input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  padding: 0 20px;
+
+  background: transparent;
+  color: #333;
+  font-size: 15px;
+  text-align: right;
+}
+
+.search-input::placeholder {
+  color: #777;
+}
+
+.search-btn {
+  width: 62px;
+  border: 0;
+
+  background: var(--green);
+  color: var(--white);
+
+  cursor: pointer;
+  font-size: 20px;
+
+  transition: .2s;
+}
+
+.search-btn:hover {
+  background: var(--green-dark);
+}
+
+
+/* =====================================================
+   Filters
+===================================================== */
+
+.filter-section {
+  max-width: 1230px;
+  margin: -40px auto 55px;
+  padding: 0 20px;
+
+  position: relative;
+  z-index: 5;
+}
+
+.filter-bar {
+  background: var(--white);
+  padding: 22px 25px;
+
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, .09);
+
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+}
+
+.filter-group {
+  flex: 1;
+  min-width: 130px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.filter-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.filter-group select,
+.filter-group input {
+  width: 100%;
+  height: 43px;
+  box-sizing: border-box;
+
+  padding: 0 12px;
+
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  background: var(--white);
+  color: #555;
+
+  outline: none;
+  font-size: 13px;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+  border-color: var(--green);
+}
+
+.btn-apply-filters,
+.btn-reset-filters {
+  height: 43px;
+  padding: 0 22px;
+
+  border-radius: 6px;
+  cursor: pointer;
+
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.btn-apply-filters {
+  border: 0;
+  background: var(--green);
+  color: var(--white);
+}
+
+.btn-apply-filters:hover {
+  background: var(--green-dark);
+}
+
+.btn-reset-filters {
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--text);
+}
+
+.btn-reset-filters:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+
+/* =====================================================
+   Main
+===================================================== */
+
+.trips-main-content {
+  max-width: 1230px;
+  margin: auto;
+  padding: 0 20px 70px;
+}
+
+.section-title-container {
+  text-align: right;
+  margin-bottom: 28px;
+}
+
+.section-title-container h2 {
+  margin: 0 0 7px;
+  font-size: 28px;
+  color: var(--text-dark);
+}
+
+.section-title-container p {
+  margin: 0;
+  color: #999;
+  font-size: 13px;
+}
+
+
+/* =====================================================
+   Cards Grid
+===================================================== */
+
+.trips-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+
+/* =====================================================
+   Trip Card
+===================================================== */
+
+.trip-card {
+  overflow: hidden;
+
+  background: var(--white);
+  border: 1px solid #eee;
+  border-radius: 8px;
+
+  box-shadow: 0 3px 15px rgba(0, 0, 0, .045);
+
+  transition: .25s;
+}
+
+.trip-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .09);
+}
+
+
+/* =====================================================
+   Card Image
+===================================================== */
+
+.card-image-container {
+  height: 205px;
+  position: relative;
+  overflow: hidden;
+}
+
+.trip-card-img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  transition: transform .35s;
+}
+
+.trip-card:hover .trip-card-img {
+  transform: scale(1.03);
+}
+
+.badge-category {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+
+  padding: 6px 13px;
+
+  border-radius: 20px;
+
+  background: var(--green);
+  color: var(--white);
+
+  font-size: 11px;
+}
+
+
+/* =====================================================
+   Card Content
+===================================================== */
+
+.card-content {
+  padding: 17px;
+  text-align: right;
+}
+
+.card-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+
+  margin-bottom: 9px;
+}
+
+.trip-card-title {
+  flex: 1;
+
+  margin: 0;
+
+  color: var(--text-dark);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.trip-rating {
+  white-space: nowrap;
+
+  color: #555;
+  font-size: 13px;
+}
+
+.trip-rating span {
+  color: #e6b82e;
+  margin-left: 3px;
+}
+
+
+/* =====================================================
+   Description
+===================================================== */
+
+.trip-card-description {
+  height: 43px;
+
+  margin: 0 0 14px;
+
+  color: #888;
+  font-size: 12px;
+  line-height: 1.8;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   Details
+===================================================== */
+
+.trip-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+
+  margin-bottom: 13px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  color: #777;
+  font-size: 11px;
+}
+
+.detail-icon {
+  opacity: .75;
+}
+
+
+/* =====================================================
+   Price
+===================================================== */
+
+.trip-price {
+  padding-top: 11px;
+  border-top: 1px dashed #ddd;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: #999;
+  font-size: 11px;
+}
+
+.trip-price strong {
+  color: var(--green);
+  font-size: 16px;
+}
+
+.trip-price small {
+  font-size: 11px;
+  font-weight: normal;
+}
+
+
+/* =====================================================
+   Buttons
+===================================================== */
+
+.card-actions {
+  display: flex;
+  gap: 9px;
+
+  margin-top: 15px;
+}
+
+.btn-book-now,
+.btn-view-trip {
+  flex: 1;
+
+  height: 38px;
+
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  transition: .2s;
+}
+
+.btn-book-now {
+  border: 1px solid var(--green);
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.btn-book-now:hover {
+  background: var(--green);
+  color: var(--white);
+}
+
+.btn-view-trip {
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: #777;
+}
+
+.btn-view-trip:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+
+/* =====================================================
+   Loading / Empty
+===================================================== */
+
+.loading-spinner,
+.no-trips {
+  padding: 45px 20px;
+
+  background: var(--white);
+  border-radius: 10px;
+
+  text-align: center;
+
+  box-shadow: var(--shadow);
+  color: #888;
+}
+
+.loading-spinner {
+  color: var(--green);
+}
+
+
+/* =====================================================
+   Responsive
+===================================================== */
+
+@media (max-width: 1050px) {
+  .filter-bar {
+    flex-wrap: wrap;
+  }
+
+  .filter-group {
+    min-width: 180px;
+  }
+
+  .trips-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+
+  .trips-hero {
+    min-height: 350px;
+  }
+
+  .hero-overlay h1 {
+    font-size: 30px;
+  }
+
+  .hero-overlay p {
+    font-size: 13px;
+  }
+
+  .filter-section {
+    margin-top: -25px;
+  }
+
+  .filter-group {
+    min-width: 100%;
+  }
+
+  .btn-apply-filters,
+  .btn-reset-filters {
+    flex: 1;
+  }
+
+  .trips-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 450px) {
+
+  .trips-main-content,
+  .filter-section {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  .trip-details-grid {
+    grid-template-columns: 1fr;
+  }
+}

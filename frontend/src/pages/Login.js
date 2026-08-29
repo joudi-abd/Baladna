@@ -2,23 +2,49 @@
 import { useState } from "react";
 import "../styles/login.css";
 import travel from "../assets/travel.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaLock } from "react-icons/fa";
 import logo from "../assets/Logo.png";
 
-function Login() {
 
+
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const submitLogin = (e) => {
-    e.preventDefault();
+  const navigate = useNavigate();
 
-    console.log({
-      email,
-      password
+const submitLogin = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
     });
-  };
+
+    const data = await response.json();
+    console.log(data);
+    if (response.ok && (data.success===true|| data.token)) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      alert(data.message);
+      navigate("/home");
+    } else {
+      alert(data.message || "البريد الإلكتروني أو كلمة المرور غير صحيحة");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("تعذر الاتصال بالخادم");
+  }
+};
 
   return (
   
