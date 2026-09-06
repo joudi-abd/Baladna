@@ -3,175 +3,391 @@ import "../styles/register.css";
 import travel from "../assets/travel.jpg";
 import logo from "../assets/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { FaLock, FaPhone } from "react-icons/fa";
+
+import {
+  HiOutlineUser,
+  HiOutlineMail,
+  HiOutlineLockClosed,
+} from "react-icons/hi";
+
+import { HiOutlinePhone } from "react-icons/hi2";
+
+import {
+  IoGlobeOutline,
+  IoChevronDownOutline,
+} from "react-icons/io5";
 
 function Register() {
   const navigate = useNavigate();
+
+  // Form states
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
 
-
   const submitRegister = async (e) => {
     e.preventDefault();
 
-    // تأكيد كلمة المرور فقط بالواجهة
+    // التأكد من تطابق كلمتي المرور
     if (password !== confirm) {
       alert("كلمتا المرور غير متطابقتين");
       return;
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          password_confirmation: confirm,
-        }),
-      });
+      // إرسال البيانات إلى Laravel
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/register",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            phone: phone,
+            password: password,
+            password_confirmation: confirm,
+          }),
+        }
+      );
 
       const data = await response.json();
 
-      console.log("response:",response)
-      console.log("data:",data);
+      // عرض النتيجة في Console للتأكد
+      console.log("Status:", response.status);
+      console.log("Response:", data);
 
-      if (response.ok&& data.success) {
-        alert(data.message);
+      // إذا كان التسجيل ناجحًا
+      if (response.ok) {
+        alert(data.message || "تم إنشاء الحساب بنجاح");
+
+        // حفظ Token إذا قام Laravel بإرساله
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+        }
+
+        // حفظ بيانات المستخدم إذا قام Laravel بإرسالها
+        if (data.user) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify(data.user)
+          );
+        }
+
+        // الانتقال إلى صفحة تسجيل الدخول
         navigate("/login");
-        // حفظ التوكن + المستخدم
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-
       } else {
-        alert(data.message || "فشل إنشاء الحساب");
+        // في حال وجود خطأ من Laravel
+        alert(
+          data.message ||
+            "فشل إنشاء الحساب، يرجى التأكد من البيانات"
+        );
       }
     } catch (error) {
       console.error("Register Error:", error);
-      alert("خطأ في الاتصال بالسيرفر");
+
+      alert("تعذر الاتصال بالسيرفر");
     }
   };
 
   return (
     <div className="register-page">
-      {/* IMAGE SIDE */}
 
-      <div className="image-side">
-        <img src={travel} alt="travel" />
+      {/* =========================================
+          IMAGE SIDE
+      ========================================= */}
 
-        <div className="overlay">
+      <section className="image-side">
+
+        <img
+          src={travel}
+          alt="Travel"
+        />
+
+        <div className="image-topbar">
+
+          {/* Language */}
+          <div className="language-selector">
+
+            <IoChevronDownOutline />
+
+            <span>العربية</span>
+
+            <IoGlobeOutline />
+
+          </div>
+
+          {/* Links */}
           <div className="links-left">
-            <Link to="/Support" className="nav-link">
+
+            <Link to="/Support">
               الدعم والمساعدة
             </Link>
 
-            <Link to="/PrivacyPolicy" className="nav-link">
+            <Link to="/PrivacyPolicy">
               سياسة الخصوصية
             </Link>
-          </div>
-        </div>
-      </div>
 
-      <div className="form-side">
-        <div className="home-link">
-          <Link to="/home" className="home-link-content">
-            <span>الرئيسية</span>
-            <span className="divider"></span>
-            <img src={logo} alt="logo" />
-          </Link>
+          </div>
+
         </div>
+
+      </section>
+
+
+      {/* =========================================
+          FORM SIDE
+      ========================================= */}
+
+      <section className="form-side">
+
+        {/* TOP NAVBAR */}
+
+        <div className="right-navbar">
+
+          <Link
+            to="/home"
+            className="home-nav-link"
+          >
+
+            <img
+              src={logo}
+              alt="Baladna"
+            />
+
+            <span className="navbar-divider" />
+
+            <span>
+              الرئيسية
+            </span>
+
+          </Link>
+
+        </div>
+
+
+        {/* DECORATIVE PLANE */}
+
+        <div className="plane-decoration">
+
+          <div className="plane-line" />
+
+          <span className="plane">
+            ✈
+          </span>
+
+        </div>
+
+
+        {/* REGISTER */}
 
         <div className="register-box">
-          <h1>إنشاء حساب</h1>
 
-          <p>أنشئ حسابك الجديد</p>
+          <h1>
+            إنشاء حساب
+          </h1>
+
+          <p className="subtitle">
+            أنشئ حسابك الجديد
+          </p>
+
 
           <form onSubmit={submitRegister}>
-            <div className="field">
-              <label>الاسم الكامل</label>
 
-              <div className="input-box">
+            {/* =================================
+                NAME
+            ================================= */}
+
+            <fieldset className="input-field">
+
+              <legend>
+                الاسم الكامل
+              </legend>
+
+              <div className="input-content">
+
                 <input
                   type="text"
+                  placeholder="الاسم الكامل"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) =>
+                    setName(e.target.value)
+                  }
+                  required
                 />
+
+                <HiOutlineUser
+                  className="field-icon"
+                />
+
               </div>
-            </div>
 
-            <div className="field">
-              <label>البريد الإلكتروني</label>
+            </fieldset>
 
-              <div className="input-box">
+
+            {/* =================================
+                EMAIL
+            ================================= */}
+
+            <fieldset className="input-field">
+
+              <legend>
+                البريد الإلكتروني
+              </legend>
+
+              <div className="input-content">
+
                 <input
                   type="email"
+                  placeholder="example@gmail.com"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) =>
+                    setEmail(e.target.value)
+                  }
+                  required
                 />
-              </div>
-            </div>
 
-            <div className="field">
-              <label>
-                <FaPhone />
+                <HiOutlineMail
+                  className="field-icon"
+                />
+
+              </div>
+
+            </fieldset>
+
+
+            {/* =================================
+                PHONE
+            ================================= */}
+
+            <fieldset className="input-field">
+
+              <legend>
                 رقم الهاتف
-              </label>
+              </legend>
 
-              <div className="input-box">
+              <div className="input-content">
+
                 <input
-                  type="text"
+                  type="tel"
+                  placeholder="09xxxxxxxx"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e) =>
+                    setPhone(e.target.value)
+                  }
+                  required
                 />
-              </div>
-            </div>
 
-            <div className="field">
-              <label>
-                <FaLock />
+                <HiOutlinePhone
+                  className="field-icon"
+                />
+
+              </div>
+
+            </fieldset>
+
+
+            {/* =================================
+                PASSWORD
+            ================================= */}
+
+            <fieldset className="input-field">
+
+              <legend>
                 كلمة المرور
-              </label>
+              </legend>
 
-              <div className="input-box">
+              <div className="input-content">
+
                 <input
                   type="password"
+                  placeholder="كلمة المرور"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) =>
+                    setPassword(e.target.value)
+                  }
+                  required
                 />
+
+                <HiOutlineLockClosed
+                  className="field-icon"
+                />
+
               </div>
-            </div>
 
-            <div className="field">
-              <label>
-                <FaLock />
+            </fieldset>
+
+
+            {/* =================================
+                CONFIRM PASSWORD
+            ================================= */}
+
+            <fieldset className="input-field">
+
+              <legend>
                 تأكيد كلمة المرور
-              </label>
+              </legend>
 
-              <div className="input-box">
+              <div className="input-content">
+
                 <input
                   type="password"
+                  placeholder="تأكيد كلمة المرور"
                   value={confirm}
-                  onChange={(e) => setConfirm(e.target.value)}
+                  onChange={(e) =>
+                    setConfirm(e.target.value)
+                  }
+                  required
                 />
-              </div>
-            </div>
 
-            <button type="submit">إنشاء حساب</button>
+                <HiOutlineLockClosed
+                  className="field-icon"
+                />
+
+              </div>
+
+            </fieldset>
+
+
+            {/* =================================
+                REGISTER BUTTON
+            ================================= */}
+
+            <button
+              type="submit"
+              className="register-button"
+            >
+              إنشاء حساب
+            </button>
+
           </form>
 
+
+          {/* =================================
+              LOGIN
+          ================================= */}
+
           <p className="login-text">
-            تملك حساب بالفعل؟
-            <Link to="/Login">تسجيل الدخول</Link>
+
+            تملك حساباً بالفعل؟
+
+            <Link to="/login">
+              تسجيل الدخول
+            </Link>
+
           </p>
+
         </div>
-      </div>
+
+      </section>
+
     </div>
   );
 }

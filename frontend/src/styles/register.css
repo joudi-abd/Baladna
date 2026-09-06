@@ -1,238 +1,547 @@
-*{
-box-sizing:border-box;
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
 }
 
+html,
+body,
+#root {
+width: 100%;
+min-height: 100%;
+}
+
+body {
+	font-family: Arial, sans-serif;
+}
+
+
+/* =====================================================
+ *  PAGE
+ = *==================================================== */
 
 .register-page {
-  height: 100vh;
-  display: flex;
+	width: 100%;
+	height: 100vh;
+	
+	display: flex;
   flex-direction: row;
-  font-family: Arial, sans-serif;
+	
+	direction: ltr;
+	
+	background: #ffffff;
+	
+	overflow: hidden;
 }
 
 
+/* =====================================================
+ *  IMAGE SIDE
+ = *==================================================== */
 
-.image-side{
-
-width:50%;
-height:100vh;
-overflow:hidden;
-position:relative;
-
+.image-side {
+	position: relative;
+	
+	width: 100%;
+	height: 100vh;
+	
+	overflow: hidden;
+	padding: 0;
+	direction: ltr;
 }
 
-.image-side,
-.form-side {
-  height: 100vh;
-}
-
-.image-side img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-
-
-.overlay {
-  position: absolute;
-  top: 20px;
-  left: 40px;
-  right: 40px;
-  display: flex;
-  justify-content: space-between; /* 👈 أهم تعديل */
-  align-items: center;
+.image-side > img {
+	width: 100%;
+	height: 100%;
+	
+	object-fit: cover;
+	object-position: center;
+	display: block;
 }
 
 
+/* =====================================================
+ *  IMAGE TOP BAR
+ = *==================================================== */
 
-.links {
-  display: flex;
-  gap: 35px;
+.image-topbar {
+	position: absolute;
+	
+	top: 20px;
+	left: 0;
+	
+	width: 100%;
+	
+	padding: 0 105px;
+	
+	display: flex;
+	
+	align-items: center;
+	justify-content: space-between;
+	
+	z-index: 10;
 }
 
-/* روابط الدعم والخصوصية */
+
+/* =====================================================
+ *  LANGUAGE
+ = *==================================================== */
+
+.language-selector {
+	width: 148px;
+	height: 50px;
+	
+	background: rgba(255, 255, 255, 0.95);
+	
+	border: 1px solid #e5e5e5;
+	
+	border-radius: 4px;
+	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	gap: 9px;
+	
+	color: #417d69;
+	
+	font-size: 15px;
+}
+
+.language-selector svg:first-child {
+	font-size: 15px;
+}
+
+.language-selector svg:last-child {
+	font-size: 20px;
+}
+
+
+/* =====================================================
+ *  SUPPORT / PRIVACY
+ = *==================================================== */
+
 .links-left {
-  display: flex;
-  gap: 20px;
+	display: flex;
+	
+	gap: 40px;
+	
+	align-items: center;
+}
+
+.links-left a {
+	color: #777;
+	
+	text-decoration: none;
+	
+	font-size: 16px;
+	
+	white-space: nowrap;
+	
+	transition: 0.2s;
+}
+
+.links-left a:hover {
+	color: #2e8562;
 }
 
 
-
+/* =====================================================
+ *  FORM SIDE
+ = *==================================================== */
 
 .form-side {
-  width: 50%;
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 30px;  /* بدل 60px (نقصناه) */
-  position: relative;
+	position: relative;
+	
+	width: 100%;
+	height: 100vh;
+	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	background: #ffffff;
+	
+	direction: rtl;
+	
+	padding-top: 40px;
 }
 
 
+/* =====================================================
+ *  HOME / LOGO
+ = *==================================================== */
 
+.right-navbar {
+	position: absolute;
+	
+	top: 20px;
+	
+	right: 70px;
+	
+	z-index: 20;
+}
 
-.home-link{
-
-position:absolute;
-top:25px;
-right:60px;
-
+.home-nav-link {
+	display: flex;
+	align-items: center;
+	
+	gap: 22px;
+	
+	text-decoration: none;
+	
+	color: #6f6f6f;
+	
+	font-size: 15px;
 }
 
 
+.home-nav-link img {
+	width: 55px;
+	height: 55px;
+	
+	object-fit: contain;
+}
 
-.home-link-content{
-
-display:flex;
-align-items:center;
-gap:10px;
-
-text-decoration:none;
-color:black;
-
+.navbar-divider {
+	width: 1px;
+	
+	height: 40px;
+	display: block;
+	background: #8c8c8c;
 }
 
 
+/* =====================================================
+ *  PLANE
+ = *==================================================== */
 
-.home-link-content img{
+.plane-decoration {
+	position: absolute;
+	
+	top: 75px;
+	
+	right: 0px;
+	
+	width: 155px;
+	
+	height: 55px;
+	
+	pointer-events: none;
+}
 
-width:25px;
-height:25px;
+.plane {
+	position: absolute;
+	
+	right: 107px;
+	
+	top: -5px;
+	
+	color: #328463;
+	
+	font-size: 32px;
+	
+	transform: rotate(-200deg);
+	
+	z-index: 2;
+}
 
+.plane-line {
+	position: absolute;
+	
+	top: 8px;
+	
+	right: -5px;
+	
+	width: 135px;
+	
+	height: 48px;
+	
+	border-top: 2px dashed #4b8d76;
+	
+	border-radius: 50%;
+	
+	transform: rotate(7deg);
 }
 
 
+/* =====================================================
+ *  REGISTER BOX
+ = *==================================================== */
 
-.divider{
-
-width:1px;
-height:20px;
-background:#ccc;
-
-}
-
-
-
-
-.register-box{
-
-width:380px;
-text-align:center;
-
-}
 .register-box {
-  width: 380px;
-  text-align: center;
-  margin-top: 10px; /* بدل 40px */
+	width: 365px;
+	
+	margin-top: 105px;
+	
+	text-align: center;
+	
+	display: flex;
+	
+	flex-direction: column;
+  
 }
 
 
+/* =====================================================
+ *  TITLE
+ = *==================================================== */
 
 .register-box h1 {
-  font-size: 34px;   /* بدل 42px */
-  margin: 0;
-  color: #287a59;
+	color: #2f805f;
+	
+	font-size: 41px;
+	
+	font-weight: 700;
+	
+	line-height: 1.5;
+	
+	margin-bottom: 9px;
+}
+
+.subtitle {
+	color: #888;
+	
+	font-size: 15px;
+	
+	margin-bottom: 19px;
 }
 
 
+/* =====================================================
+ *  FORM
+ = *==================================================== */
 
-.register-box p{
-
-color:#777;
-
+.register-box form {
+	width: 100%;
+	
+	display: flex;
+	
+	flex-direction: column;
+	
+	gap: 17px;
 }
 
 
+/* =====================================================
+ *  INPUT FIELD
+ = *==================================================== */
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* خليه صغير */
-  margin: 0;
+.input-field {
+	width: 100%;
+	
+	height: 44px;
+	
+	border: 1px solid #4b9078;
+	
+	border-radius: 8px;
+	
+	background: #fff;
+	
+	padding: 0 9px 5px;
+	
+	direction: rtl;
+}
+
+.input-field legend {
+	padding: 0 6px;
+	
+	margin-right: 4px;
+	
+	color: #3e826c;
+	
+	font-size: 11px;
+	
+	font-weight: 600;
+	
+	text-align: right;
+}
+
+.input-content {
+	width: 100%;
+	
+	height: 28px;
+	
+	display: flex;
+	
+	align-items: center;
+	
+	gap: 6px;
+}
+
+.input-content input {
+	flex: 1;
+	
+	width: 100%;
+	
+	height: 100%;
+	
+	border: none;
+	
+	outline: none;
+	
+	background: transparent;
+	
+	font-family: Arial, sans-serif;
+	
+	font-size: 12px;
+	
+	color: #555;
+	
+	text-align: right;
+}
+
+.field-icon {
+	flex-shrink: 0;
+	
+	color: #5a9a84;
+	
+	font-size: 17px;
 }
 
 
-.field {
-  margin: 0;
-  text-align: right;
-  direction: rtl;
+/* =====================================================
+ *  BUTTON
+ = *==================================================== */
+
+.register-button {
+	width: 100%;
+	
+	height: 43px;
+	
+	border: none;
+	
+	border-radius: 5px;
+	
+	background: #318762;
+	
+	color: #fff;
+	
+	font-family: Arial, sans-serif;
+	
+	font-size: 18px;
+	
+	cursor: pointer;
+	
+	margin-top: 23px;
+	
+	box-shadow:
+	0 8px 20px rgba(49, 135, 98, 0.12);
+	
+	transition: 0.2s;
+}
+
+.register-button:hover {
+	background: #287957;
+}
+
+.register-button:active {
+	transform: translateY(1px);
 }
 
 
-.field label {
-  margin-bottom: 3px;
+/* =====================================================
+ *  LOGIN TEXT
+ = *==================================================== */
+
+.login-text {
+	margin-top: 22px;
+	
+	color: #646464;
+	
+	font-size: 17px;
 }
 
-
-
-.input-box{
-
-border:1px solid #2e8562;
-
-border-radius:10px;
-
-padding:10px;
-
-}
-
-
-
-.input-box input{
-
-width:100%;
-border:none;
-outline:none;
-
-font-size:16px;
+.login-text a {
+	color: #428a70;
+	
+	text-decoration: none;
+	
+	margin-right: 5px;
+	
 
 }
 
-
-
-
-button{
-
-width:100%;
-
-padding:14px;
-
-border:none;
-
-border-radius:8px;
-
-background:#2e8562;
-
-color:white;
-
-font-size:18px;
-
-cursor:pointer;
-
-margin-top:10px;
-
+.login-text a:hover {
+	text-decoration: underline;
 }
 
 
+/* =====================================================
+ *  RESPONSIVE
+ = *==================================================== */
 
-
-.login-text{
-
-margin-top:20px;
-
+@media (max-width: 1100px) {
+	
+	.image-topbar {
+		padding: 0 40px;
+	}
+	
+	.links-left {
+		gap: 20px;
+	}
+	
+	.links-left a {
+		font-size: 14px;
+	}
+	
+	/* .home-link {
+		right: 35px;
+	} */
+	
+	.register-box {
+		width: 320px;
+	}
 }
 
 
+@media (max-width: 850px) {
+	
+	.register-page {
+		display: block;
+	}
+	
+	.image-side {
+		display: none;
+	}
+	
+	.form-side {
+		width: 100%;
+		
+		min-height: 100vh;
+	}
+	
+	.register-box {
+		width: min(370px, 88%);
+		
+		margin-top: 115px;
+	}
+	
+	.home-link {
+		right: 25px;
+	}
+	
+	.plane-decoration {
+		right: 70px;
+	}
+}
 
-.login-text a{
 
-color:#287a59;
-
-font-weight:bold;
-
-text-decoration:none;
-
-margin-right:5px;
-
+@media (max-width: 480px) {
+	
+	.register-box {
+		width: 88%;
+	}
+	
+	.register-box h1 {
+		font-size: 32px;
+	}
+	
+	.plane-decoration {
+		display: none;
+	}
+	
+	.home-link {
+		right: 18px;
+	}
 }
