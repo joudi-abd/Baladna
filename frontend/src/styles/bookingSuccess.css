@@ -1,0 +1,684 @@
+* {
+  box-sizing: border-box;
+}
+
+.success-page {
+  min-height: 100vh;
+  background: #f5faf8;
+  color: #263b36;
+  font-family: Arial, sans-serif;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.success-navbar {
+  height: 75px;
+  background: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 8%;
+
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+
+  position: relative;
+  z-index: 10;
+}
+
+.success-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-logo img {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+}
+
+.success-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.success-navbar-links a {
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.success-navbar-links a:hover {
+  color: #27805f;
+}
+
+.success-navbar-links a.active {
+  color: #27805f;
+  font-weight: bold;
+  border-bottom: 2px solid #27805f;
+  padding-bottom: 7px;
+}
+
+.success-navbar-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.success-login-btn,
+.success-book-btn {
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.success-login-btn {
+  background: white;
+  color: #555;
+  border: 1px solid #eee;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.success-book-btn {
+  background: #27805f;
+  color: white;
+}
+
+
+/* =========================
+   STEPS
+========================= */
+
+.success-steps {
+  width: 75%;
+  max-width: 850px;
+
+  margin: 18px auto 25px;
+
+  display: flex;
+  justify-content: space-between;
+
+  position: relative;
+}
+
+.success-steps::before {
+  content: "";
+
+  position: absolute;
+
+  top: 18px;
+
+  left: 5%;
+  right: 5%;
+
+  height: 2px;
+
+  background: #d8e6e1;
+}
+
+.success-step {
+  position: relative;
+  z-index: 2;
+
+  background: #f5faf8;
+
+  padding: 0 15px;
+
+  text-align: center;
+
+  color: #aaa;
+
+  font-size: 11px;
+}
+
+.success-step span {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin: auto;
+
+  border-radius: 50%;
+
+  background: white;
+
+  border: 1px solid #d8e2de;
+
+  color: #888;
+
+  font-weight: bold;
+}
+
+.success-step p {
+  margin: 7px 0 0;
+}
+
+.success-step.active {
+  color: #27805f;
+}
+
+.success-step.active span {
+  background: #27805f;
+  border-color: #27805f;
+  color: white;
+}
+
+
+/* =========================
+   SUCCESS HEADER
+========================= */
+
+.success-header {
+  text-align: center;
+
+  margin: 15px auto 45px;
+}
+
+.success-icon {
+  width: 72px;
+  height: 72px;
+
+  margin: 0 auto 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #dff3ea;
+
+  color: #27805f;
+
+  font-size: 42px;
+
+  border: 8px solid #edf8f4;
+}
+
+.success-header h1 {
+  margin: 0 0 10px;
+
+  font-size: 34px;
+
+  color: #202f2a;
+}
+
+.success-header > p {
+  margin: 0;
+
+  color: #888;
+
+  font-size: 12px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================
+   BOOKING NUMBER
+========================= */
+
+.booking-number-box {
+  width: 360px;
+
+  margin: 22px auto 0;
+
+  padding: 15px;
+
+  background: white;
+
+  border-radius: 6px;
+
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  position: relative;
+}
+
+.booking-number-box span {
+  color: #999;
+
+  font-size: 11px;
+
+  margin-bottom: 8px;
+}
+
+.booking-number-box strong {
+  color: #27805f;
+
+  font-size: 17px;
+}
+
+.copy-booking-number {
+  position: absolute;
+
+  left: 15px;
+  top: 38px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #27805f;
+
+  cursor: pointer;
+
+  font-size: 17px;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.success-content {
+  width: 84%;
+  max-width: 1000px;
+
+  margin: 0 auto 70px;
+}
+
+
+/* =========================
+   TRIP CARD
+========================= */
+
+.success-trip-card {
+  background: white;
+
+  border-radius: 7px;
+
+  min-height: 180px;
+
+  padding: 15px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+
+  border: 1px solid #edf1ef;
+}
+
+.success-trip-image {
+  width: 300px;
+  height: 150px;
+
+  flex-shrink: 0;
+
+  position: relative;
+}
+
+.success-trip-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  border-radius: 6px;
+}
+
+.success-status {
+  position: absolute;
+
+  top: 10px;
+  right: 10px;
+
+  background: white;
+
+  color: #27805f;
+
+  padding: 5px 12px;
+
+  border-radius: 20px;
+
+  font-size: 10px;
+
+  font-weight: bold;
+}
+
+.success-trip-info {
+  flex: 1;
+}
+
+.success-trip-info h2 {
+  margin: 0 0 25px;
+
+  font-size: 23px;
+
+  color: #202d29;
+}
+
+.success-trip-details {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 18px 35px;
+}
+
+.success-trip-details div {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+}
+
+.success-trip-details div > span {
+  color: #7eaaa0;
+
+  font-size: 16px;
+}
+
+.success-trip-details p {
+  margin: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+
+  font-size: 12px;
+
+  color: #555;
+}
+
+.success-trip-details small {
+  color: #aaa;
+
+  font-size: 10px;
+}
+
+.success-rating {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  align-self: flex-start;
+
+  margin-top: 12px;
+
+  direction: ltr;
+}
+
+.success-rating strong {
+  font-size: 21px;
+
+  color: #202b28;
+}
+
+.success-rating span {
+  font-size: 20px;
+}
+
+
+/* =========================
+   BOTTOM CARDS
+========================= */
+
+.success-bottom {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 18px;
+
+  margin-top: 45px;
+}
+
+.success-details-card,
+.success-payment-card {
+  background: white;
+
+  border-radius: 6px;
+
+  padding: 22px;
+
+  min-height: 230px;
+
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.success-details-card h3,
+.success-payment-card h3 {
+  margin: 0 0 20px;
+
+  color: #27805f;
+
+  font-size: 16px;
+}
+
+.success-info-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 10px 0;
+
+  border-bottom: 1px solid #f0f2f1;
+
+  font-size: 12px;
+}
+
+.success-info-row:last-child {
+  border-bottom: none;
+}
+
+.success-info-row span {
+  color: #999;
+}
+
+.success-info-row strong {
+  color: #555;
+  text-align: left;
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+.payment-total {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-top: 20px;
+
+  padding-top: 15px;
+
+  border-top: 1px solid #eee;
+}
+
+.payment-total span {
+  color: #555;
+
+  font-size: 13px;
+}
+
+.payment-total strong {
+  color: #27805f;
+
+  font-size: 19px;
+}
+
+.payment-success-message {
+  margin-top: 18px;
+
+  padding: 10px;
+
+  border-radius: 5px;
+
+  background: #edf6f2;
+
+  color: #4e7468;
+
+  text-align: center;
+
+  font-size: 11px;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.success-actions {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 15px;
+
+  margin-top: 40px;
+}
+
+.home-success-btn,
+.bookings-success-btn {
+  height: 42px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-decoration: none;
+
+  border-radius: 5px;
+
+  font-size: 12px;
+}
+
+.home-success-btn {
+  background: white;
+
+  color: #27805f;
+
+  border: 1px solid #edf1ef;
+}
+
+.bookings-success-btn {
+  background: #d9eee6;
+
+  color: #27805f;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+  .success-navbar {
+    padding: 0 3%;
+  }
+
+  .success-navbar-links {
+    gap: 12px;
+  }
+
+  .success-navbar-links a {
+    font-size: 11px;
+  }
+
+  .success-content {
+    width: 92%;
+  }
+
+  .success-trip-card {
+    flex-wrap: wrap;
+  }
+
+  .success-trip-image {
+    width: 260px;
+  }
+
+  .success-bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .success-navbar-links {
+    display: none;
+  }
+
+  .success-navbar-buttons {
+    display: none;
+  }
+
+  .success-navbar {
+    justify-content: center;
+  }
+
+  .success-steps {
+    width: 95%;
+  }
+
+  .success-header h1 {
+    font-size: 27px;
+  }
+
+  .booking-number-box {
+    width: 85%;
+  }
+
+  .success-trip-card {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .success-trip-image {
+    width: 100%;
+    height: 190px;
+  }
+
+  .success-rating {
+    align-self: flex-start;
+  }
+
+  .success-trip-info h2 {
+    font-size: 18px;
+  }
+
+  .success-trip-details {
+    grid-template-columns: 1fr;
+  }
+
+  .success-actions {
+    grid-template-columns: 1fr;
+  }
+}

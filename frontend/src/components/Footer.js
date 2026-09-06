@@ -14,12 +14,6 @@ const Footer = () => {
         ========================== */}
         <div className="footer-top">
 
-          <div className="footer-logo">
-            <div className="footer-logo-circle">
-              <span>✦</span>
-            </div>
-          </div>
-
           <button className="footer-book-btn">
             <span>↗</span>
             احجز رحلتك
@@ -140,7 +134,7 @@ const Footer = () => {
             Copyright
         ========================== */}
         <div className="footer-copyright">
-          © BALADNA SY 2024
+          © BALADNA SY 2026
         </div>
 
       </div>
