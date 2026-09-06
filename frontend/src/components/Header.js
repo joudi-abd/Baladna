@@ -26,7 +26,7 @@ const Header = () => {
 
         {/* Actions */}
         <div className="header-actions">
-          <button className="book-trip-btn">احجز رحلتك</button>
+          <button  className="book-trip-btn" >احجز رحلتك</button>
 
           <button className="login-btn">تسجيل الدخول</button>
         </div>

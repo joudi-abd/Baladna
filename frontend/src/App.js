@@ -8,6 +8,7 @@ import Support from "./pages/Support";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Trips from './pages/Trips'
 import Exploration from "./pages/Exploration";
+import PlaceDetails from "./pages/PlaceDetails";
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/Support" element={<Support />} />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
-        <Route path="/exploration" element={<Exploration/>}/>
+        <Route path="/exploration" element={<Exploration />}/>
+        <Route path="/places/:id" element={<PlaceDetails />}/>
         
   
         {/* السطر الجديد الذي ستضيفه لصفحة الرحلات */}
