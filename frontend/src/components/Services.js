@@ -1,69 +1,81 @@
-function Services(){
+import React from "react";
 
-return (
+function Services() {
+  return (
+    <section className="home-section services-section">
 
-<section className="services">
+      <div className="section-heading">
 
+        <h2>خدماتنا</h2>
 
-<h2>
-خدماتنا
-</h2>
+        <p>
+          نقدم لك كل ما تحتاجه لتخطيط رحلتك واستكشاف أجمل الوجهات
+        </p>
 
+      </div>
 
+      <div className="services-grid">
 
-<div className="cards">
+        <div className="service-card">
 
+          <div className="service-icon">
+            📍
+          </div>
 
-<div>
+          <h3>اكتشف الأماكن</h3>
 
-<h3>
-📍 حجز رحلات
-</h3>
+          <p>
+            تعرف على أجمل الأماكن والوجهات السياحية في سوريا.
+          </p>
 
-<p>
-أفضل الرحلات السياحية
-</p>
+        </div>
 
-</div>
+        <div className="service-card">
 
+          <div className="service-icon">
+            🚌
+          </div>
 
+          <h3>رحلات متنوعة</h3>
 
-<div>
+          <p>
+            اختر الرحلة المناسبة لك واستمتع بتجربة سياحية مميزة.
+          </p>
 
-<h3>
-🧳 تنظيم الرحلات
-</h3>
+        </div>
 
-<p>
-تنظيم كامل للرحلة
-</p>
+        <div className="service-card">
 
-</div>
+          <div className="service-icon">
+            🎫
+          </div>
 
+          <h3>حجز سهل وسريع</h3>
 
+          <p>
+            احجز رحلتك بسهولة واحصل على تجربة مريحة وآمنة.
+          </p>
 
-<div>
+        </div>
 
-<h3>
-🏨 توصيات
-</h3>
+        <div className="service-card">
 
-<p>
-أماكن مختارة
-</p>
+          <div className="service-icon">
+            ⭐
+          </div>
 
-</div>
+          <h3>تجارب مميزة</h3>
 
+          <p>
+            اكتشف تجارب تناسب اهتماماتك واستمتع برحلة لا تُنسى.
+          </p>
 
+        </div>
 
-</div>
+      </div>
 
-
-</section>
-
-)
-
+    </section>
+  );
 }
-
 
 export default Services;

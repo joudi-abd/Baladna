@@ -1,72 +1,57 @@
-function Hero(){
+import React from "react";
+import { Link } from "react-router-dom";
 
-return (
-
-<section className="hero">
-
-
-<div className="hero-text">
-
-
-<h1>
-اكتشف أجمل الوجهات
-<br/>
-واحجز رحلتك بسهولة
-</h1>
-
-
-<p>
-استكشف الأماكن السياحية واحجز رحلتك
-</p>
-
-
-<div className="search">
-
-<input 
-placeholder="ابحث هنا"
-/>
-
-<button>
-بحث
-</button>
-
-
-</div>
-
-
-<button className="main-btn">
-احجز رحلتك
-</button>
-
-
-</div>
-
-
-
-<div className="hero-image">
-
-</div>
-
-
-</section>
-
-)
-
-}
-
-
-export default Hero;
-/*function Hero() {
+function Hero() {
   return (
-    <div style={{
-      background: "blue",
-      color: "white",
-      padding: "50px",
-      fontSize: "30px"
-    }}>
-      HERO TEST
-    </div>
+    <section className="home-hero">
+      <div className="hero-content">
+        <div className="hero-text">
+
+          <h1>
+            اكتشف أجمل الوجهات
+            <br />
+            واحجز رحلتك بسهولة
+          </h1>
+
+          <p>
+            اكتشف أجمل الأماكن السياحية في سوريا
+            واستمتع برحلات مميزة وتجارب لا تُنسى
+            بكل سهولة وراحة.
+          </p>
+
+          <div className="hero-search">
+            <input
+              type="text"
+              placeholder="ابحث عن رحلة..."
+            />
+
+            <Link to="/trips" className="hero-search-btn">
+              🔍
+            </Link>
+          </div>
+
+          <div className="hero-buttons">
+
+            <Link
+              to="/trips"
+              className="hero-main-btn"
+            >
+              احجز رحلتك الآن
+            </Link>
+
+            <Link
+              to="/places"
+              className="hero-secondary-btn"
+            >
+              اكتشف الأماكن
+            </Link>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
   );
 }
 
-export default Hero;*/
+export default Hero;

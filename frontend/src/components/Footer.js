@@ -70,8 +70,8 @@ const Footer = () => {
 
             <h3>الصفحات</h3>
 
-            <a href="/">الرئيسية</a>
-            <a href="/explore">استكشاف</a>
+            <a href="/home">الرئيسية</a>
+            <a href="/exploration">استكشاف</a>
             <a href="/trips">الرحلات</a>
             <a href="/bookings">حجوزاتي</a>
             <a href="/about">من نحن</a>
