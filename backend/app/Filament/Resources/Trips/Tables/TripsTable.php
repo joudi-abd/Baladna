@@ -35,6 +35,12 @@ class TripsTable
                     ->searchable(),
                 TextColumn::make('meeting_point')
                     ->searchable(),
+                TextColumn::make('meeting_latitude')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('meeting_longitude')
+                    ->numeric()
+                    ->sortable(),
                 ImageColumn::make('cover_image'),
                 TextColumn::make('rating_avg')
                     ->numeric()

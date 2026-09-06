@@ -469,6 +469,25 @@ Success Response:
 
 -------------------------
 
+# Change Email : PUT '/profile/email'
+
+Authorization: Bearer {token}
+
+Request Body:
+        { 
+            "email" : "new_email"
+        }
+
+Success Response:
+        {
+            "success": true,
+            "message": "Email updated successfully.",
+            "user": {  }
+        }   
+
+-----------------------
+
+
 # Update Profile Image : POST '/profile/image'
 
 Authorization: Bearer {token}
@@ -485,6 +504,36 @@ Success Response:
         }
 
 ----------------------------
+
+# Delete Profile Image : DELETE '/profile/delete-image'
+
+Authorization: Bearer {token}
+
+Success Response:
+        {
+            "success": true,
+            "message": "Profile image deleted successfully",
+            "data": { ... } 
+        }
+
+--------------------------
+
+# Delete Account : DELETE '/settings/account'
+
+Authorization: Bearer {token}
+
+Request Body:
+        { 
+            "password": "current_password",
+        }
+
+Success Response:
+        {
+            "success": true,
+            "message": "Account deleted successfully."
+        }
+
+-----------------------------
 
 # Notifications
 
@@ -515,8 +564,26 @@ Success Response:
             "data": { ... } 
         }
 
+-------------------------------
+
+# Update Notification Setting : PUT '/settings/notifications'
+
+Authorization: Bearer {token}
+
+Request Body:
+        { 
+             "notifications_enabled": true | false
+        }
+
+Success Response:
+        {
+            "success": true,
+            "message": "Notification setting updated successfully.",
+            "data": { "notifications_enabled": true | false }
+        }
 
 -------------------------------
+
 # Payments
 
 # Create Payment : POST '/payments'
@@ -586,6 +653,7 @@ Payment status → completed Booking status → confirmed Notification → sent 
 Authorization: Bearer {token}
 
 Requires reject payments permission.
+
 Success Response:
         { 
             "success": true, 
@@ -593,4 +661,45 @@ Success Response:
             "data": { ... } 
         } 
 When the payment is rejected:
-Payment status → failed Booking status → pending Notification → sent to the user
+Payment status → failed Booking status → pending Notification → sent to the user 
+
+------------------------
+# Place Location On Map : GET '/map/place/{place}
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Place location retrieved successfully.", 
+            "data": { 
+                "id" : ,
+                "name": ,
+                "latitude": ,
+                "longitude":
+             } 
+        }
+
+--------------------------
+
+#  Trip  Locations On Map : GET '/map/trip/{trip}
+
+Success Response:
+        { 
+            "success": true, 
+            "message": "Trip locations retrieved successfully.", 
+            "data": {
+                "meeting_point": {
+                     "name": ,
+                     "latitude": ,
+                     "longitude": 
+                },
+                "places": [
+                    {
+                        "id": ,
+                        "name": ,
+                        "latitude": ,
+                        "longitude": 
+                    }, { } , { }
+                ]
+            }
+        }
+        places مرتبة بحسب order_no الموجود بجدول trip_places

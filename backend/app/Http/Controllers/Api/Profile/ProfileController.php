@@ -83,6 +83,17 @@ class ProfileController extends Controller
             'data' => new ProfileResource($user)
         ]);
     }
+
+
+    public function deleteImage()
+    {
+        $user = $this->profileService->deleteProfileImage();
+        return response()->json([
+            'success' => true,
+            'message' => 'Profile image deleted successfully',
+            'data' => new ProfileResource($user)
+        ]);
+    }
     /**
      * Remove the specified resource from storage.
      */

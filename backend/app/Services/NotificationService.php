@@ -7,6 +7,19 @@ use Illuminate\Validation\ValidationException;
 
 class NotificationService
 {
+    private function createNotification(User $user, string $title, string $body): ?Notification
+    {
+    
+        if(!$user->notifications_enabled) {
+            return null; // User has disabled notifications
+        }
+
+        return Notification::create([
+            'user_id' => $user->id,
+            'title' => $title,
+            'body' => $body,
+        ]);
+    }
 
     public function getUserNotifications($filters)
     {
@@ -19,7 +32,7 @@ class NotificationService
         ->latest()
         ->paginate($filters['per_page'] ?? 10);
     }
-    public function markAsRead($notification): Notification
+    public function markAsRead($notification): ?Notification
     {
         if ($notification->user_id !== auth()->id()) {
             throw ValidationException::withMessages([
@@ -31,93 +44,93 @@ class NotificationService
         return $notification->fresh();
     }
 
-    public function bookingCreated(User $user):Notification
+    public function bookingCreated(User $user):?Notification
     {
-        return Notification::create([
-            'user_id' => $user->id,
-            'title' => 'Booking Created',
-            'body' => 'Your booking has been created successfully.',
-        ]);
+        return $this->createNotification(
+            $user,
+            'Booking Created',
+            'Your booking has been created successfully.'
+        );
     }
 
-    public function bookingCancelled(User $user):Notification
+    public function bookingCancelled(User $user):?Notification
     {
-        return Notification::create([
-            'user_id' => $user->id,
-            'title' => 'Booking Cancelled',
-            'body' => 'Your booking has been cancelled successfully.',
-        ]);
+        return $this->createNotification(
+            $user,
+            'Booking Cancelled',
+            'Your booking has been cancelled successfully.'
+        );
     }
 
-    public function bookingUpdated(User $user):Notification
+    public function bookingUpdated(User $user):?Notification
     {
-        return Notification::create([
-            'user_id' => $user->id,
-            'title' => 'Booking Updated',
-            'body' => 'Your booking has been updated successfully.',
-        ]);
+        return $this->createNotification(
+            $user,
+            'Booking Updated',
+            'Your booking has been updated successfully.'
+        );
     }
 
-    public function reviewCreated(User $user):Notification
+    public function reviewCreated(User $user):?Notification
     {
-        return Notification::create([
-            'user_id' => $user->id,
-            'title' => 'Review Created',
-            'body' => 'Your review has been created successfully.',
-        ]);
+        return $this->createNotification(
+            $user,
+            'Review Created',
+            'Your review has been created successfully.'
+        );
     }
 
-    public function reviewUpdated(User $user):Notification
+    public function reviewUpdated(User $user):?Notification
     {
-        return Notification::create([
-            'user_id' => $user->id,
-            'title' => 'Review Updated',
-            'body' => 'Your review has been updated successfully.',
-        ]);
+        return $this->createNotification(
+            $user,
+            'Review Updated',
+            'Your review has been updated successfully.'
+        );
     }
 
-    public function reviewDeleted(User $user):Notification
+    public function reviewDeleted(User $user):?Notification
     {
-        return Notification::create([
-            'user_id' => $user->id,
-            'title' => 'Review Deleted',
-            'body' => 'Your review has been deleted successfully.',
-        ]);
+        return $this->createNotification(
+            $user,
+            'Review Deleted',
+            'Your review has been deleted successfully.'
+        );
     }
-    public function favoriteAdded(User $user):Notification
+    public function favoriteAdded(User $user):?Notification
     {
-        return Notification::create([
-            'user_id' => $user->id,
-            'title' => 'Favorite Added',
-            'body' => 'The trip has been added to your favorites.',
-        ]);
+        return $this->createNotification(
+            $user,
+            'Favorite Added',
+            'The trip has been added to your favorites.'
+        );
     }
 
-    public function favoriteRemoved(User $user):Notification
+    public function favoriteRemoved(User $user):?Notification
     {
-        return Notification::create([
-            'user_id' => $user->id,
-            'title' => 'Favorite Removed',
-            'body' => 'The trip has been removed from your favorites.',
-        ]);
+        return $this->createNotification(
+            $user,
+            'Favorite Removed',
+            'The trip has been removed from your favorites.'
+        );
     }
     
-    public function paymentCompleted(User $user):Notification
+    public function paymentCompleted(User $user):?Notification
     {
-        return Notification::create([
-            'user_id' => $user->id,
-            'title' => 'Payment Completed',
-            'body' => 'Your payment has been completed successfully.',
-        ]);
+        return $this->createNotification(
+            $user,
+            'Payment Completed',
+            'Your payment has been completed successfully.'
+        );
     }
 
-    public function paymentRejected(User $user):Notification
+    public function paymentRejected(User $user):?Notification
     {
-        return Notification::create([
-            'user_id' => $user->id,
-            'title' => 'Payment Rejected',
-            'body' => 'Your payment has been rejected.',
-        ]);
+        return $this->createNotification(
+            $user,
+            'Payment Rejected',
+            'Your payment has been rejected.'
+        );
     }
 
 }

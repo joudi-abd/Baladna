@@ -18,6 +18,8 @@ class Trip extends Model
         'transportation_type',
         'duration',
         'meeting_point',
+        'meeting_latitude',
+        'meeting_longitude',
         'cover_image',
         'rating_avg',
         'reviews_count',
@@ -30,6 +32,8 @@ class Trip extends Model
         'reviews_count' => 'integer',
         'max_participants' => 'integer',
         'available_seats' => 'integer',
+        'meeting_latitude' => 'float',
+        'meeting_longitude' => 'float',
 ];
 
     public function bookings()

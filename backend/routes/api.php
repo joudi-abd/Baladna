@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Contact\ContactController;
 use App\Http\Controllers\Api\Favorites\FavoriteController;
 use App\Http\Controllers\Api\Payments\PaymentController;
 use App\Http\Controllers\Api\Places\PlaceController;
+use App\Http\Controllers\Api\Settings\SettingsController;
 use App\Http\Controllers\Api\Trips\TripController;
 use App\Http\Controllers\Api\Reviews\ReviewController;
 use App\Http\Controllers\Api\Cities\CityController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Api\Features\FeatureController;
 use App\Http\Controllers\Api\Bookings\BookingController;
 use App\Http\Controllers\Api\Profile\ProfileController;
 use App\Http\Controllers\Api\Notifications\NotificationController;
+use App\Http\Controllers\Api\Map\MapController;
 use Illuminate\Http\Request;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -69,6 +71,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/profile', [ProfileController::class, 'update']);
     Route::put('/profile/password', [ProfileController::class, 'updatePassword']);
     Route::post('/profile/image', [ProfileController::class, 'updateImage']);
+    Route::delete('/profile/delete-image', [ProfileController::class, 'deleteImage']);
+    Route::put('/profile/email', [SettingsController::class, 'updateEmail']);
+    Route::put('/settings/notifications', [SettingsController::class, 'updateNotificationSetting']);
+    Route::delete('/settings/account', [SettingsController::class, 'deleteAccount']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -87,3 +93,6 @@ Route::middleware(['auth:sanctum','permission:confirm payments'])
 
 Route::middleware(['auth:sanctum','permission:reject payments'])
     ->put('payments/{payment}/reject', [PaymentController::class, 'reject']);
+
+Route::get('/map/place/{place}', [MapController::class, 'place']);
+Route::get('/map/trip/{trip}', [MapController::class, 'trip']);

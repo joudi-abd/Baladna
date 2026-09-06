@@ -30,6 +30,8 @@ class UpdateTripRequest extends FormRequest
         'duration'=>'sometimes|string|max:100',
         'transportation_type'=>'sometimes|in:bus,mini_bus,train,tour_bus',
         'meeting_point'=>'sometimes|string|max:255',
+        'meeting_latitude'=>['sometimes','required_with:meeting_longitude','numeric','between:-90,90'],
+        'meeting_longitude'=>['sometimes','required_with:meeting_latitude','numeric','between:-180,180'],
         'max_participants'=>'sometimes|integer|min:1',
         'available_seats'=>'sometimes|integer|min:0|lte:max_participants',
         'cover_image'=>'sometimes|image',

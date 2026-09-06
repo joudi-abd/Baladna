@@ -42,4 +42,14 @@ class ProfileService
         $user->update(['image' => $path]);
         return $user->fresh();
     }
+
+    public function deleteProfileImage(): User
+    {
+        $user = auth()->user();
+        if($user->image && Storage::disk('public')->exists($user->image)) {
+            Storage::disk('public')->delete($user->image);
+        }
+        $user->update(['image' => null]);
+        return $user->fresh();
+    }
 }

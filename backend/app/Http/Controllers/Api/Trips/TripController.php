@@ -47,14 +47,14 @@ class TripController extends Controller
                 $query->orderBy('trip_date');
             }
         })
-        ->when($request->filled('city_id'), function ($query) use ($request) {
+        ->when($request->filled('cityId'), function ($query) use ($request) {
             $query->whereHas('places', function ($q) use ($request) {
-                $q->where('city_id', $request->city_id);
+                $q->where('city_id', $request->cityId);
             });
         })
-        ->when($request->filled('category_id'), function ($query) use ($request) {
+        ->when($request->filled('categoryId'), function ($query) use ($request) {
             $query->whereHas('places', function ($q) use ($request) {
-                $q->where('category_id', $request->category_id);
+                $q->where('category_id', $request->categoryId);
             });
         })
         ->when($request->filled('budget_min'), function ($query) use ($request) {

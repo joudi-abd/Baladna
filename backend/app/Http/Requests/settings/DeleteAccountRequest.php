@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\payment;
+namespace App\Http\Requests\settings;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePaymentRequest extends FormRequest
+class DeleteAccountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,7 @@ class StorePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'booking_id' => ['required', 'integer','exists:bookings,id'],
-            'payment_method' => ['required', 'string', 'in:sham_cash,bank_transfer,cash_on_arrival'],
-            'transaction_reference' => ['nullable', 'string'],
-            'proof_image' => ['nullable', 'image','mimes:jpeg,png,jpg,webp', 'max:2048' , 'required_if:payment_method,sham_cash,bank_transfer'], // Max size 2MB
+            'password' => ['required', 'current_password'],
         ];
     }
 }

@@ -35,6 +35,12 @@ class TripForm
                     ->options(['bus' => 'Bus', 'mini_bus' => 'Mini bus', 'train' => 'Train', 'tour_bus' => 'Tour bus']),
                 TextInput::make('duration'),
                 TextInput::make('meeting_point'),
+                TextInput::make('meeting_latitude')
+                    ->numeric()
+                    ->label('Meeting Latitude'),
+                TextInput::make('meeting_longitude')
+                    ->numeric()
+                    ->label('Meeting Longitude'),
                 FileUpload::make('cover_image')
                     ->image(),
                 TextInput::make('rating_avg')
