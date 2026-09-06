@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "../styles/Header.css";
 
 const Header = () => {
@@ -12,18 +13,20 @@ const Header = () => {
 
         {/* Navigation */}
         <nav className="header-nav">
-          <a href="/">الرئيسية</a>
-          <a href="/explore">استكشاف</a>
-          <a href="/trips" className="active">
-            الرحلات
-          </a>
-          <a href="/bookings">حجوزاتي</a>
-          <a href="/about">من نحن</a>
+          <NavLink to="/home">الرئيسية</NavLink>
+
+          <NavLink to="/exploration">استكشاف</NavLink>
+
+          <NavLink to="/trips">الرحلات</NavLink>
+
+          <NavLink to="/bookings">حجوزاتي</NavLink>
+
+          <NavLink to="/about">من نحن</NavLink>
         </nav>
 
         {/* Actions */}
         <div className="header-actions">
-          <button className="book-trip-btn">احجز رحلتك</button>
+          <button  className="book-trip-btn" >احجز رحلتك</button>
 
           <button className="login-btn">تسجيل الدخول</button>
         </div>
