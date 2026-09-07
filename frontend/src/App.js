@@ -9,6 +9,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Trips from './pages/Trips'
 import Exploration from "./pages/Exploration";
 import PlaceDetails from "./pages/PlaceDetails";
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/exploration" element={<Exploration />}/>
         <Route path="/places/:id" element={<PlaceDetails />}/>
+        <Route path="/Profile" element={<Profile />} />
         
   
         {/* السطر الجديد الذي ستضيفه لصفحة الرحلات */}
