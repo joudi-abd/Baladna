@@ -1,47 +1,130 @@
-function Places(){
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-return (
+const API_URL = "http://127.0.0.1:8000/api";
 
-<section className="places-section">
+function Places() {
+  const [places, setPlaces] = useState([]);
+  const [placesLoading, setPlacesLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      try {
+        const response = await fetch(`${API_URL}/places`);
 
-<h2>
-أماكن مميزة
-</h2>
+        if (!response.ok) {
+          throw new Error("فشل جلب الأماكن");
+        }
 
+        const data = await response.json();
 
-<div className="places">
+        setPlaces(data.data || []);
+      } catch (error) {
+        console.error("Places Error:", error);
+      } finally {
+        setPlacesLoading(false);
+      }
+    };
 
+    fetchPlaces();
+  }, []);
 
-<div className="place-card">
+  return (
+    <section className="home-section">
 
-الصورة من API
+      <div className="section-heading">
 
-</div>
+        <h2>أماكن مميزة</h2>
 
+        <p>
+          اكتشف أجمل الأماكن السياحية التي يمكنك زيارتها في سوريا
+        </p>
 
-<div className="place-card">
+      </div>
 
-الصورة من API
+      {placesLoading ? (
 
-</div>
+        <div className="home-loading">
+          جاري تحميل الأماكن...
+        </div>
 
+      ) : places.length === 0 ? (
 
-<div className="place-card">
+        <div className="home-empty">
+          لا توجد أماكن متاحة حاليًا.
+        </div>
 
-الصورة من API
+      ) : (
 
-</div>
+        <div className="home-cards-grid">
 
+          {places.slice(0, 3).map((place) => (
 
-</div>
+            <div
+              className="place-card"
+              key={place.id}
+            >
 
+              <div className="home-card-image">
 
-</section>
+                <img
+                  src={
+                    place.cover_image ||
+                    place.image ||
+                    "https://via.placeholder.com/600x400"
+                  }
+                  alt={place.name || place.title}
+                />
 
-)
+                {place.category && (
+                  <span className="home-card-badge">
+                    {place.category.name || place.category}
+                  </span>
+                )}
 
+              </div>
+
+              <div className="home-card-content">
+
+                <h3>
+                  {place.name || place.title}
+                </h3>
+
+                <p>
+                  {place.description ||
+                    "اكتشف هذا المكان السياحي واستمتع بتجربة مميزة."}
+                </p>
+
+                <Link
+                  to={`/places/${place.id}`}
+                  className="card-link"
+                >
+                  عرض المكان ←
+                </Link>
+
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      )}
+
+      <div className="section-button">
+
+        <Link
+          to="/places"
+          className="green-button"
+        >
+          عرض جميع الأماكن
+        </Link>
+
+      </div>
+
+    </section>
+  );
 }
-
 
 export default Places;

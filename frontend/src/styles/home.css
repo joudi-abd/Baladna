@@ -1,185 +1,527 @@
-/* ========== عام ========== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Cairo", sans-serif;
-}
+/* =========================
+   General
+========================= */
 
-body {
+.home-page {
+  direction: rtl;
   background: #fff;
-  color: #222;
+  color: #1b4332;
+  font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
-/* ========== Navbar ========== */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 60px;
-  position: sticky;
-  top: 0;
-  background: white;
-  z-index: 1000;
+.home-page * {
+  box-sizing: border-box;
 }
 
-.logo {
-  font-size: 22px;
-  font-weight: bold;
-  color: #1f8a5b;
+.home-section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 70px 25px;
 }
 
-.nav-links {
-  display: flex;
-  gap: 25px;
+.section-heading {
+  text-align: center;
+  margin-bottom: 35px;
 }
 
-.nav-links span {
-  cursor: pointer;
-  font-size: 15px;
-  color: #555;
+.section-heading h2 {
+  margin: 0 0 10px;
+  font-size: 30px;
+  color: #1b4332;
 }
 
-.nav-links .active {
-  color: #1f8a5b;
-  font-weight: bold;
-}
-
-.nav-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.nav-buttons button {
-  padding: 8px 15px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
+.section-heading p {
+  margin: 0;
+  color: #777;
   font-size: 14px;
 }
 
-.nav-buttons button:first-child {
-  background: #1f8a5b;
-  color: white;
+
+/* =========================
+   Hero
+========================= */
+
+.home-hero {
+  min-height: 560px;
+  position: relative;
+  background:
+    linear-gradient(
+      to left,
+      rgba(255,255,255,0.15),
+      rgba(255,255,255,0.95)
+    ),
+    url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1600&q=80")
+    center / cover no-repeat;
 }
 
-.nav-buttons button:last-child {
-  background: #eee;
-}
+.hero-content {
+  max-width: 1200px;
+  min-height: 560px;
+  margin: auto;
+  padding: 60px 25px;
 
-/* ========== Hero ========== */
-.hero {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 60px;
 }
 
 .hero-text {
-  flex: 1;
+  max-width: 520px;
 }
 
 .hero-text h1 {
-  font-size: 40px;
-  line-height: 1.5;
-  color: #222;
+  font-size: 44px;
+  line-height: 1.4;
+  margin: 0 0 20px;
+  color: #1b4332;
 }
 
 .hero-text p {
-  margin: 15px 0;
   color: #666;
+  line-height: 1.9;
+  margin-bottom: 25px;
 }
 
-.search {
+.hero-search {
   display: flex;
-  margin: 20px 0;
+  width: 100%;
+  max-width: 500px;
+  height: 52px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,.1);
 }
 
-.search input {
-  padding: 12px;
-  width: 250px;
-  border: 1px solid #ddd;
-  border-radius: 8px 0 0 8px;
-}
-
-.search button {
-  background: #1f8a5b;
-  color: white;
+.hero-search input {
+  flex: 1;
   border: none;
-  padding: 12px 20px;
-  border-radius: 0 8px 8px 0;
-  cursor: pointer;
+  outline: none;
+  padding: 0 18px;
+  font-size: 14px;
+  direction: rtl;
 }
 
-.main-btn {
-  background: #1f8a5b;
+.hero-search-btn {
+  width: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2d7d5d;
   color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 10px;
-  margin-top: 10px;
-  cursor: pointer;
+  text-decoration: none;
 }
 
-/* ========== Sections عامة ========== */
-section {
-  padding: 60px;
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
 }
 
-/* ========== Services ========== */
-.cards {
+.hero-main-btn,
+.hero-secondary-btn,
+.green-button {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.hero-main-btn,
+.green-button {
+  background: #2d7d5d;
+  color: white;
+}
+
+.hero-secondary-btn {
+  background: white;
+  border: 1px solid #2d7d5d;
+  color: #2d7d5d;
+}
+
+
+/* =========================
+   Services
+========================= */
+
+.services-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  margin-top: 30px;
 }
 
-.cards div {
-  padding: 20px;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+.service-card {
   text-align: center;
+  padding: 28px 18px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  transition: .2s;
 }
 
-/* ========== Places ========== */
-.places {
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,.08);
+}
+
+.service-icon {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.service-card h3 {
+  margin: 0 0 10px;
+  font-size: 17px;
+}
+
+.service-card p {
+  color: #777;
+  line-height: 1.7;
+  font-size: 13px;
+  margin: 0;
+}
+
+
+/* =========================
+   Cards
+========================= */
+
+.home-cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 25px;
+}
+
+.place-card,
+.home-trip-card {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: .25s;
+}
+
+.place-card:hover,
+.home-trip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+.home-card-image {
+  height: 210px;
+  position: relative;
+}
+
+.home-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.home-card-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #2d7d5d;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+.home-card-content {
+  padding: 18px;
+}
+
+.home-card-content h3 {
+  margin: 0 0 10px;
+  color: #1b4332;
+  font-size: 18px;
+}
+
+.home-card-content p {
+  color: #777;
+  line-height: 1.7;
+  font-size: 13px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-link {
+  color: #2d7d5d;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.section-button {
+  text-align: center;
   margin-top: 30px;
 }
 
-.place-card {
-  border-radius: 12px;
-  padding: 15px;
-  background: white;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-}
 
-/* ========== About ========== */
-.about {
-  display: flex;
+/* =========================
+   About
+========================= */
+
+.about-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
   align-items: center;
+}
+
+.about-image img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.about-content {
+  text-align: right;
+}
+
+.about-small-title {
+  color: #2d7d5d;
+  font-weight: 600;
+}
+
+.about-content h2 {
+  font-size: 32px;
+  margin: 10px 0 18px;
+}
+
+.about-content p {
+  color: #777;
+  line-height: 2;
+}
+
+.text-link {
+  color: #2d7d5d;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+
+/* =========================
+   Trips small details
+========================= */
+
+.trip-title-row {
+  display: flex;
   justify-content: space-between;
-  gap: 40px;
+  align-items: center;
+  gap: 10px;
 }
 
-/* ========== Buttons عامة ========== */
-button {
-  transition: 0.3s;
+.trip-title-row h3 {
+  margin: 0;
 }
 
-button:hover {
-  opacity: 0.85;
-  transform: translateY(-2px);
+.trip-rating {
+  white-space: nowrap;
+  font-size: 13px;
 }
 
-/* ========== Footer ========== */
-footer {
-  background: #1f2a2e;
-  color: white;
-  padding: 40px;
+.trip-mini-details {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #777;
+  font-size: 12px;
+  padding: 12px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.trip-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.trip-card-bottom strong {
+  color: #2d7d5d;
+  font-size: 16px;
+}
+
+
+/* =========================
+   Reviews
+========================= */
+
+.reviews-section {
+  background: #fafcfb;
+  max-width: none;
+  padding-left: max(25px, calc((100% - 1150px) / 2));
+  padding-right: max(25px, calc((100% - 1150px) / 2));
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.review-card {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  text-align: right;
+}
+
+.review-stars {
+  margin-bottom: 15px;
+}
+
+.review-card p {
+  color: #666;
+  line-height: 1.8;
+  font-size: 13px;
+}
+
+.review-card strong {
+  color: #1b4332;
+}
+
+
+/* =========================
+   Contact
+========================= */
+
+.contact-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  margin-bottom: 70px;
+  box-shadow: 0 5px 25px rgba(0,0,0,.05);
+}
+
+.contact-content h2 {
+  font-size: 30px;
+  margin: 8px 0;
+}
+
+.contact-content p {
+  color: #777;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  padding: 12px;
+  outline: none;
+  font-family: inherit;
+  resize: none;
+}
+
+.contact-form button {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.contact-image {
   text-align: center;
-  margin-top: 50px;
+  padding: 30px;
+}
+
+.contact-icon {
+  font-size: 70px;
+  margin-bottom: 15px;
+}
+
+.contact-image h3 {
+  color: #1b4332;
+}
+
+
+/* =========================
+   Loading / Empty
+========================= */
+
+.home-loading,
+.home-empty {
+  text-align: center;
+  padding: 40px;
+  background: #fafafa;
+  border-radius: 10px;
+  color: #777;
+}
+
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 900px) {
+
+  .services-grid,
+  .home-cards-grid,
+  .reviews-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-section,
+  .contact-section {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-text h1 {
+    font-size: 36px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .home-section {
+    padding: 50px 15px;
+  }
+
+  .services-grid,
+  .home-cards-grid,
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-hero,
+  .hero-content {
+    min-height: 600px;
+  }
+
+  .hero-text h1 {
+    font-size: 30px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .hero-main-btn,
+  .hero-secondary-btn {
+    text-align: center;
+  }
+
+  .about-image img {
+    height: 280px;
+  }
+
 }

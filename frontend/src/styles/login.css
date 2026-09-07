@@ -1,3 +1,7 @@
+.login-page {
+display: flex;
+direction: rtl;
+}
 .login-box {
   width: 520px;
   max-width: 90%;

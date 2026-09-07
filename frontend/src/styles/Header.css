@@ -1,0 +1,203 @@
+/* =========================
+   Header
+========================= */
+
+.main-header {
+  width: 100%;
+  background: #fff;
+  direction: rtl;
+  position: relative;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.header-container {
+  max-width: 1200px;
+  min-height: 90px;
+  margin: auto;
+  padding: 0 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* Logo */
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.header-logo img {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+}
+
+/* Navigation */
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 38px;
+  flex: 1;
+}
+
+.header-nav a {
+  position: relative;
+  color: #555;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 8px 0;
+  transition: 0.2s;
+}
+
+.header-nav a:hover,
+.header-nav a.active {
+  color: #2d8064;
+  font-weight: 700;
+}
+
+.header-nav a.active::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+
+  height: 2px;
+  border-radius: 2px;
+  background: #2d8064;
+}
+
+/* Buttons */
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.header-actions button {
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.book-trip-btn {
+  border: none;
+  background: #e7f3ee;
+  color: #2d8064;
+
+  padding: 12px 22px;
+  border-radius: 7px;
+  font-weight: 600;
+}
+
+.book-trip-btn:hover {
+  background: #d8ebe4;
+}
+
+.login-btn {
+  background: #fff;
+  color: #444;
+
+  border: 1px solid #eee;
+  padding: 12px 22px;
+  border-radius: 7px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+}
+
+.login-btn:hover {
+  color: #2d8064;
+  border-color: #d7e8e1;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 900px) {
+  .header-container {
+    padding: 0 18px;
+    gap: 15px;
+  }
+
+  .header-nav {
+    gap: 20px;
+  }
+
+  .header-nav a {
+    font-size: 14px;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .header-actions button {
+    padding: 10px 14px;
+  }
+}
+
+@media (max-width: 700px) {
+  .header-container {
+    min-height: auto;
+    padding: 12px 15px;
+    flex-wrap: wrap;
+  }
+
+  .header-logo {
+    order: 1;
+  }
+
+  .header-actions {
+    order: 2;
+  }
+
+  .header-nav {
+    order: 3;
+    width: 100%;
+    flex-basis: 100%;
+    gap: 18px;
+    overflow-x: auto;
+    justify-content: center;
+    padding-top: 5px;
+  }
+
+  .header-nav a {
+    white-space: nowrap;
+  }
+
+  .header-logo img {
+    width: 58px;
+    height: 58px;
+  }
+}
+
+@media (max-width: 450px) {
+  .login-btn {
+    display: none;
+  }
+
+  .book-trip-btn {
+    padding: 9px 13px;
+    font-size: 13px;
+  }
+
+  .header-nav {
+    gap: 14px;
+  }
+
+  .header-nav a {
+    font-size: 13px;
+  }
+}
