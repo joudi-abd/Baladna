@@ -9,6 +9,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Trips from './pages/Trips'
 import Exploration from "./pages/Exploration";
 import MyBookings from "./pages/MyBookings";
+import BookingConfirmation from "./pages/BookingConfirmation";
+import Payment from "./pages/Payment";
 
 function App() {
   return (
@@ -30,6 +32,9 @@ function App() {
         {/* السطر الجديد الذي ستضيفه لصفحة الرحلات */}
         <Route path="/trips" element={<Trips/>} />
         <Route path="/bookings" element={<MyBookings />} />
+        <Route path="/BookingConfirmation" element={<BookingConfirmation />} />
+        <Route path="/Payment" element={<Payment />} />
+        
        
       </Routes>
 

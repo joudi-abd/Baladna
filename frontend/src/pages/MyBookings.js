@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import "../styles/bookings.css";
 import Footer from "../components/Footer";
 import Booking from "../assets/Booking.jpg";
+import logo from "../assets/Logo.png";
 
 function MyBookings() {
-  const [activeTab, setActiveTab] = useState("upcoming");
+ const [activeTab, setActiveTab] = useState("upcoming");
+const [sortBy, setSortBy] = useState("newest");
 
   const bookings = [
     {
@@ -73,17 +75,45 @@ function MyBookings() {
     status: "cancelled",
   }));
 
-  const getBookings = () => {
-    if (activeTab === "completed") {
-      return completedBookings;
-    }
+ const getBookings = () => {
+  let result;
 
-    if (activeTab === "cancelled") {
-      return cancelledBookings;
-    }
+  if (activeTab === "completed") {
+    result = completedBookings;
+  } else if (activeTab === "cancelled") {
+    result = cancelledBookings;
+  } else {
+    result = bookings;
+  }
 
-    return bookings;
-  };
+  const sortedBookings = [...result];
+
+  if (sortBy === "newest") {
+    return sortedBookings.reverse();
+  }
+
+  if (sortBy === "oldest") {
+    return sortedBookings;
+  }
+
+  if (sortBy === "price-high") {
+    return sortedBookings.sort((a, b) => {
+      const priceA = parseInt(a.price.replace(/[^\d]/g, ""));
+      const priceB = parseInt(b.price.replace(/[^\d]/g, ""));
+      return priceB - priceA;
+    });
+  }
+
+  if (sortBy === "price-low") {
+    return sortedBookings.sort((a, b) => {
+      const priceA = parseInt(a.price.replace(/[^\d]/g, ""));
+      const priceB = parseInt(b.price.replace(/[^\d]/g, ""));
+      return priceA - priceB;
+    });
+  }
+
+  return sortedBookings;
+};
 
   const currentBookings = getBookings();
 
@@ -94,7 +124,7 @@ function MyBookings() {
       <nav className="bookings-navbar">
 
         <div className="navbar-logo">
-          <span>بلدنا</span>
+         < img src={logo} alt="Logo" className="logo-image" />
         </div>
 
         <div className="navbar-links">
@@ -114,7 +144,7 @@ function MyBookings() {
             تسجيل الدخول
           </Link>
 
-          <Link to="/trips" className="book-button">
+          <Link to="/BookingConfirmation" className="book-button">
             احجز رحلتك
           </Link>
         </div>
@@ -207,9 +237,16 @@ function MyBookings() {
             </p>
           </div>
 
-          <button className="sort-button">
-            ترتيب حسب ▾
-          </button>
+         <select
+  className="sort-button"
+  value={sortBy}
+  onChange={(e) => setSortBy(e.target.value)}
+>
+  <option value="newest">الأحدث أولاً</option>
+  <option value="oldest">الأقدم أولاً</option>
+  <option value="price-high">السعر: من الأعلى للأقل</option>
+  <option value="price-low">السعر: من الأقل للأعلى</option>
+</select>
 
         </div>
 
