@@ -1,9 +1,42 @@
 // src/components/Footer.js
 
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FiArrowUpLeft, FiSend } from 'react-icons/fi';
+import { FaLinkedinIn, FaInstagram, FaXTwitter, FaTiktok } from 'react-icons/fa6';
+import logo from '../assets/Logo.png';
 import '../styles/Footer.css';
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// لا تتوفر روابط صفحات تواصل اجتماعي حقيقية لـ Baladna حتى الآن
+// لذلك تبقى هذه أزرارًا موثّقة توضّح عدم توفر الحساب بدل روابط مزيّفة أو href="#"
+const SOCIAL_LINKS = [
+  { key: 'linkedin', label: 'LinkedIn', icon: FaLinkedinIn },
+  { key: 'instagram', label: 'Instagram', icon: FaInstagram },
+  { key: 'x', label: 'X', icon: FaXTwitter },
+  { key: 'tiktok', label: 'TikTok', icon: FaTiktok },
+];
+
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterMessage, setNewsletterMessage] = useState('');
+
+  const handleNewsletterSubmit = (event) => {
+    event.preventDefault();
+
+    if (!EMAIL_PATTERN.test(newsletterEmail)) {
+      setNewsletterMessage('يرجى إدخال بريد إلكتروني صحيح.');
+      return;
+    }
+
+    // لا يوجد اتصال بخلفية فعلية بعد؛ لا يتم تخزين البريد فعليًا
+    setNewsletterMessage('سيتم تفعيل خدمة الاشتراك قريبًا.');
+    setNewsletterEmail('');
+  };
+
   return (
     <footer className="site-footer" dir="rtl">
 
@@ -16,12 +49,16 @@ const Footer = () => {
 
           <div className="footer-logo">
             <div className="footer-logo-circle">
-              <span>✦</span>
+              <img src={logo} alt="Baladna" />
             </div>
           </div>
 
-          <button className="footer-book-btn">
-            <span>↗</span>
+          <button
+            type="button"
+            className="footer-book-btn"
+            onClick={() => navigate('/trips')}
+          >
+            <FiArrowUpLeft />
             احجز رحلتك
           </button>
 
@@ -49,18 +86,28 @@ const Footer = () => {
             </p>
 
 
-            <div className="newsletter">
+            <form className="newsletter" onSubmit={handleNewsletterSubmit}>
 
               <input
                 type="email"
                 placeholder="أدخل بريدك لتصلك اقتراحات مميزة"
+                value={newsletterEmail}
+                onChange={(event) => {
+                  setNewsletterEmail(event.target.value);
+                  setNewsletterMessage('');
+                }}
+                aria-label="البريد الإلكتروني للاشتراك في النشرة"
               />
 
-              <button>
-                <span>➤</span>
+              <button type="submit" aria-label="اشتراك">
+                <FiSend />
               </button>
 
-            </div>
+            </form>
+
+            {newsletterMessage && (
+              <p className="newsletter-message">{newsletterMessage}</p>
+            )}
 
           </div>
 
@@ -70,11 +117,11 @@ const Footer = () => {
 
             <h3>الصفحات</h3>
 
-            <a href="/home">الرئيسية</a>
-            <a href="/exploration">استكشاف</a>
-            <a href="/trips">الرحلات</a>
-            <a href="/bookings">حجوزاتي</a>
-            <a href="/about">من نحن</a>
+            <Link to="/home">الرئيسية</Link>
+            <Link to="/exploration">استكشاف</Link>
+            <Link to="/trips">الرحلات</Link>
+            <Link to="/bookings">حجوزاتي</Link>
+            <Link to="/about">من نحن</Link>
 
           </div>
 
@@ -84,10 +131,10 @@ const Footer = () => {
 
             <h3>روابط</h3>
 
-            <a href="/faq">الأسئلة الشائعة</a>
-            <a href="/contact">تواصل معنا</a>
-            <a href="/privacy">سياسة الخصوصية</a>
-            <a href="/terms">الشروط والأحكام</a>
+            <Link to="/Support">الأسئلة الشائعة</Link>
+            <Link to="/home#contact">تواصل معنا</Link>
+            <Link to="/PrivacyPolicy">سياسة الخصوصية</Link>
+            <Link to="/terms">الشروط والأحكام</Link>
 
           </div>
 
@@ -113,25 +160,19 @@ const Footer = () => {
         ========================== */}
         <div className="footer-social">
 
-          <a href="#" aria-label="LinkedIn">
-            <span>in</span>
-            LinkedIn
-          </a>
-
-          <a href="#" aria-label="Instagram">
-            <span>◎</span>
-            Instagram
-          </a>
-
-          <a href="#" aria-label="X">
-            <span>𝕏</span>
-            X
-          </a>
-
-          <a href="#" aria-label="TikTok">
-            <span>♪</span>
-            TikTok
-          </a>
+          {SOCIAL_LINKS.map(({ key, label, icon: Icon }) => (
+            <button
+              key={key}
+              type="button"
+              className="footer-social-btn"
+              aria-label={`${label} (غير متوفر حالياً)`}
+              title="الحساب غير متوفر حالياً"
+              onClick={() => alert(`حساب Baladna على ${label} غير متوفر حالياً`)}
+            >
+              <span><Icon /></span>
+              {label}
+            </button>
+          ))}
 
         </div>
 

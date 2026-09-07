@@ -1,361 +1,131 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { FiSearch } from 'react-icons/fi';
 import TripCard from '../components/TripCard';
+import CarouselArrows from '../components/CarouselArrows';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import {
+  tripsListing,
+  tripCityOptions,
+  tripTypeOptions,
+  budgetOptions,
+  transportationOptions,
+} from '../data/tripsMockData';
 import '../styles/Trips.css';
 
-const API_URL = 'http://127.0.0.1:8000/api';
+// نحوّل رحلة من المصدر الموحّد (tripsMockData) إلى الشكل الذي يتوقعه TripCard بواجهة "listing" الكثيفة
+function toListingTripCardShape(trip) {
+  return {
+    id: trip.id,
+    title: trip.title,
+    description: trip.description,
+    cover_image: trip.image,
+    rating_avg: trip.rating,
+    trip_date: trip.tripDate,
+    duration_hours: trip.durationHours,
+    available_seats: trip.availableSeats,
+    transportation_type: trip.transportationType,
+    meeting_point: trip.meetingPoint,
+    price_per_person: trip.pricePerPersonUSD,
+    status: 'upcoming',
+    badgeLabel: trip.badge,
+    city: trip.city,
+    type: trip.type,
+    budget: trip.priceSYP,
+  };
+}
+
+const allTrips = tripsListing.map(toListingTripCardShape);
 
 const Trips = () => {
 
-  // =========================
-  // الرحلات
-  // =========================
-  const [trips, setTrips] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // نقرأ استعلام البحث القادم من حقل بحث الرئيسية (Hero) عبر ?q= إن وُجد
+  const [searchParams] = useSearchParams();
 
   // =========================
   // البحث
   // =========================
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(() => searchParams.get('q') || '');
+
+  const resultsRef = useRef(null);
+
+  const scrollToResults = () => {
+    resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   // =========================
-  // بيانات الفلاتر
-  // =========================
-  const [cities, setCities] = useState([]);
-  const [categories, setCategories] = useState([]);
-
-  // =========================
-  // قيم الفلاتر
+  // قيم الفلاتر (قيد الاختيار)
   // =========================
   const [cityId, setCityId] = useState('');
-  const [categoryId, setCategoryId] = useState('');
+  const [typeId, setTypeId] = useState('');
   const [budget, setBudget] = useState('');
   const [transportationType, setTransportationType] = useState('');
   const [tripDate, setTripDate] = useState('');
 
-  // =====================================================
-  // جلب الرحلات
-  // =====================================================
-  const fetchTrips = async (filters = {}) => {
+  // =========================
+  // قيم الفلاتر المطبّقة فعليًا
+  // =========================
+  const [appliedFilters, setAppliedFilters] = useState({
+    cityId: '',
+    typeId: '',
+    budget: '',
+    transportationType: '',
+    tripDate: '',
+  });
 
-    setLoading(true);
-
-    try {
-
-      const url = new URL(`${API_URL}/trips`);
-
-      // نستخدم القيم المرسلة للدالة
-      // وإذا لم نرسلها نستخدم قيم الـ state الحالية
-      const currentSearch =
-        filters.search !== undefined ? filters.search : search;
-
-      const currentCityId =
-        filters.cityId !== undefined ? filters.cityId : cityId;
-
-      const currentCategoryId =
-        filters.categoryId !== undefined
-          ? filters.categoryId
-          : categoryId;
-
-      const currentBudget =
-        filters.budget !== undefined ? filters.budget : budget;
-
-      const currentTransportationType =
-        filters.transportationType !== undefined
-          ? filters.transportationType
-          : transportationType;
-
-      const currentTripDate =
-        filters.tripDate !== undefined
-          ? filters.tripDate
-          : tripDate;
-
-
-      // =========================
-      // البحث
-      // =========================
-      if (currentSearch.trim() !== '') {
-        url.searchParams.append(
-          'search',
-          currentSearch.trim()
-        );
-      }
-
-
-      // =========================
-      // فلتر المدينة
-      // =========================
-      if (currentCityId !== '') {
-        url.searchParams.append(
-          'city_id',
-          currentCityId
-        );
-      }
-
-
-      // =========================
-      // فلتر نوع المكان
-      // =========================
-      if (currentCategoryId !== '') {
-        url.searchParams.append('category_id' ,
-          currentCategoryId
-        );
-      }
-
-
-      // =========================
-      // فلتر الميزانية
-      // =========================
-      if (currentBudget !== '') {
-
-        if (currentBudget === 'under1000') {
-
-          url.searchParams.append('budget_min', '0');
-          url.searchParams.append('budget_max', '1000');
-
-        }
-
-        else if (currentBudget === '1000-2500') {
-
-          url.searchParams.append('budget_min', '1000');
-          url.searchParams.append('budget_max', '2500');
-
-        }
-
-        else if (currentBudget === '2500-5000') {
-
-          url.searchParams.append('budget_min', '2500');
-          url.searchParams.append('budget_max', '5000');
-
-        }
-
-        else if (currentBudget === 'over5000') {
-
-          url.searchParams.append('budget_min', '5000');
-
-        }
-      }
-
-
-      // =========================
-      // فلتر نوع النقل
-      // =========================
-      if (currentTransportationType !== '') {
-
-        url.searchParams.append(
-          'transportation_type',
-          currentTransportationType
-        );
-
-      }
-
-
-      // =========================
-      // فلتر تاريخ الرحلة
-      // =========================
-      if (currentTripDate !== '') {
-
-        url.searchParams.append(
-          'trip_date',
-          currentTripDate
-        );
-
-      }
-
-
-      // =========================
-      // الرابط النهائي
-      // =========================
-      console.log(
-        'API URL:',
-        url.toString()
-      );
-
-
-      // =========================
-      // Request
-      // =========================
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error(
-          'حدث خطأ أثناء جلب الرحلات'
-        );
-      }
-
-
-      const data = await response.json();
-
-      console.log(
-        'API RESPONSE:',
-        data
-      );
-
-
-      // Laravel يرجع البيانات داخل data
-      setTrips(
-        data.data || []
-      );
-
-
-    } catch (error) {
-
-      console.error(
-        'Error fetching trips:',
-        error
-      );
-
-      setTrips([]);
-
-    } finally {
-
-      setLoading(false);
-
-    }
-
-  };
-
-
-  // =====================================================
-  // جلب المدن والتصنيفات
-  // =====================================================
-  const fetchFilterData = async () => {
-
-    try {
-
-      const [
-        citiesResponse,
-        categoriesResponse
-      ] = await Promise.all([
-
-        fetch(`${API_URL}/cities`),
-
-        fetch(`${API_URL}/categories`)
-
-      ]);
-
-
-      if (!citiesResponse.ok) {
-        throw new Error(
-          'فشل جلب المدن'
-        );
-      }
-
-      if (!categoriesResponse.ok) {
-        throw new Error(
-          'فشل جلب التصنيفات'
-        );
-      }
-
-
-      const citiesData =
-        await citiesResponse.json();
-
-      const categoriesData =
-        await categoriesResponse.json();
-
-
-      console.log(
-        'Cities:',
-        citiesData
-      );
-
-      console.log(
-        'Categories:',
-        categoriesData
-      );
-
-
-      setCities(
-        citiesData.data || []
-      );
-
-      setCategories(
-        categoriesData.data || []
-      );
-
-
-    } catch (error) {
-
-      console.error(
-        'Error fetching filter data:',
-        error
-      );
-
-    }
-
-  };
-
-
-  // =====================================================
-  // عند فتح الصفحة
-  // =====================================================
-  useEffect(() => {
-
-    fetchTrips();
-
-    fetchFilterData();
-
-  }, []);
-
-
-  // =====================================================
-  // تطبيق الفلاتر
-  // =====================================================
   const handleApplyFilters = () => {
-
-    fetchTrips();
-
+    setAppliedFilters({ cityId, typeId, budget, transportationType, tripDate });
   };
 
+  const trips = useMemo(() => {
+    return allTrips.filter((trip) => {
+      const matchesSearch =
+        !search.trim() ||
+        trip.title.includes(search.trim()) ||
+        trip.city.includes(search.trim()) ||
+        trip.type.includes(search.trim());
 
-  // =====================================================
-  // إعادة ضبط
-  // =====================================================
-  const handleResetFilters = () => {
+      const matchesCity = !appliedFilters.cityId || trip.city === appliedFilters.cityId;
+      const matchesType = !appliedFilters.typeId || trip.type === appliedFilters.typeId;
 
-    // نمسح القيم من الشاشة
-    setSearch('');
-    setCityId('');
-    setCategoryId('');
-    setBudget('');
-    setTransportationType('');
-    setTripDate('');
+      const matchesBudget = (() => {
+        if (!appliedFilters.budget) return true;
 
+        if (appliedFilters.budget === 'under1000') return trip.budget < 1000;
+        if (appliedFilters.budget === '1000-2500') return trip.budget >= 1000 && trip.budget <= 2500;
+        if (appliedFilters.budget === '2500-5000') return trip.budget >= 2500 && trip.budget <= 5000;
+        if (appliedFilters.budget === 'over5000') return trip.budget > 5000;
 
-    // نجلب كل الرحلات بقيم فارغة
-    fetchTrips({
-      search: '',
-      cityId: '',
-      categoryId: '',
-      budget: '',
-      transportationType: '',
-      tripDate: ''
+        return true;
+      })();
+
+      const matchesTransportation =
+        !appliedFilters.transportationType ||
+        trip.transportation_type === appliedFilters.transportationType;
+
+      const matchesDate =
+        !appliedFilters.tripDate || trip.trip_date === appliedFilters.tripDate;
+
+      return (
+        matchesSearch &&
+        matchesCity &&
+        matchesType &&
+        matchesBudget &&
+        matchesTransportation &&
+        matchesDate
+      );
     });
-
-  };
-
-
-  // =====================================================
-  // البحث عند الضغط على Enter
-  // =====================================================
-  const handleKeyDown = (event) => {
-
-    if (event.key === 'Enter') {
-
-      fetchTrips();
-
-    }
-
-  };
-
+  }, [search, appliedFilters]);
 
   return (
 
     <div className="trips-page-container">
 
       <Header />
+
+      <div className="trips-decoration trips-decoration-right" aria-hidden="true"></div>
+      <div className="trips-decoration trips-decoration-left" aria-hidden="true"></div>
 
       <header className="trips-hero">
 
@@ -366,9 +136,7 @@ const Trips = () => {
           </h1>
 
           <p>
-            اكتشف مجموعة متنوعة من الوجهات السياحية
-            المجمعة بعناية لتناسب كل الأذواق
-            بأفضل الأسعار المعقولة
+            اكتشف مجموعة متنوعة من الرحلات السياحية المصمّمة بعناية لتناسب أبرز الوجهات والمعالم، واختر التجربة التي تناسب اهتماماتك وابدأ رحلتك بكل سهولة.
           </p>
 
 
@@ -378,7 +146,7 @@ const Trips = () => {
 
             <input
               type="text"
-              placeholder="ابحث عن رحلة..."
+              placeholder="ابحث عن رحلة ...."
               className="search-input"
 
               value={search}
@@ -386,16 +154,16 @@ const Trips = () => {
               onChange={(event) => {
                 setSearch(event.target.value);
               }}
-
-              onKeyDown={handleKeyDown}
             />
 
 
             <button
               className="search-btn"
-              onClick={fetchTrips}
+              type="button"
+              aria-label="بحث"
+              onClick={scrollToResults}
             >
-              🔍
+              <FiSearch />
             </button>
 
           </div>
@@ -437,13 +205,13 @@ const Trips = () => {
               </option>
 
 
-              {cities.map((city) => (
+              {tripCityOptions.map((city) => (
 
                 <option
-                  key={city.id}
-                  value={city.id}
+                  key={city}
+                  value={city}
                 >
-                  {city.name}
+                  {city}
                 </option>
 
               ))}
@@ -465,9 +233,9 @@ const Trips = () => {
             </label>
 
             <select
-              value={categoryId}
+              value={typeId}
               onChange={(event) => {
-                setCategoryId(event.target.value);
+                setTypeId(event.target.value);
               }}
             >
 
@@ -476,13 +244,13 @@ const Trips = () => {
               </option>
 
 
-              {categories.map((category) => (
+              {tripTypeOptions.map((type) => (
 
                 <option
-                  key={category.id}
-                  value={category.id}
+                  key={type}
+                  value={type}
                 >
-                  {category.name}
+                  {type}
                 </option>
 
               ))}
@@ -515,24 +283,16 @@ const Trips = () => {
               </option>
 
 
-              <option value="under1000">
-                أقل من 1000
-              </option>
+              {budgetOptions.map((option) => (
 
+                <option
+                  key={option.value}
+                  value={option.value}
+                >
+                  {option.label}
+                </option>
 
-              <option value="1000-2500">
-                1000 - 2500
-              </option>
-
-
-              <option value="2500-5000">
-                2500 - 5000
-              </option>
-
-
-              <option value="over5000">
-                أكثر من 5000
-              </option>
+              ))}
 
             </select>
 
@@ -560,28 +320,20 @@ const Trips = () => {
             >
 
               <option value="">
-                اختر نوع
+                اختر مجال
               </option>
 
 
-              <option value="bus">
-                باص
-              </option>
+              {transportationOptions.map((option) => (
 
+                <option
+                  key={option.value}
+                  value={option.value}
+                >
+                  {option.label}
+                </option>
 
-              <option value="mini_bus">
-                ميني باص
-              </option>
-
-
-              <option value="train">
-                قطار
-              </option>
-
-
-              <option value="tour_bus">
-                باص سياحي
-              </option>
+              ))}
 
             </select>
 
@@ -620,21 +372,9 @@ const Trips = () => {
           <button
             className="btn-apply-filters"
             onClick={handleApplyFilters}
+            type="button"
           >
-            تطبيق الفلتر
-          </button>
-
-
-
-          {/* =========================
-              إعادة ضبط
-          ========================= */}
-
-          <button
-            className="btn-reset-filters"
-            onClick={handleResetFilters}
-          >
-            إعادة ضبط
+            تطبيق الفلاتر
           </button>
 
 
@@ -648,31 +388,31 @@ const Trips = () => {
           الرحلات
       ================================================= */}
 
-      <main className="trips-main-content">
+      <main className="trips-main-content" ref={resultsRef}>
 
 
-        <div className="section-title-container">
+        <div className="section-header">
 
-          <h2>
-            الرحلات المتاحة
-          </h2>
+          <div>
+            <h2>الرحلات المتاحة</h2>
+            <p className="section-subtitle">
+              اختر من بين مجموعة من الرحلات المتوفرة واحجز الرحلة التي تناسبك
+            </p>
+          </div>
 
-          <p>
-            اختر من بين مجموعة من الرحلات المتوفرة
-            واحجز لرحلتك القادمة
-          </p>
+          <CarouselArrows
+            label="الرحلات"
+            onPrevious={() => {}}
+            onNext={() => {}}
+            canGoPrevious={false}
+            canGoNext={false}
+          />
 
         </div>
 
 
 
-        {loading ? (
-
-          <div className="loading-spinner">
-            جاري تحميل الرحلات...
-          </div>
-
-        ) : trips.length === 0 ? (
+        {trips.length === 0 ? (
 
           <div className="no-trips">
             لا توجد رحلات مطابقة للبحث أو الفلاتر.
@@ -687,6 +427,8 @@ const Trips = () => {
               <TripCard
                 key={trip.id}
                 trip={trip}
+                badgeLabel={trip.badgeLabel}
+                variant="listing"
               />
 
             ))}

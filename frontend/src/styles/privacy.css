@@ -3,7 +3,7 @@
 }
 
 .privacy-page {
-  height: 100vh;
+  min-height: calc(100vh - 90px);
   display: flex;
   flex-direction: row; /* ❌ احذف row-reverse */
   font-family: Arial, sans-serif;
@@ -12,7 +12,7 @@
 /* IMAGE SIDE */
 .image-side {
   width: 50%;
-  height: 100vh;
+  min-height: calc(100vh - 90px);
   position: relative;
 }
 
@@ -51,26 +51,6 @@
   justify-content: center;
   align-items: center;
   position: relative;
-}
-
-/* HOME LINK */
-.home-link {
-  position: absolute;
-  top: 25px;
-  right: 60px;
-}
-
-.home-link-content {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: black;
-}
-
-.home-link-content img {
-  width: 22px;
-  height: 22px;
 }
 
 .divider {

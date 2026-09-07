@@ -1,10 +1,13 @@
 import "../styles/privacy.css";
 import travel from "../assets/travel.jpg";
-import logo from "../assets/Logo.png";
 import { Link } from "react-router-dom";
+import Header from "../components/Header";
 
 function PrivacyPolicy() {
   return (
+    <>
+    <Header />
+
     <div className="privacy-page">
 
       {/* IMAGE SIDE */}
@@ -13,22 +16,14 @@ function PrivacyPolicy() {
 
         <div className="overlay">
           <div className="links">
-            <Link to="/support">الدعم والمساعدة</Link>
-            
+            <Link to="/Support">الدعم والمساعدة</Link>
+
           </div>
         </div>
       </div>
 
       {/* FORM SIDE */}
       <div className="form-side">
-
-        <div className="home-link">
-          <Link to="/home" className="home-link-content">
-  <span>الرئيسية</span>
-  <span className="divider"></span>
-  <img src={logo} alt="logo" />
-</Link>
-        </div>
 
         <div className="privacy-box">
           <h1>سياسة الخصوصية</h1>
@@ -56,6 +51,7 @@ function PrivacyPolicy() {
       </div>
 
     </div>
+    </>
   );
 }
 

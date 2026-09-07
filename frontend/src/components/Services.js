@@ -1,79 +1,26 @@
 import React from "react";
+import ServiceCard from "./ServiceCard";
+import SectionHeading from "./SectionHeading";
+import { services } from "../data/homeMockData";
 
 function Services() {
   return (
     <section className="home-section services-section">
-
-      <div className="section-heading">
-
-        <h2>خدماتنا</h2>
-
-        <p>
-          نقدم لك كل ما تحتاجه لتخطيط رحلتك واستكشاف أجمل الوجهات
-        </p>
-
-      </div>
+      <SectionHeading
+        title="خدماتنا"
+        subtitle="نساعدك على اتخاذ أفضل القرارات بثقة ووضوح، من خلال إرشاد واضح وتجربة سياحية بسيطة دون تعقيد."
+      />
 
       <div className="services-grid">
-
-        <div className="service-card">
-
-          <div className="service-icon">
-            📍
-          </div>
-
-          <h3>اكتشف الأماكن</h3>
-
-          <p>
-            تعرف على أجمل الأماكن والوجهات السياحية في سوريا.
-          </p>
-
-        </div>
-
-        <div className="service-card">
-
-          <div className="service-icon">
-            🚌
-          </div>
-
-          <h3>رحلات متنوعة</h3>
-
-          <p>
-            اختر الرحلة المناسبة لك واستمتع بتجربة سياحية مميزة.
-          </p>
-
-        </div>
-
-        <div className="service-card">
-
-          <div className="service-icon">
-            🎫
-          </div>
-
-          <h3>حجز سهل وسريع</h3>
-
-          <p>
-            احجز رحلتك بسهولة واحصل على تجربة مريحة وآمنة.
-          </p>
-
-        </div>
-
-        <div className="service-card">
-
-          <div className="service-icon">
-            ⭐
-          </div>
-
-          <h3>تجارب مميزة</h3>
-
-          <p>
-            اكتشف تجارب تناسب اهتماماتك واستمتع برحلة لا تُنسى.
-          </p>
-
-        </div>
-
+        {services.map((service) => (
+          <ServiceCard
+            key={service.id}
+            icon={service.icon}
+            title={service.title}
+            description={service.description}
+          />
+        ))}
       </div>
-
     </section>
   );
 }

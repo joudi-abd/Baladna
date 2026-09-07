@@ -14,7 +14,7 @@ import "../styles/home.css";
 
 function Home() {
   return (
-    <div className="home">
+    <div className="home home-page">
 
       <Header />
 

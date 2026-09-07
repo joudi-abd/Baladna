@@ -9,6 +9,11 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Trips from './pages/Trips'
 import Exploration from "./pages/Exploration";
 import PlaceDetails from "./pages/PlaceDetails";
+import MyBookings from "./pages/MyBookings";
+import TripDetails from "./pages/TripDetails";
+import BookingConfirmation from "./pages/BookingConfirmation";
+import Payment from "./pages/Payment";
+import ComingSoon from "./pages/ComingSoon";
 
 function App() {
   return (
@@ -24,10 +29,19 @@ function App() {
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/exploration" element={<Exploration />}/>
         <Route path="/places/:id" element={<PlaceDetails />}/>
-        
-  
+        <Route path="/bookings" element={<MyBookings />}/>
+
+
         {/* السطر الجديد الذي ستضيفه لصفحة الرحلات */}
         <Route path="/trips" element={<Trips/>} />
+        <Route path="/trips/:id" element={<TripDetails/>} />
+        <Route path="/booking/:tripId" element={<BookingConfirmation/>} />
+        <Route path="/booking/:tripId/payment" element={<Payment/>} />
+
+        {/* صفحات مرتبطة من التنقّل الحالي (Header/Footer) دون تصميم نهائي بعد */}
+        <Route path="/about" element={<ComingSoon title="من نحن" />} />
+        <Route path="/terms" element={<ComingSoon title="الشروط والأحكام" />} />
+        <Route path="/forgot-password" element={<ComingSoon title="استعادة كلمة المرور" />} />
       </Routes>
 
     </BrowserRouter>

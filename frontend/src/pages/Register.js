@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "../styles/register.css";
 import travel from "../assets/travel.jpg";
-import logo from "../assets/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
 import {
   HiOutlineUser,
@@ -98,6 +98,9 @@ function Register() {
   };
 
   return (
+    <>
+    <Header />
+
     <div className="register-page">
 
       {/* =========================================
@@ -147,31 +150,6 @@ function Register() {
       ========================================= */}
 
       <section className="form-side">
-
-        {/* TOP NAVBAR */}
-
-        <div className="right-navbar">
-
-          <Link
-            to="/home"
-            className="home-nav-link"
-          >
-
-            <img
-              src={logo}
-              alt="Baladna"
-            />
-
-            <span className="navbar-divider" />
-
-            <span>
-              الرئيسية
-            </span>
-
-          </Link>
-
-        </div>
-
 
         {/* DECORATIVE PLANE */}
 
@@ -389,6 +367,7 @@ function Register() {
       </section>
 
     </div>
+    </>
   );
 }
 
