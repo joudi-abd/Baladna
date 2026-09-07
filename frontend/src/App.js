@@ -11,6 +11,7 @@ import Exploration from "./pages/Exploration";
 import MyBookings from "./pages/MyBookings";
 import BookingConfirmation from "./pages/BookingConfirmation";
 import Payment from "./pages/Payment";
+import TripDetails from "./pages/TripDetails";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
   
         {/* السطر الجديد الذي ستضيفه لصفحة الرحلات */}
         <Route path="/trips" element={<Trips/>} />
+        <Route path="/trips/:id" element={<TripDetails/>}/>
         <Route path="/bookings" element={<MyBookings />} />
         <Route path="/BookingConfirmation" element={<BookingConfirmation />} />
         <Route path="/Payment" element={<Payment />} />

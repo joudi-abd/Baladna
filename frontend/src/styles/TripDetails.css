@@ -1,0 +1,1140 @@
+/* =========================================================
+   الصفحة
+========================================================= */
+
+.trip-details-page {
+  direction: rtl;
+  background: #f5f9f7;
+  color: #25332f;
+}
+
+
+/* =========================
+   HERO - TRIP DETAILS
+========================= */
+
+.trip-details-hero {
+  position: relative;
+  min-height: 500px;
+
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  direction: rtl;
+
+  overflow: hidden;
+}
+
+/* طبقة التغميق فوق الصورة */
+.trip-details-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   BREADCRUMB - شرائط مثل التصميم
+========================================================= */
+
+.trip-breadcrumb {
+  position: absolute;
+
+  top: 30px;
+  right: 7%;
+
+  display: flex;
+  align-items: center;
+
+  /* بدون فراغ بين الأسهم */
+  gap: 0;
+
+  z-index: 3;
+
+  direction: rtl;
+}
+
+
+/* =========================================================
+   إخفاء الأسهم القديمة
+========================================================= */
+
+.breadcrumb-arrow {
+  display: none;
+}
+
+
+/* =========================================================
+   شكل الشريط
+========================================================= */
+
+.breadcrumb-item {
+  position: relative;
+
+  height: 58px;
+
+  min-width: 170px;
+
+  padding: 0 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: white;
+  color: #4d5552;
+
+  font-size: 19px;
+  font-weight: 700;
+
+  text-align: center;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+
+  /*
+    شكل الشريط:
+    الجهة اليسار فيها قصّة مثل السهم
+  */
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    0 100%,
+    13% 50%
+  );
+
+  z-index: 1;
+
+  transition: 0.25s ease;
+}
+
+
+/* =========================================================
+   الرئيسية
+========================================================= */
+
+.breadcrumb-home {
+  background: #ffffff;
+  color: #555;
+
+  z-index: 3;
+
+  /*
+    الرئيسية تكون واضحة ومستقلة
+  */
+}
+
+
+/* =========================================================
+   الرحلات
+========================================================= */
+
+.breadcrumb-trips {
+  background: #ffffff;
+  color: #555;
+
+  /*
+    تداخل بسيط مع الرئيسية
+  */
+  margin-right: -18px;
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   تفاصيل الرحلة - الصفحة الحالية
+========================================================= */
+
+.breadcrumb-current {
+  background: #287d5a;
+  color: white;
+
+  /*
+    تداخل مع العنصر السابق
+  */
+  margin-right: -18px;
+
+  min-width: 210px;
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   إذا استخدمتي class active
+========================================================= */
+
+.breadcrumb-item.active {
+  background: #287d5a;
+  color: white;
+}
+
+
+/* =========================================================
+   Hover
+========================================================= */
+
+.breadcrumb-item:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.trip-hero-content {
+  position: relative;
+
+  z-index: 2;
+
+  width: 86%;
+  max-width: 1200px;
+
+  text-align: right;
+
+  margin-top: 80px;
+}
+
+.trip-hero-content h1 {
+  font-size: 48px;
+
+  margin: 0 0 20px;
+
+  font-weight: 700;
+
+  color: white;
+}
+
+.trip-hero-description {
+  max-width: 750px;
+
+  font-size: 18px;
+
+  line-height: 1.9;
+
+  color: #f1f1f1;
+
+  margin-bottom: 25px;
+}
+
+
+/* =========================
+   LOCATION + DURATION
+========================= */
+
+.trip-hero-meta {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 18px;
+
+  color: white;
+
+  font-size: 17px;
+
+  font-weight: 500;
+}
+
+.trip-meta-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+
+/* أيقونة الموقع */
+
+.location-icon {
+  font-size: 25px;
+
+  color: white;
+
+  line-height: 1;
+}
+
+
+/* أيقونة الساعة */
+
+.clock-icon {
+  font-size: 25px;
+
+  color: white;
+
+  line-height: 1;
+}
+
+
+/* الخط الفاصل */
+
+.meta-divider {
+  color: white;
+
+  font-size: 20px;
+
+  opacity: 0.8;
+}
+
+
+/* =========================================================
+   المحتوى
+========================================================= */
+
+.trip-details-content {
+  max-width: 1200px;
+  margin: auto;
+
+  padding: 60px 25px;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.trip-intro {
+  text-align: center;
+
+  max-width: 900px;
+
+  margin: 0 auto 40px;
+}
+
+.trip-intro h2 {
+  margin: 0 0 18px;
+
+  font-size: 34px;
+  color: #263b35;
+}
+
+.trip-intro p {
+  margin: 0;
+
+  color: #777;
+
+  font-size: 16px;
+  line-height: 2;
+}
+
+
+/* =========================================================
+   4 INFO CARDS
+========================================================= */
+
+.trip-info-cards {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 20px;
+
+  margin-bottom: 55px;
+}
+
+.trip-info-card {
+  min-height: 145px;
+
+  padding: 25px 15px;
+
+  background: white;
+
+  border-radius: 10px;
+
+  text-align: center;
+
+  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.05);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.trip-info-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.trip-info-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 12px;
+
+  font-size: 25px;
+
+  background: #eef7f3;
+
+  border-radius: 50%;
+}
+
+.trip-info-label {
+  color: #888;
+
+  font-size: 14px;
+
+  margin-bottom: 7px;
+}
+
+.trip-info-card strong {
+  color: #267b5b;
+
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   MIDDLE SECTION
+========================================================= */
+
+.trip-middle-section {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 25px;
+
+  margin-bottom: 70px;
+}
+
+.meeting-point-card,
+.trip-program-card {
+  background: white;
+
+  border-radius: 12px;
+
+  padding: 28px;
+
+  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.section-heading {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-bottom: 25px;
+}
+
+.section-heading-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #edf7f2;
+
+  border-radius: 50%;
+
+  font-size: 22px;
+}
+
+.section-heading h2 {
+  margin: 0 0 4px;
+
+  font-size: 23px;
+
+  color: #263b35;
+}
+
+.section-heading p {
+  margin: 0;
+
+  color: #999;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   نقطة التجمع
+========================================================= */
+
+.meeting-point-info {
+  padding: 18px;
+
+  margin-bottom: 20px;
+
+  background: #f6faf8;
+
+  border-radius: 8px;
+}
+
+.meeting-point-info h3 {
+  margin: 0 0 10px;
+
+  font-size: 17px;
+}
+
+.meeting-point-info p {
+  margin: 0 0 15px;
+
+  color: #666;
+
+  line-height: 1.8;
+
+  white-space: pre-line;
+}
+
+.meeting-date {
+  color: #267b5b;
+
+  font-size: 14px;
+}
+
+.meeting-map {
+  width: 100%;
+  height: 270px;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+}
+
+.meeting-map iframe {
+  width: 100%;
+  height: 100%;
+
+  border: 0;
+}
+
+
+/* =========================================================
+   PROGRAM / TIMELINE
+========================================================= */
+
+.trip-timeline {
+  position: relative;
+
+  padding-right: 25px;
+}
+
+.trip-timeline::before {
+  content: "";
+
+  position: absolute;
+
+  right: 7px;
+  top: 8px;
+  bottom: 8px;
+
+  width: 2px;
+
+  background: #d7e9e1;
+}
+
+.timeline-item {
+  position: relative;
+
+  display: flex;
+
+  margin-bottom: 27px;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+
+  right: -24px;
+  top: 6px;
+
+  width: 14px;
+  height: 14px;
+
+  background: #2d8967;
+
+  border: 3px solid white;
+
+  border-radius: 50%;
+
+  box-shadow: 0 0 0 2px #2d8967;
+}
+
+.timeline-content {
+  width: 100%;
+}
+
+.timeline-time {
+  display: block;
+
+  min-height: 18px;
+
+  margin-bottom: 3px;
+
+  color: #2d8967;
+
+  font-size: 13px;
+}
+
+.timeline-content h3 {
+  margin: 0 0 5px;
+
+  font-size: 16px;
+
+  color: #263b35;
+}
+
+.timeline-content p {
+  margin: 0;
+
+  color: #888;
+
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   INCLUDED PLACES
+========================================================= */
+
+.included-places-section {
+  margin-bottom: 70px;
+}
+
+.section-title {
+  text-align: right;
+
+  margin-bottom: 30px;
+}
+
+.section-title h2 {
+  margin: 0 0 8px;
+
+  font-size: 32px;
+
+  color: #263b35;
+}
+
+.section-title p {
+  margin: 0;
+
+  color: #888;
+
+  font-size: 14px;
+}
+
+.included-places-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 25px;
+}
+
+.included-place-card {
+  overflow: hidden;
+
+  background: white;
+
+  border-radius: 12px;
+
+  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.05);
+
+  transition: transform 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.included-place-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.place-image-wrapper {
+  position: relative;
+
+  height: 220px;
+
+  overflow: hidden;
+}
+
+.place-image-wrapper img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+.place-favorite {
+  position: absolute;
+
+  top: 14px;
+  left: 14px;
+
+  width: 38px;
+  height: 38px;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background: white;
+
+  font-size: 22px;
+
+  color: #267b5b;
+
+  cursor: pointer;
+}
+
+.place-card-content {
+  padding: 20px;
+}
+
+.place-card-top {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 10px;
+}
+
+.place-card-top h3 {
+  margin: 0;
+
+  font-size: 20px;
+
+  color: #263b35;
+}
+
+.place-rating {
+  white-space: nowrap;
+
+  color: #e5a800;
+
+  font-size: 13px;
+}
+
+.place-card-content p {
+  margin: 0 0 12px;
+
+  color: #777;
+
+  font-size: 14px;
+
+  line-height: 1.8;
+}
+
+.place-address {
+  color: #999;
+
+  font-size: 12px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   REVIEWS
+========================================================= */
+
+.reviews-section {
+  margin-bottom: 65px;
+}
+
+.reviews-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 20px;
+}
+
+.review-card {
+  padding: 25px;
+
+  background: white;
+
+  border-radius: 10px;
+
+  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.04);
+}
+
+.review-stars {
+  margin-bottom: 15px;
+
+  color: #e5a800;
+
+  letter-spacing: 2px;
+}
+
+.review-card p {
+  min-height: 70px;
+
+  margin: 0 0 20px;
+
+  color: #666;
+
+  line-height: 1.9;
+
+  font-size: 14px;
+}
+
+.review-user {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.review-avatar {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #eef7f3;
+
+  border-radius: 50%;
+}
+
+.review-user strong {
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   BOOKING
+========================================================= */
+
+.booking-section {
+  text-align: center;
+
+  padding: 45px 20px;
+
+  margin-bottom: 20px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.04);
+}
+
+.booking-section h2 {
+  margin: 0 0 10px;
+
+  color: #263b35;
+
+  font-size: 27px;
+}
+
+.booking-section p {
+  margin: 0 0 25px;
+
+  color: #888;
+}
+
+.booking-button {
+  min-width: 280px;
+
+  padding: 14px 30px;
+
+  border: 0;
+
+  border-radius: 7px;
+
+  background: #2d8967;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition: background 0.25s ease,
+              transform 0.25s ease;
+}
+
+.booking-button:hover {
+  background: #226d52;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   LOADING / ERROR
+========================================================= */
+
+.trip-details-loading,
+.trip-details-error {
+  min-height: 400px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  direction: rtl;
+
+  font-size: 20px;
+
+  color: #267b5b;
+}
+
+.trip-details-error {
+  color: #c0392b;
+}
+
+.reviews-message {
+  padding: 35px;
+
+  background: white;
+
+  border-radius: 10px;
+
+  text-align: center;
+
+  color: #888;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .trip-details-hero {
+    height: 430px;
+  }
+
+  .trip-details-hero-content h1 {
+    font-size: 38px;
+  }
+
+  /* Breadcrumb */
+  .trip-breadcrumb {
+    right: 4%;
+  }
+
+  .breadcrumb-item {
+    min-width: 140px;
+
+    height: 50px;
+
+    padding: 0 22px;
+
+    font-size: 16px;
+  }
+
+  .breadcrumb-current {
+    min-width: 170px;
+  }
+
+  .trip-info-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .trip-middle-section {
+    grid-template-columns: 1fr;
+  }
+
+  .included-places-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .reviews-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .trip-details-hero {
+    height: 390px;
+  }
+
+  .trip-details-hero-content {
+    padding: 35px 20px;
+  }
+
+
+  /* =========================
+     Breadcrumb Mobile
+  ========================= */
+
+  .trip-breadcrumb {
+    top: 20px;
+    right: 3%;
+
+    width: 94%;
+
+    justify-content: flex-start;
+
+    overflow-x: auto;
+
+    padding-bottom: 5px;
+  }
+
+  .breadcrumb-item {
+    flex-shrink: 0;
+
+    min-width: 110px;
+
+    height: 43px;
+
+    padding: 0 18px;
+
+    font-size: 13px;
+  }
+
+  .breadcrumb-trips {
+    margin-right: -12px;
+  }
+
+  .breadcrumb-current {
+    margin-right: -12px;
+
+    min-width: 135px;
+  }
+
+
+  .trip-details-hero-content h1 {
+    font-size: 28px;
+  }
+
+  .trip-details-hero-content p {
+    font-size: 14px;
+
+    line-height: 1.8;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+  }
+
+  .trip-hero-meta {
+    gap: 15px;
+
+    font-size: 12px;
+  }
+
+  .trip-details-content {
+    padding: 40px 15px;
+  }
+
+  .trip-intro h2 {
+    font-size: 27px;
+  }
+
+  .trip-intro p {
+    font-size: 14px;
+  }
+
+  .trip-info-cards {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+  }
+
+  .trip-info-card {
+    min-height: 130px;
+
+    padding: 15px 8px;
+  }
+
+  .trip-info-card strong {
+    font-size: 15px;
+  }
+
+  .trip-info-label {
+    font-size: 12px;
+  }
+
+  .trip-info-icon {
+    width: 40px;
+    height: 40px;
+
+    font-size: 20px;
+  }
+
+  .meeting-point-card,
+  .trip-program-card {
+    padding: 20px;
+  }
+
+  .section-heading h2 {
+    font-size: 20px;
+  }
+
+  .meeting-map {
+    height: 220px;
+  }
+
+  .section-title h2 {
+    font-size: 25px;
+  }
+
+  .included-places-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-section h2 {
+    font-size: 22px;
+  }
+
+  .booking-button {
+    width: 100%;
+
+    min-width: 0;
+  }
+}

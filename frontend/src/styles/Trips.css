@@ -445,39 +445,39 @@
 .btn-book-now,
 .btn-view-trip {
   flex: 1;
-
   height: 38px;
-
   border-radius: 5px;
-
+  border: 1px solid var(--green);
+  border-radius: 5px;
   cursor: pointer;
-
+  background: var (--green-light);
+  color: var(--green);
   font-size: 12px;
   font-weight: 600;
-
   transition: .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
 }
-
-.btn-book-now {
+.btn-book-now{
   border: 1px solid var(--green);
-  background: var(--green-light);
-  color: var(--green);
-}
-
-.btn-book-now:hover {
   background: var(--green);
   color: var(--white);
 }
-
-.btn-view-trip {
-  border: 1px solid var(--border);
-  background: var(--white);
-  color: #777;
+.btn-book-now:hover{
+ background: var(--white);
+ color: var(--green);
 }
+.btn-view-trip:hover{
+ background: var(--green);
+ color: var(--white);
+ border-color: var(--green);
 
-.btn-view-trip:hover {
-  border-color: var(--green);
-  color: var(--green);
 }
 
 

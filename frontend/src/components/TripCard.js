@@ -1,9 +1,10 @@
 // src/components/TripCard.js
 
 import React from 'react';
+import {Link} from 'react-router-dom';
 import '../styles/Trips.css';
 
-const TripCard = ({ trip }) => {
+const TripCard = ({ trip , cityId , cities}) => {
 
   const formatDate = (date) => {
     if (!date) return 'غير محدد';
@@ -121,9 +122,12 @@ const TripCard = ({ trip }) => {
             احجز الآن
           </button>
 
-          <button className="btn-view-trip">
-            عرض الرحلة
-          </button>
+          <Link
+           to={`/trips/${trip.id}?cityId=${cityId}`}
+           className="btn-view-trip"
+          >
+           عرض الرحلة
+          </Link>
 
         </div>
 

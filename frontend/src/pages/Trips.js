@@ -687,6 +687,8 @@ const Trips = () => {
               <TripCard
                 key={trip.id}
                 trip={trip}
+                cityId={cityId}
+                cities={cities}
               />
 
             ))}
