@@ -99,8 +99,8 @@ function MyBookings() {
 
         <div className="navbar-links">
           <Link to="/home">الرئيسية</Link>
-          <Link to="/explore">استكشاف</Link>
-          <Link to="/trips">الرحلات</Link>
+          <Link to="/Exploration">استكشاف</Link>
+          <Link to="/Trips">الرحلات</Link>
 
           <Link to="/bookings" className="active-link">
             حجوزاتي
