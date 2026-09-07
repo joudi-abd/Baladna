@@ -20,7 +20,7 @@ class UserResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'Users';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
@@ -38,6 +38,11 @@ class UserResource extends Resource
             //
         ];
     }
+
+    public static function canEdit($record): bool
+    {
+        return !$record->is_super_admin || $record->id == auth()->id();
+    }   
 
     public static function getPages(): array
     {

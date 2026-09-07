@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class BookingsTable
@@ -14,39 +15,58 @@ class BookingsTable
     {
         return $table
             ->columns([
-                TextColumn::make('user_id')
-                    ->numeric()
+
+                TextColumn::make('id')
+                    ->label('#')
                     ->sortable(),
-                TextColumn::make('trip_id')
-                    ->numeric()
+
+                TextColumn::make('user.name')
+                    ->label('User')
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('total_price')
-                    ->money()
+
+                TextColumn::make('trip.title')
+                    ->label('Trip')
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('status')
-                    ->badge(),
+
                 TextColumn::make('participants_count')
-                    ->numeric()
+                    ->label('Participants')
                     ->sortable(),
+
+                TextColumn::make('total_price')
+                    ->label('Total Price')
+                    ->numeric(decimalPlaces: 2)
+                    ->sortable(),
+
+                TextColumn::make('status')
+                    ->badge()
+                    ->sortable(),
+
                 TextColumn::make('created_at')
+                    ->label('Booked At')
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
             ])
+
             ->filters([
-                //
+
+                SelectFilter::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'confirmed' => 'Confirmed',
+                        'cancelled' => 'Cancelled',
+                        'completed' => 'Completed',
+                    ]),
+
+                SelectFilter::make('trip')
+                    ->relationship('trip', 'title')
+                    ->searchable()
+                    ->preload(),
+
             ])
+
             ->recordActions([
-                EditAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
             ]);
     }
 }

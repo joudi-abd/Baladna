@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\Categories\Schemas;
+namespace App\Filament\Resources\Features\Schemas;
 
+use Faker\Provider\ar_EG\Text;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
-class CategoryForm
+class FeaturesForm
 {
     public static function configure(Schema $schema): Schema
     {
@@ -15,8 +16,6 @@ class CategoryForm
                     ->required()
                     ->maxLength(255)
                     ->unique(ignoreRecord:true),
-                TextInput::make('icon')
-                    ->maxLength(255),
-            ])->columns(2);
+            ]);
     }
 }

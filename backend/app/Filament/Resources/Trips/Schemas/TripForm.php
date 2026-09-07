@@ -25,6 +25,12 @@ class TripForm
                     ->prefix('$'),
                 DatePicker::make('trip_date')
                     ->required(),
+                Select::make('places')
+                    ->label('Trip Places')
+                    ->relationship('places', 'name')
+                    ->multiple()
+                    ->searchable()
+                    ->preload(),
                 TextInput::make('max_participants')
                     ->required()
                     ->numeric(),
@@ -43,14 +49,7 @@ class TripForm
                     ->label('Meeting Longitude'),
                 FileUpload::make('cover_image')
                     ->image(),
-                TextInput::make('rating_avg')
-                    ->required()
-                    ->numeric()
-                    ->default(0.0),
-                TextInput::make('reviews_count')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
+                
                 Select::make('status')
                     ->options([
             'upcoming' => 'Upcoming',

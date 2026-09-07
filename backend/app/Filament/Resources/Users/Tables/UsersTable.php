@@ -3,12 +3,10 @@
 namespace App\Filament\Resources\Users\Tables;
 
 use App\Models\User;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class UsersTable
@@ -17,46 +15,60 @@ class UsersTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(),
-                TextColumn::make('email_verified_at')
-                    ->dateTime()
+
+                TextColumn::make('id')
+                    ->label('#')
                     ->sortable(),
-                IconColumn::make('is_super_admin')
-                    ->boolean(),
-                TextColumn::make('roles.name')
-                    ->label('Roles')
-                    ->badge()
-                    ->separator(','),
+
+                TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('email')
+                    ->label('Email')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('phone')
                     ->searchable(),
-                TextColumn::make('status')
-                    ->badge(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                // TextColumn::make('updated_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
-            ])
-            ->recordActions([
-                EditAction::make(),
-            
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
 
+                TextColumn::make('roles.name')
+                    ->label('Role')
+                    ->badge()
+                    ->separator(','),
+
+                TextColumn::make('status')
+                    ->badge()
+                    ->sortable(),
+
+                IconColumn::make('is_super_admin')
+                    ->label('Super Admin')
+                    ->boolean()
+                    ->sortable(),
+
+                TextColumn::make('created_at')
+                    ->label('Joined At')
+                    ->dateTime()
+                    ->sortable(),
+            ])
+
+            ->filters([
+
+                SelectFilter::make('status')
+                    ->options([
+                        'active' => 'Active',
+                        'inactive' => 'Inactive',
+                    ]),
+
+                SelectFilter::make('roles')
+                    ->relationship('roles', 'name')
+                    ->label('Role'),
+
+            ])
+
+            ->recordActions([
+                EditAction::make()
+                    ->visible(fn (User $user) => !$user->is_super_admin || $user->id == auth()->id()),
             ]);
-            
     }
 }

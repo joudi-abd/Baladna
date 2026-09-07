@@ -22,9 +22,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Schema::defaultStringLength(191);
-        // if($this->app->environment('local')) {
-        //     \URL::forceScheme('https');
-        // }
         Gate::before(function ($user, $ability) {
             return $user->is_super_admin ? true : null;
         });
