@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { FiImage, FiMapPin, FiHeart } from "react-icons/fi";
+import { FaHeart } from "react-icons/fa6";
 
-function PlaceCard({ place, cities, categories }) {
-  const city = cities.find((item) => item.id === place.city_id);
-  const category = categories.find(
-    (item) => item.id === place.category_id
-  );
+function PlaceCard({ place }) {
+  const [isFavorite, setIsFavorite] = useState(Boolean(place.isFavorite));
 
   return (
     <article className="place-card">
@@ -13,26 +12,28 @@ function PlaceCard({ place, cities, categories }) {
       {/* صورة المكان */}
       <div className="place-card-image">
 
-        <img
-          src={
-            place.cover_image ||
-            "https://via.placeholder.com/600x400"
-          }
-          alt={place.name}
-        />
+        {place.image ? (
+          <img src={place.image} alt={place.name} />
+        ) : (
+          <div className="image-placeholder">
+            <FiImage />
+          </div>
+        )}
 
         {/* المدينة */}
         <span className="place-city-badge">
-          {city?.name || "سوريا"}
+          <FiMapPin /> {place.city}
         </span>
 
         {/* المفضلة */}
         <button
           type="button"
-          className="place-favorite-button"
-          aria-label="إضافة إلى المفضلة"
+          className={`place-favorite-button ${isFavorite ? "active" : ""}`}
+          aria-label={isFavorite ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
+          aria-pressed={isFavorite}
+          onClick={() => setIsFavorite((current) => !current)}
         >
-          ♡
+          {isFavorite ? <FaHeart /> : <FiHeart />}
         </button>
 
       </div>
@@ -44,29 +45,18 @@ function PlaceCard({ place, cities, categories }) {
           {place.name}
         </h3>
 
-        {/* نوع المكان والتقييم */}
-        <div className="place-card-info">
-
-          {category && (
-            <span className="place-category">
-              {category.name}
+        {/* الوسوم */}
+        <div className="place-card-tags">
+          {place.tags.map((tag) => (
+            <span className="place-tag" key={tag}>
+              {tag}
             </span>
-          )}
-
-          <span className="place-rating">
-            ★ {Number(place.rating_avg || 0).toFixed(1)}
-          </span>
-
-          <span className="place-reviews">
-            ({place.reviews_count || 0})
-          </span>
-
+          ))}
         </div>
 
         {/* الوصف */}
         <p className="place-card-description">
-          {place.description ||
-            "اكتشف هذا المكان السياحي واستمتع بتجربة مميزة."}
+          {place.description}
         </p>
 
         {/* عرض التفاصيل */}

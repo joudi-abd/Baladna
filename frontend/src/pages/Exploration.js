@@ -1,118 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
+import { FiSearch } from "react-icons/fi";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ExplorationFilters from "../components/ExplorationFilters";
 import PlaceCard from "../components/PlaceCard";
 import Pagination from "../components/Pagination";
+import { cityOptions, typeOptions, ratingOptions, places } from "../data/explorationMockData";
 import "../styles/Exploration.css";
 
-const API_URL = "http://127.0.0.1:8000/api";
+const PAGE_SIZE = 15;
 
 function Exploration() {
-  const [places, setPlaces] = useState([]);
-  const [cities, setCities] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [features, setFeatures] = useState([]);
-
   const [search, setSearch] = useState("");
+
   const [selectedCity, setSelectedCity] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedFeatures, setSelectedFeatures] = useState([]);
+  const [selectedType, setSelectedType] = useState("");
+  const [selectedRating, setSelectedRating] = useState("");
 
   const [appliedCity, setAppliedCity] = useState("");
-  const [appliedCategory, setAppliedCategory] = useState("");
-  const [appliedFeatures, setAppliedFeatures] = useState([]);
+  const [appliedType, setAppliedType] = useState("");
+  const [appliedRating, setAppliedRating] = useState("");
 
   const [sort, setSort] = useState("rating");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [pagination, setPagination] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const resultsRef = useRef(null);
 
-  useEffect(() => {
-    const loadFilters = async () => {
-      try {
-        const [citiesRes, categoriesRes, featuresRes] = await Promise.all([
-          fetch(`${API_URL}/cities`),
-          fetch(`${API_URL}/categories`),
-          fetch(`${API_URL}/features`),
-        ]);
-
-        if (!citiesRes.ok || !categoriesRes.ok || !featuresRes.ok) {
-          throw new Error("Failed to load filters");
-        }
-
-        const citiesData = await citiesRes.json();
-        const categoriesData = await categoriesRes.json();
-        const featuresData = await featuresRes.json();
-
-        setCities(citiesData.data || []);
-        setCategories(categoriesData.data || []);
-        setFeatures(featuresData.data || []);
-      } catch (err) {
-        console.error(err);
-        setError("حدث خطأ أثناء تحميل خيارات البحث.");
-      }
-    };
-
-    loadFilters();
-  }, []);
-
-  useEffect(() => {
-    const loadPlaces = async () => {
-      try {
-        setLoading(true);
-        setError("");
-
-        const params = new URLSearchParams();
-
-        if (search.trim()) params.append("search", search.trim());
-        if (appliedCity) params.append("city_id", appliedCity);
-        if (appliedCategory) params.append("category_id", appliedCategory);
-
-        appliedFeatures.forEach((id) => {
-          params.append("features[]", id);
-        });
-
-        params.append("sort", sort);
-        params.append("page", currentPage);
-        params.append("per_page", 15);
-
-        const response = await fetch(`${API_URL}/places?${params}`);
-
-        if (!response.ok) {
-          throw new Error("Failed to load places");
-        }
-
-        const data = await response.json();
-
-        setPlaces(data.data || []);
-        setPagination(data.meta || null);
-      } catch (err) {
-        console.error(err);
-        setPlaces([]);
-        setPagination(null);
-        setError("حدث خطأ أثناء تحميل الأماكن.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadPlaces();
-  }, [
-    search,
-    appliedCity,
-    appliedCategory,
-    appliedFeatures,
-    sort,
-    currentPage,
-  ]);
+  const scrollToResults = () => {
+    resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   const applyFilters = () => {
     setAppliedCity(selectedCity);
-    setAppliedCategory(selectedCategory);
-    setAppliedFeatures(selectedFeatures);
+    setAppliedType(selectedType);
+    setAppliedRating(selectedRating);
     setCurrentPage(1);
   };
 
@@ -121,9 +42,50 @@ function Exploration() {
     setCurrentPage(1);
   };
 
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+    setCurrentPage(1);
+  };
+
+  const filteredPlaces = useMemo(() => {
+    let result = places.filter((place) => {
+      const matchesSearch =
+        !search.trim() ||
+        place.name.includes(search.trim()) ||
+        place.city.includes(search.trim());
+
+      const matchesCity = !appliedCity || place.city === appliedCity;
+      const matchesType = !appliedType || place.type === appliedType;
+      const matchesRating =
+        !appliedRating || place.rating >= Number(appliedRating);
+
+      return matchesSearch && matchesCity && matchesType && matchesRating;
+    });
+
+    result = [...result].sort((a, b) => {
+      if (sort === "name") {
+        return a.name.localeCompare(b.name, "ar");
+      }
+
+      return b.rating - a.rating;
+    });
+
+    return result;
+  }, [search, appliedCity, appliedType, appliedRating, sort]);
+
+  const lastPage = Math.max(1, Math.ceil(filteredPlaces.length / PAGE_SIZE));
+
+  const visiblePlaces = filteredPlaces.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+
   return (
     <div className="exploration-page">
       <Header />
+
+      <div className="exploration-decoration exploration-decoration-right" aria-hidden="true"></div>
+      <div className="exploration-decoration exploration-decoration-left" aria-hidden="true"></div>
 
       <section className="exploration-hero">
         <div className="exploration-hero-overlay">
@@ -139,14 +101,11 @@ function Exploration() {
                 type="text"
                 placeholder="ابحث عن مكان، مدينة أو تجربة.."
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={handleSearchChange}
               />
 
-              <button
-                type="button"
-                onClick={() => setCurrentPage(1)}
-              >
-                🔍
+              <button type="button" aria-label="بحث" onClick={scrollToResults}>
+                <FiSearch />
               </button>
             </div>
           </div>
@@ -154,19 +113,19 @@ function Exploration() {
       </section>
 
       <ExplorationFilters
-        cities={cities}
-        categories={categories}
-        features={features}
+        cities={cityOptions}
+        types={typeOptions}
+        ratingOptions={ratingOptions}
         selectedCity={selectedCity}
-        selectedCategory={selectedCategory}
-        selectedFeatures={selectedFeatures}
+        selectedType={selectedType}
+        selectedRating={selectedRating}
         onCityChange={setSelectedCity}
-        onCategoryChange={setSelectedCategory}
-        onFeaturesChange={setSelectedFeatures}
+        onTypeChange={setSelectedType}
+        onRatingChange={setSelectedRating}
         onApplyFilters={applyFilters}
       />
 
-      <main className="exploration-content">
+      <main className="exploration-content" ref={resultsRef}>
         <div className="exploration-heading">
           <div>
             <h2>أماكن مميزة</h2>
@@ -185,38 +144,23 @@ function Exploration() {
           </div>
         </div>
 
-        {loading ? (
-          <div className="exploration-message">
-            جاري تحميل الأماكن...
-          </div>
-        ) : error ? (
-          <div className="exploration-message exploration-error">
-            {error}
-          </div>
-        ) : places.length === 0 ? (
+        {visiblePlaces.length === 0 ? (
           <div className="exploration-message">
             لا توجد أماكن تطابق خيارات البحث.
           </div>
         ) : (
           <div className="exploration-grid">
-            {places.map((place) => (
-              <PlaceCard
-                key={place.id}
-                place={place}
-                cities={cities}
-                categories={categories}
-              />
+            {visiblePlaces.map((place) => (
+              <PlaceCard key={place.id} place={place} />
             ))}
           </div>
         )}
 
-        {!loading && pagination?.last_page > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            lastPage={pagination.last_page}
-            onPageChange={setCurrentPage}
-          />
-        )}
+        <Pagination
+          currentPage={currentPage}
+          lastPage={lastPage}
+          onPageChange={setCurrentPage}
+        />
       </main>
 
       <Footer />

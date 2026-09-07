@@ -92,28 +92,26 @@
 }
 
 .book-trip-btn {
-  border: none;
-  background: #e7f3ee;
+  background: #fff;
   color: #2d8064;
 
-  padding: 12px 22px;
-  border-radius: 7px;
+  border: 1px solid #2d8064;
+  padding: 11px 22px;
+  border-radius: 24px;
   font-weight: 600;
 }
 
 .book-trip-btn:hover {
-  background: #d8ebe4;
+  background: #e7f3ee;
 }
 
 .login-btn {
   background: #fff;
   color: #444;
 
-  border: 1px solid #eee;
-  padding: 12px 22px;
-  border-radius: 7px;
-
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+  border: 1px solid #e2e2e2;
+  padding: 11px 22px;
+  border-radius: 24px;
 }
 
 .login-btn:hover {

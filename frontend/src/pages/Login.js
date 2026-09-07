@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "../styles/login.css";
 import travel from "../assets/travel.jpg";
-import logo from "../assets/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
 import {
 	HiOutlineMail,
@@ -17,15 +17,13 @@ import {
 import {
 	FaFacebookF,
 	FaApple,
-	FaPlane,
-  
 } from "react-icons/fa";
 
 import { FcGoogle } from "react-icons/fc";
 
 function Login() {
-	const [email, setEmail] = useState("example@gmail.com");
-	const [password, setPassword] = useState("password");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 	
 	const navigate = useNavigate();
 	
@@ -67,8 +65,11 @@ function Login() {
 	};
 	
 	return (
+		<>
+		<Header />
+
 		<div className="login-page">
-		
+
 		{/* ================= LEFT SIDE ================= */}
       <section className="image-side">
         <img src={travel} alt="Travel" />
@@ -91,14 +92,6 @@ function Login() {
 
       {/* ================= RIGHT SIDE ================= */}
       <section className="form-side">
-        {/* NAVBAR */}
-        <div className="right-navbar">
-          <Link to="/home" className="home-nav-link">
-            <img src={logo} alt="Baladna" />
-            <span className="navbar-divider" />
-            <span>الرئيسية</span>
-          </Link>
-        </div>
         {/* DECORATIVE PLANE */}
         <div className="plane-decoration">
           <div className="plane-path" />
@@ -125,7 +118,8 @@ function Login() {
               <div className="input-content">
                 <input
                 type="email"
-                placeholder={email}
+                placeholder="example@gmail.com"
+                value={email}
                 onChange={(e) =>
                   setEmail(e.target.value)
                 }
@@ -142,7 +136,8 @@ function Login() {
               <div className="input-content">
                 <input
                 type="password"
-                placeholder={password}
+                placeholder="********"
+                value={password}
                 onChange={(e) =>
                   setPassword(e.target.value)
                 }
@@ -171,11 +166,13 @@ function Login() {
             <span />
           </div>
           {/* SOCIAL */}
+          {/* تسجيل الدخول عبر هذه المزودات يتطلب تهيئة OAuth حقيقية من الخلفية، غير متاحة بعد */}
           <div className="social-login">
             <button
             type="button"
             className="social-button"
             aria-label="Google"
+            onClick={() => alert("تسجيل الدخول عبر Google غير متاح حالياً")}
             >
             <FcGoogle />
             </button>
@@ -183,6 +180,7 @@ function Login() {
             type="button"
             className="social-button facebook"
             aria-label="Facebook"
+            onClick={() => alert("تسجيل الدخول عبر Facebook غير متاح حالياً")}
             >
             <FaFacebookF />
             </button>
@@ -190,6 +188,7 @@ function Login() {
             type="button"
             className="social-button apple"
             aria-label="Apple"
+            onClick={() => alert("تسجيل الدخول عبر Apple غير متاح حالياً")}
             >
             <FaApple />
             </button>
@@ -198,7 +197,7 @@ function Login() {
           {/* REGISTER */}
           <p className="register-text">
           لا تملك حساب مسبقاً؟
-            <Link to="/register">
+            <Link to="/Register">
             إنشاء حساب
             </Link>
           </p>
@@ -206,6 +205,7 @@ function Login() {
         </div>
       </section>
 		</div>
+		</>
 	);
 }
 

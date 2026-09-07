@@ -1,0 +1,566 @@
+/* =========================================
+   TRIP DETAILS PAGE
+========================================= */
+
+.trip-details-page {
+  width: 100%;
+  direction: rtl;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background: #f5faf8;
+}
+
+.trip-details-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 35px 40px;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.trip-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 25px 40px 45px;
+
+  background: linear-gradient(135deg, #16302a 0%, #1f4a3d 55%, #2d7d5d 100%);
+  color: #fff;
+}
+
+.trip-hero-decoration {
+  position: absolute;
+  top: -160px;
+  left: -160px;
+  width: 340px;
+  height: 340px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 30px rgba(255, 255, 255, 0.035),
+    0 0 0 60px rgba(255, 255, 255, 0.025),
+    0 0 0 90px rgba(255, 255, 255, 0.015);
+  pointer-events: none;
+}
+
+.trip-hero .trip-hero-breadcrumb {
+  position: relative;
+  z-index: 1;
+  margin-bottom: auto;
+}
+
+.trip-hero .trip-hero-breadcrumb > a:first-child {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.trip-hero .trip-hero-breadcrumb > a:first-child:hover {
+  color: #fff;
+}
+
+.trip-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.trip-hero-content h1 {
+  margin: 0 0 10px;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.trip-hero-content p {
+  margin: 0 0 16px;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.trip-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.trip-hero-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.trip-hero-meta-divider {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+
+/* =========================================
+   INTRO
+========================================= */
+
+.trip-intro-section h2 {
+  margin: 0 0 16px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #24483f;
+}
+
+.trip-intro-section p {
+  margin: 0;
+  max-width: 1000px;
+  line-height: 2;
+  color: #666;
+  font-size: 15px;
+}
+
+
+/* =========================================
+   SUMMARY CARDS
+========================================= */
+
+.trip-summary-section {
+  padding-top: 5px;
+}
+
+.trip-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.trip-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 22px 20px;
+
+  background: #fff;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.trip-stat-icon {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f2f7f5;
+  border-radius: 50%;
+
+  color: #2f806c;
+  font-size: 20px;
+}
+
+.trip-stat-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.trip-stat-label {
+  color: #8a958f;
+  font-size: 12px;
+}
+
+.trip-stat-value {
+  color: #24483f;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+
+/* =========================================
+   ITINERARY + MEETING POINT
+========================================= */
+
+.trip-plan-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 25px;
+  align-items: start;
+}
+
+.itinerary-panel,
+.meeting-panel {
+  background: #fff;
+  border: 1px solid #eeeeee;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.itinerary-panel h2,
+.meeting-panel h2 {
+  margin: 0 0 20px;
+  font-size: 19px;
+  font-weight: 700;
+  color: #24483f;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.itinerary-body {
+  display: flex;
+  gap: 16px;
+}
+
+.itinerary-thumbnails {
+  flex-shrink: 0;
+  width: 62px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.itinerary-thumbnail {
+  width: 62px;
+  height: 48px;
+  border-radius: 8px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(135deg, #eef5f1 0%, #dce9e2 100%);
+  color: #8fb3a2;
+  font-size: 16px;
+}
+
+.itinerary-list {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.itinerary-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  padding-right: 20px;
+  padding-bottom: 20px;
+
+  border-right: 2px solid #e2ece7;
+}
+
+.itinerary-item:last-child {
+  padding-bottom: 0;
+  border-right-color: transparent;
+}
+
+.itinerary-dot {
+  position: absolute;
+  right: -6px;
+  top: 2px;
+
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2f806c;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #2f806c;
+}
+
+.itinerary-item-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.itinerary-title {
+  color: #24483f;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.itinerary-description {
+  color: #8a958f;
+  font-size: 12px;
+}
+
+.itinerary-time {
+  flex-shrink: 0;
+  color: #2f806c;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+
+/* Meeting point */
+
+.meeting-point-name {
+  margin: 0 0 6px;
+  color: #24483f;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.meeting-point-time {
+  margin: 0 0 18px;
+  color: #8a958f;
+  font-size: 13px;
+}
+
+.btn-view-map {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 42px;
+  margin-bottom: 18px;
+
+  background: #f2f7f5;
+  border-radius: 8px;
+
+  color: #2f806c;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition: 0.2s;
+}
+
+.btn-view-map:hover {
+  background: #2f806c;
+  color: #fff;
+}
+
+.trip-map-placeholder {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #eaf1ee;
+}
+
+.trip-map-road {
+  position: absolute;
+  background: #fff;
+}
+
+.trip-map-road-h {
+  left: 0;
+  right: 0;
+  top: 45%;
+  height: 10px;
+}
+
+.trip-map-road-v {
+  top: 0;
+  bottom: 0;
+  right: 35%;
+  width: 10px;
+}
+
+.trip-map-block {
+  position: absolute;
+  border-radius: 6px;
+}
+
+.trip-map-block-1 {
+  top: 12px;
+  left: 12px;
+  width: 70px;
+  height: 45px;
+  background: #d5e8db;
+}
+
+.trip-map-block-2 {
+  bottom: 16px;
+  left: 40px;
+  width: 55px;
+  height: 55px;
+  background: #cfe1f0;
+}
+
+.trip-map-block-3 {
+  bottom: 14px;
+  right: 14px;
+  width: 60px;
+  height: 40px;
+  background: #d5e8db;
+}
+
+.trip-map-marker {
+  position: absolute;
+  top: 40%;
+  right: 30%;
+  transform: translate(50%, -50%);
+
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #2f806c;
+  color: #fff;
+  border-radius: 50% 50% 50% 0;
+  transform: translate(50%, -50%) rotate(-45deg);
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.trip-map-marker svg {
+  transform: rotate(45deg);
+}
+
+.trip-map-label {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: rgba(255, 255, 255, 0.92);
+  padding: 4px 12px;
+  border-radius: 12px;
+
+  color: #24483f;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   CTA
+========================================= */
+
+.trip-cta-section {
+  max-width: 700px;
+  margin: 20px auto 60px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.trip-cta-section p {
+  margin: 0 0 22px;
+  color: #24483f;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.btn-book-trip-cta {
+  width: 100%;
+  max-width: 420px;
+  height: 54px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #2f806c;
+  color: #fff;
+  text-decoration: none;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-book-trip-cta:hover {
+  background: #245f51;
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.trip-details-error {
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  text-align: center;
+  direction: rtl;
+}
+
+.trip-details-error h2 {
+  color: #24483f;
+}
+
+.trip-details-error a {
+  color: #2f806c;
+  text-decoration: none;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1000px) {
+
+  .trip-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .trip-plan-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+
+  .trip-details-section {
+    padding: 25px 18px;
+  }
+
+  .trip-hero {
+    min-height: 320px;
+    padding: 20px 18px 30px;
+  }
+
+  .trip-hero-content h1 {
+    font-size: 26px;
+  }
+
+  .trip-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .itinerary-body {
+    flex-direction: column;
+  }
+
+  .itinerary-thumbnails {
+    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+  }
+}

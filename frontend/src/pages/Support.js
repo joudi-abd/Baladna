@@ -1,11 +1,42 @@
+import { useMemo, useState } from "react";
 import "../styles/support.css";
 import travel from "../assets/travel.jpg";
-import logo from "../assets/Logo.png";
 import { Link } from "react-router-dom";
 import { FaSearch, FaEnvelope, FaPhone } from "react-icons/fa";
+import Header from "../components/Header";
+
+const FAQ_ITEMS = [
+  {
+    question: "كيف أحجز رحلة؟",
+    answer: "اختر الوجهة والتاريخ ثم اضغط حجز.",
+  },
+  {
+    question: "نسيت كلمة المرور؟",
+    answer: "اضغط على نسيت كلمة المرور واتبع الخطوات.",
+  },
+  {
+    question: "كيف ألغي الحجز؟",
+    answer: "من صفحة الحجوزات يمكنك الإلغاء بسهولة.",
+  },
+];
 
 function Support() {
+  const [search, setSearch] = useState("");
+
+  const filteredFaq = useMemo(() => {
+    const query = search.trim();
+
+    if (!query) return FAQ_ITEMS;
+
+    return FAQ_ITEMS.filter(
+      (item) => item.question.includes(query) || item.answer.includes(query)
+    );
+  }, [search]);
+
   return (
+    <>
+    <Header />
+
     <div className="support-page">
 
       {/* IMAGE SIDE */}
@@ -14,7 +45,7 @@ function Support() {
 
         <div className="overlay">
           <div className="links">
-            
+
              <Link to="/PrivacyPolicy">سياسة الخصوصية</Link>
           </div>
         </div>
@@ -22,15 +53,6 @@ function Support() {
 
       {/* FORM SIDE */}
       <div className="form-side">
-
-        {/* HOME / LOGO */}
-        <div className="home-link">
-          <Link to="/home" className="home-link-content">
-  <span>الرئيسية</span>
-  <span className="divider"></span>
-  <img src={logo} alt="logo"/>
-</Link>
-        </div>
 
         <div className="support-box">
 
@@ -40,47 +62,49 @@ function Support() {
           {/* SEARCH */}
           <div className="search-box">
             <FaSearch />
-            <input type="text" placeholder="ابحث عن مشكلة..." />
+            <input
+              type="text"
+              placeholder="ابحث عن مشكلة..."
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+            />
           </div>
 
           {/* FAQ */}
           <div className="faq">
 
-            <div className="faq-item">
-              <h3>كيف أحجز رحلة؟</h3>
-              <p>اختر الوجهة والتاريخ ثم اضغط حجز.</p>
-            </div>
-
-            <div className="faq-item">
-              <h3>نسيت كلمة المرور؟</h3>
-              <p>اضغط على نسيت كلمة المرور واتبع الخطوات.</p>
-            </div>
-
-            <div className="faq-item">
-              <h3>كيف ألغي الحجز؟</h3>
-              <p>من صفحة الحجوزات يمكنك الإلغاء بسهولة.</p>
-            </div>
+            {filteredFaq.length === 0 ? (
+              <p className="faq-empty">لا توجد نتائج مطابقة لبحثك.</p>
+            ) : (
+              filteredFaq.map((item) => (
+                <div className="faq-item" key={item.question}>
+                  <h3>{item.question}</h3>
+                  <p>{item.answer}</p>
+                </div>
+              ))
+            )}
 
           </div>
 
           {/* CONTACT */}
           <div className="contact">
 
-            <div className="contact-card">
+            <a className="contact-card" href="mailto:support@example.com">
               <FaEnvelope />
               <p>support@example.com</p>
-            </div>
+            </a>
 
-            <div className="contact-card">
+            <a className="contact-card" href="tel:+90xxxxxxxxxx">
               <FaPhone />
               <p>+90 xxx xxx xxxx</p>
-            </div>
+            </a>
 
           </div>
 
         </div>
       </div>
     </div>
+    </>
   );
 }
 

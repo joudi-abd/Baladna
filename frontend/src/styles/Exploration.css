@@ -1,8 +1,34 @@
 .exploration-page {
   min-height: 100vh;
-  background: #f6f8f7;
+  position: relative;
+  overflow: hidden;
+  background: #f5faf8;
   direction: rtl;
   color: #26332f;
+}
+
+.exploration-decoration {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border: 1px solid rgba(45, 125, 93, 0.08);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 30px rgba(45, 125, 93, 0.035),
+    0 0 0 60px rgba(45, 125, 93, 0.025),
+    0 0 0 90px rgba(45, 125, 93, 0.015);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.exploration-decoration-right {
+  top: 250px;
+  right: -160px;
+}
+
+.exploration-decoration-left {
+  bottom: 120px;
+  left: -180px;
 }
 
 /* ================= HERO ================= */
@@ -10,11 +36,8 @@
 .exploration-hero {
   height: 330px;
   position: relative;
-  background:
-    linear-gradient(rgba(25, 45, 38, 0.5), rgba(25, 45, 38, 0.5)),
-    url("https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1600&q=80");
-  background-size: cover;
-  background-position: center;
+  z-index: 1;
+  background: linear-gradient(135deg, #16302a 0%, #1f4a3d 55%, #2d7d5d 100%);
 }
 
 .exploration-hero-overlay {
@@ -137,7 +160,7 @@
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
 
   display: grid;
-  grid-template-columns: 1fr 1fr 1.3fr auto;
+  grid-template-columns: 1fr 1fr 1fr auto;
   gap: 16px;
   align-items: end;
 }
@@ -176,40 +199,6 @@
 
 .filter-item select:focus {
   border-color: #378369;
-}
-
-/* ================= FEATURES ================= */
-
-.features-options {
-  height: 40px;
-
-  padding: 5px 8px;
-
-  border: 1px solid #e0e7e4;
-  border-radius: 5px;
-
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.feature-option {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-
-  color: #66716d;
-  font-size: 10px;
-
-  cursor: pointer;
-}
-
-.feature-option input {
-  margin: 0;
-  accent-color: #378369;
 }
 
 /* ================= APPLY BUTTON ================= */
@@ -368,7 +357,11 @@
   top: 10px;
   right: 10px;
 
-  padding: 5px 9px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 5px 10px;
 
   background: rgba(255, 255, 255, 0.94);
 
@@ -376,7 +369,7 @@
 
   color: #378369;
 
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
 }
 
@@ -411,6 +404,15 @@
   color: #fff;
 }
 
+.place-favorite-button.active {
+  color: #c0392b;
+}
+
+.place-favorite-button.active:hover {
+  background: #c0392b;
+  color: #fff;
+}
+
 /* Card Content */
 
 .place-card-content {
@@ -426,32 +428,12 @@
   color: #26322e;
 }
 
-.place-card-info {
+.place-card-tags {
   display: flex;
-  align-items: center;
-  gap: 7px;
+  flex-wrap: wrap;
+  gap: 6px;
 
-  margin-bottom: 9px;
-
-  font-size: 10px;
-}
-
-.place-category {
-  padding: 3px 7px;
-
-  background: #edf6f2;
-  border-radius: 12px;
-
-  color: #378369;
-}
-
-.place-rating {
-  color: #d39a36;
-  font-weight: 600;
-}
-
-.place-reviews {
-  color: #9ba5a1;
+  margin-bottom: 10px;
 }
 
 .place-card-description {

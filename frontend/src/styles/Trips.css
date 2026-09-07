@@ -17,9 +17,35 @@
 .trips-page-container {
   direction: rtl;
   min-height: 100vh;
+  position: relative;
+  overflow: hidden;
   background: var(--bg);
   color: var(--text-dark);
   font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+.trips-decoration {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border: 1px solid rgba(45, 125, 93, 0.08);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 30px rgba(45, 125, 93, 0.035),
+    0 0 0 60px rgba(45, 125, 93, 0.025),
+    0 0 0 90px rgba(45, 125, 93, 0.015);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.trips-decoration-right {
+  top: 420px;
+  right: -160px;
+}
+
+.trips-decoration-left {
+  bottom: 140px;
+  left: -180px;
 }
 
 
@@ -29,10 +55,9 @@
 
 .trips-hero {
   min-height: 390px;
-  background:
-    linear-gradient(rgba(0, 0, 0, .42), rgba(0, 0, 0, .42)),
-    url("https://via.placeholder.com/1920x500")
-    center / cover no-repeat;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, #16302a 0%, #1f4a3d 55%, #2d7d5d 100%);
 
   color: var(--white);
   text-align: center;
@@ -390,6 +415,11 @@
   margin-bottom: 13px;
 }
 
+.trip-details-grid-listing {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px 12px;
+}
+
 .detail-item {
   display: flex;
   align-items: center;
@@ -448,10 +478,16 @@
 
   height: 38px;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 5px;
 
   cursor: pointer;
+  text-decoration: none;
 
+  font-family: inherit;
   font-size: 12px;
   font-weight: 600;
 

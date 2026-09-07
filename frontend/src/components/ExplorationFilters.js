@@ -2,26 +2,16 @@ import React from "react";
 
 function ExplorationFilters({
   cities,
-  categories,
-  features,
+  types,
+  ratingOptions,
   selectedCity,
-  selectedCategory,
-  selectedFeatures,
+  selectedType,
+  selectedRating,
   onCityChange,
-  onCategoryChange,
-  onFeaturesChange,
+  onTypeChange,
+  onRatingChange,
   onApplyFilters,
 }) {
-  const handleFeatureChange = (featureId) => {
-    if (selectedFeatures.includes(featureId)) {
-      onFeaturesChange(
-        selectedFeatures.filter((id) => id !== featureId)
-      );
-    } else {
-      onFeaturesChange([...selectedFeatures, featureId]);
-    }
-  };
-
   return (
     <section className="exploration-filters">
 
@@ -35,8 +25,8 @@ function ExplorationFilters({
           <option value="">اختر مدينة</option>
 
           {cities.map((city) => (
-            <option key={city.id} value={city.id}>
-              {city.name}
+            <option key={city} value={city}>
+              {city}
             </option>
           ))}
         </select>
@@ -47,16 +37,14 @@ function ExplorationFilters({
         <label>نوع المكان</label>
 
         <select
-          value={selectedCategory}
-          onChange={(event) =>
-            onCategoryChange(event.target.value)
-          }
+          value={selectedType}
+          onChange={(event) => onTypeChange(event.target.value)}
         >
           <option value="">اختر نوع</option>
 
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
+          {types.map((type) => (
+            <option key={type} value={type}>
+              {type}
             </option>
           ))}
         </select>
@@ -64,26 +52,20 @@ function ExplorationFilters({
 
 
       <div className="filter-item">
-        <label>الميزات</label>
+        <label>التقييم</label>
 
-        <div className="features-options">
-          {features.map((feature) => (
-            <label
-              key={feature.id}
-              className="feature-option"
-            >
-              <input
-                type="checkbox"
-                checked={selectedFeatures.includes(feature.id)}
-                onChange={() =>
-                  handleFeatureChange(feature.id)
-                }
-              />
+        <select
+          value={selectedRating}
+          onChange={(event) => onRatingChange(event.target.value)}
+        >
+          <option value="">اختر تقييم</option>
 
-              <span>{feature.name}</span>
-            </label>
+          {ratingOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
           ))}
-        </div>
+        </select>
       </div>
 
 
