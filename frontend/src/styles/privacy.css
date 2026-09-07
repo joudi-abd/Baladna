@@ -6,7 +6,7 @@
   min-height: calc(100vh - 90px);
   display: flex;
   flex-direction: row; /* ❌ احذف row-reverse */
-  font-family: Arial, sans-serif;
+  font-family: "Tajawal", "Segoe UI", Tahoma, sans-serif;
 }
 
 /* IMAGE SIDE */

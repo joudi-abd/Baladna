@@ -99,7 +99,6 @@ function Register() {
 
   return (
     <>
-    <Header />
 
     <div className="register-page">
 

@@ -6,7 +6,7 @@
   direction: rtl;
   background: #fff;
   color: #1b4332;
-  font-family: "Tajawal", "Segoe UI", Tahoma, sans-serif;
+  font-family: inherit;
 }
 
 .home-page * {

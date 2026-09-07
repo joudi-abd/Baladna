@@ -12,7 +12,8 @@ min-height: 100%;
 }
 
 body {
-	font-family: Arial, sans-serif;
+  font-family: "Tajawal", "Segoe UI", Tahoma, sans-serif;
+
 }
 
 
@@ -22,7 +23,7 @@ body {
 
 .login-page {
 	width: 100%;
-	min-height: calc(100vh - 90px);
+	min-height: 100vh;
 
 	display: flex;
 	flex-direction: row;
