@@ -14,6 +14,7 @@ import TripDetails from "./pages/TripDetails";
 import BookingConfirmation from "./pages/BookingConfirmation";
 import Payment from "./pages/Payment";
 import ComingSoon from "./pages/ComingSoon";
+import BookingSuccess from "./pages/BookingSuccess";
 
 function App() {
   return (
@@ -42,6 +43,9 @@ function App() {
         <Route path="/about" element={<ComingSoon title="من نحن" />} />
         <Route path="/terms" element={<ComingSoon title="الشروط والأحكام" />} />
         <Route path="/forgot-password" element={<ComingSoon title="استعادة كلمة المرور" />} />
+
+        <Route path="/booking-success" element={<BookingSuccess />}/>    
+      
       </Routes>
 
     </BrowserRouter>

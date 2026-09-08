@@ -2,12 +2,13 @@ import { useState } from "react";
 import "../styles/login.css";
 import travel from "../assets/travel.jpg";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "../components/Header";
 
 import {
 	HiOutlineMail,
 	HiOutlineLockClosed,
 } from "react-icons/hi";
+
+import { apiRequest } from "../api/api";
 
 import {
 	IoGlobeOutline,
@@ -31,22 +32,16 @@ function Login() {
 		e.preventDefault();
 		
 		try {
-			const response = await fetch("http://127.0.0.1:8000/api/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Accept: "application/json",
-				},
-				body: JSON.stringify({
-					email: email,
-					password: password,
-				}),
-			});
+			const response = await apiRequest("/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
 			
-			const data = await response.json();
-			
-			console.log(data);
-			
+			const data = await response.data;
+						
 			if (response.ok && (data.success === true || data.token)) {
 				localStorage.setItem("token", data.token);
 				localStorage.setItem("user", JSON.stringify(data.user));

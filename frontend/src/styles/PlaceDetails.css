@@ -1,397 +1,518 @@
-/* =========================================
-   PLACE DETAILS PAGE
-========================================= */
+/* ==========================================================
+   PAGE
+========================================================== */
 
 .place-details-page {
-  width: 100%;
-  max-width: 1200px;
+  width: min(1180px, calc(100% - 80px));
   margin: 0 auto;
-  padding: 35px 40px 80px;
-  box-sizing: border-box;
-  direction: rtl;
-  font-family: "Tajawal", "Segoe UI", Tahoma, sans-serif;
-  color: #333;
+  padding: 25px 0 80px;
+  color: #1e2c29;
 }
 
-
-/* =========================================
+/* ==========================================================
    BREADCRUMB
-========================================= */
+========================================================== */
 
-.breadcrumb {
+.place-breadcrumb {
   display: flex;
-  align-items: center;
   justify-content: flex-start;
+  align-items: center;
   gap: 10px;
-  margin-bottom: 30px;
-  font-size: 14px;
-}
 
-.breadcrumb > a:first-child {
-  color: #777;
-  text-decoration: none;
-}
+  margin-bottom: 18px;
 
-.breadcrumb > a:first-child:hover {
-  color: #2f806c;
-}
-
-.breadcrumb-pill {
-  padding: 8px 18px;
-  border-radius: 20px;
-  border: 1px solid #dfe6e3;
-  background: #fff;
-  color: #46534f;
   font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: 0.2s;
+  color: #8a9793;
 }
 
-a.breadcrumb-pill:hover {
-  border-color: #2f806c;
-  color: #2f806c;
+.place-breadcrumb strong {
+  color: #3b806b;
 }
 
-.breadcrumb-pill-active {
-  border-color: #2f806c;
-  background: #2f806c;
-  color: #fff;
-}
-
-
-/* =========================================
+/* ==========================================================
    GALLERY
-========================================= */
+========================================================== */
 
 .place-gallery {
-  width: 100%;
-  display: flex;
-  align-items: stretch;
-  gap: 15px;
-  margin-bottom: 35px;
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 14px;
+
+  direction: ltr;
+
+  margin-bottom: 10px;
 }
 
-.main-place-image {
-  flex: 1;
-  height: 430px;
+.gallery-main {
+  height: 390px;
   overflow: hidden;
-  border-radius: 12px;
+
+  border-radius: 8px;
+
+  background: #e9efed;
 }
 
-.main-place-image img {
+.gallery-main img {
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+
   display: block;
 }
 
-.gallery-thumbnails {
-  width: 190px;
-  flex-shrink: 0;
+.gallery-side {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
 }
 
-.gallery-thumbnail {
-  flex: 1;
+.gallery-small-image {
+  position: relative;
+
   width: 100%;
+  height: 188px;
 
   padding: 0;
-  margin: 0;
-  border: none;
+  border: 0;
 
-  position: relative;
   overflow: hidden;
-  border-radius: 10px;
+
+  border-radius: 8px;
 
   cursor: pointer;
+
+  background: #e9efed;
 }
 
-.gallery-thumbnail img {
+.gallery-small-image img {
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+
   display: block;
+
+  transition: transform 0.3s ease;
+}
+
+.gallery-small-image:hover img {
+  transform: scale(1.04);
 }
 
 .more-images {
   position: absolute;
+
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  color: white;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-}
 
+  background: rgba(0, 0, 0, 0.45);
 
-/* =========================================
-   PLACE INFO
-========================================= */
+  color: white;
 
-.place-info {
-  padding: 10px 0 5px;
-}
-
-.place-info h1 {
-  margin: 0;
-  font-size: 32px;
+  font-size: 18px;
   font-weight: 700;
-  color: #24483f;
 }
 
+/* ==========================================================
+   MAIN INFO
+========================================================== */
 
-/* =========================================
+.place-main-info {
+  padding: 0 5px;
+}
+
+.place-title-row {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-top: 8px;
+}
+
+.place-title-row h1 {
+  margin: 0 0 10px;
+
+  font-size: 30px;
+  font-weight: 800;
+
+  color: #182925;
+}
+
+.place-location {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  color: #71817c;
+
+  font-size: 14px;
+}
+
+.place-location svg {
+  color: #3b806b;
+}
+
+.place-rating {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  padding-top: 8px;
+
+  white-space: nowrap;
+}
+
+.place-rating svg {
+  color: #f4b400;
+
+  fill: #f4b400;
+}
+
+.place-rating strong {
+  font-size: 17px;
+}
+
+.place-rating span {
+  color: #87928f;
+
+  font-size: 13px;
+}
+
+/* ==========================================================
    DESCRIPTION
-========================================= */
+========================================================== */
 
-.place-description-section {
-  padding: 35px 0;
+.place-description {
+  margin-top: 10px;
+
+  line-height: 1.9;
+
+  color: #6f7976;
+
+  font-size: 14px;
+
+  text-align: right;
 }
 
-.place-description-section h2,
-.place-features-section h2,
-.details-section h2 {
-  margin: 0 0 20px;
-  color: #24483f;
-  font-size: 23px;
-  font-weight: 700;
+.place-description p {
+  margin: 0 0 8px;
 }
 
-.place-description-section p {
-  margin: 0 0 16px;
-  line-height: 2;
-  color: #666;
-  font-size: 15px;
-  max-width: 1000px;
-}
-
-.place-description-section p:last-child {
-  margin-bottom: 0;
-}
-
-
-/* =========================================
+/* ==========================================================
    FEATURES
-========================================= */
+========================================================== */
 
 .place-features-section {
-  padding: 5px 0 35px;
+  margin-top: 28px;
+
+  padding-top: 5px;
+}
+
+.place-features-section h2 {
+  margin: 0 0 22px;
+
+  font-size: 22px;
+
+  color: #263632;
 }
 
 .features-list {
   display: flex;
+
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 70px;
+
   flex-wrap: wrap;
-  gap: 12px;
+
+  border-bottom: 1px solid #edf1ef;
+
+  padding-bottom: 28px;
 }
 
 .feature-item {
   display: flex;
+
   align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background: #f2f7f5;
-  border-radius: 7px;
-  color: #41685e;
-  font-size: 14px;
+
+  gap: 9px;
+
+  color: #687571;
+
+  font-size: 13px;
 }
 
-.feature-item svg {
-  color: #2f806c;
-  font-size: 17px;
-  flex-shrink: 0;
+.feature-icon {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  color: #3c806b;
 }
 
+.feature-icon svg {
+  width: 20px;
+  height: 20px;
+}
 
-/* =========================================
+/* ==========================================================
    SECTIONS
-========================================= */
+========================================================== */
 
 .details-section {
-  padding: 35px 0;
-  border-top: 1px solid #eeeeee;
+  margin-top: 58px;
+}
+
+.section-header {
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 25px;
 }
 
 .section-header h2 {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
+
+  font-size: 27px;
+
+  font-weight: 800;
+
+  color: #1e2d29;
 }
 
 .section-subtitle {
   margin: 0;
-  color: #8a958f;
+
+  color: #87928f;
+
   font-size: 13px;
+
+  line-height: 1.8;
 }
-
-.section-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 25px;
-}
-
-
-/* =========================================
-   ARROWS
-========================================= */
-
-.section-navigation {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  direction: ltr;
-}
-
-.section-arrow {
-  width: 38px;
-  height: 38px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  color: #2f806c;
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.section-arrow:hover:not(:disabled) {
-  color: #245f51;
-}
-
-.section-arrow:disabled {
-  color: #d0d0d0;
-  cursor: default;
-}
-
-
-/* =========================================
-   CARDS CONTAINER
-========================================= */
 
 .cards-container {
-  width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
 }
 
+/* ==========================================================
+   REVIEWS
+========================================================== */
 
-.featured-section {
-  padding-bottom: 10px;
+.reviews-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
 }
 
-
-/* =========================================
-   EMPTY / LOADING / ERROR
-========================================= */
+/* ==========================================================
+   EMPTY
+========================================================== */
 
 .empty-section {
-  text-align: center;
-  color: #888;
-  padding: 35px 0;
-  font-size: 15px;
-}
+  min-height: 130px;
 
-.place-details-loading,
-.place-details-error {
-  min-height: 500px;
   display: flex;
-  flex-direction: column;
+
   align-items: center;
   justify-content: center;
+
+  margin: 0;
+
+  color: #8b9692;
+
+  background: #f7faf9;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+}
+
+/* ==========================================================
+   LOADING
+========================================================== */
+
+.loading-section {
+  min-height: 60vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 15px;
+
+  color: #687571;
+}
+
+.loading-spinner {
+  width: 35px;
+  height: 35px;
+
+  border: 3px solid #dce9e4;
+
+  border-top-color: #3d806c;
+
+  border-radius: 50%;
+
+  animation: placeSpin 0.8s linear infinite;
+}
+
+@keyframes placeSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================
+   ERROR
+========================================================== */
+
+.error-section {
+  min-height: 60vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
   text-align: center;
-  direction: rtl;
 }
 
-.place-details-loading p {
-  color: #666;
+.error-section h2 {
+  margin: 0;
+
+  color: #273632;
 }
 
-.place-details-error h2 {
-  color: #24483f;
-  margin-bottom: 15px;
+.error-section p {
+  color: #8a9691;
 }
 
-.place-details-error a {
-  color: #2f806c;
-  text-decoration: none;
-}
-
-
-/* =========================================
+/* ==========================================================
    RESPONSIVE
-========================================= */
+========================================================== */
 
 @media (max-width: 900px) {
-
   .place-details-page {
-    padding: 30px 25px 60px;
-  }
-
-  .cards-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .gallery-thumbnails {
-    width: 150px;
-  }
-
-  .main-place-image {
-    height: 360px;
-  }
-}
-
-
-@media (max-width: 650px) {
-
-  .place-details-page {
-    padding: 25px 18px 50px;
+    width: min(100% - 35px, 700px);
   }
 
   .place-gallery {
-    flex-direction: column;
+    grid-template-columns: 130px 1fr;
   }
 
-  .main-place-image {
-    height: 300px;
+  .gallery-main {
+    height: 330px;
   }
 
-  .gallery-thumbnails {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+  .gallery-small-image {
+    height: 158px;
   }
 
-  .gallery-thumbnail {
-    height: 80px;
+  .cards-container,
+  .reviews-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
   }
 
-  .place-info h1 {
-    font-size: 25px;
+  .features-list {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 650px) {
+  .place-details-page {
+    width: calc(100% - 25px);
   }
 
-  .cards-container {
+  .place-gallery {
     grid-template-columns: 1fr;
   }
 
-  .section-header {
-    align-items: center;
+  .gallery-main {
+    height: 270px;
+    grid-row: 1;
   }
 
-  .details-section h2 {
-    font-size: 20px;
+  .gallery-side {
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    grid-row: 2;
   }
 
-  .section-arrow {
-    width: 32px;
-    height: 32px;
+  .gallery-small-image {
+    height: 120px;
+  }
+
+  .place-title-row {
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  .place-title-row h1 {
     font-size: 24px;
+  }
+
+  .place-rating {
+    padding-top: 0;
+  }
+
+  .section-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .cards-container,
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .features-list {
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    gap: 20px;
   }
 }

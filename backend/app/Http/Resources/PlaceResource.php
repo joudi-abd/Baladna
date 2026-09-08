@@ -30,7 +30,7 @@ class PlaceResource extends JsonResource
             'longitude' => $this->longitude,
             'phone' => $this->phone,
             'website' => $this->website,
-            'cover_image' => $this->cover_image,
+            'cover_image' => $this->cover_image ? asset('storage/' . $this->cover_image) : null,
             'rating_avg' => $this->rating_avg,
             'reviews_count' => $this->reviews_count,
             'status' => $this->status,

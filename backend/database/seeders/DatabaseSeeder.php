@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             FeatureSeeder::class,
             PlaceSeeder::class,
             TripSeeder::class,
+            TripPlaceSeeder::class,
         ]);
     }
 }

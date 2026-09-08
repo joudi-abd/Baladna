@@ -4,7 +4,24 @@ import { FiImage, FiMapPin, FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa6";
 
 function PlaceCard({ place }) {
-  const [isFavorite, setIsFavorite] = useState(Boolean(place.isFavorite));
+  const [isFavorite, setIsFavorite] = useState(
+    Boolean(place.isFavorite)
+  );
+
+  const image =
+    place.image ||
+    place.cover_image ||
+    null;
+
+  const city =
+    place.city ||
+    place.city_name ||
+    place.city?.name ||
+    "";
+
+  const tags = Array.isArray(place.tags)
+    ? place.tags
+    : [];
 
   return (
     <article className="place-card">
@@ -12,8 +29,11 @@ function PlaceCard({ place }) {
       {/* صورة المكان */}
       <div className="place-card-image">
 
-        {place.image ? (
-          <img src={place.image} alt={place.name} />
+        {image ? (
+          <img
+            src={image}
+            alt={place.name}
+          />
         ) : (
           <div className="image-placeholder">
             <FiImage />
@@ -22,18 +42,32 @@ function PlaceCard({ place }) {
 
         {/* المدينة */}
         <span className="place-city-badge">
-          <FiMapPin /> {place.city}
+          <FiMapPin /> {city}
         </span>
 
         {/* المفضلة */}
         <button
           type="button"
-          className={`place-favorite-button ${isFavorite ? "active" : ""}`}
-          aria-label={isFavorite ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
+          className={`place-favorite-button ${
+            isFavorite ? "active" : ""
+          }`}
+          aria-label={
+            isFavorite
+              ? "إزالة من المفضلة"
+              : "إضافة إلى المفضلة"
+          }
           aria-pressed={isFavorite}
-          onClick={() => setIsFavorite((current) => !current)}
+          onClick={() =>
+            setIsFavorite(
+              (current) => !current
+            )
+          }
         >
-          {isFavorite ? <FaHeart /> : <FiHeart />}
+          {isFavorite ? (
+            <FaHeart />
+          ) : (
+            <FiHeart />
+          )}
         </button>
 
       </div>
@@ -47,9 +81,18 @@ function PlaceCard({ place }) {
 
         {/* الوسوم */}
         <div className="place-card-tags">
-          {place.tags.map((tag) => (
-            <span className="place-tag" key={tag}>
-              {tag}
+          {tags.map((tag, index) => (
+            <span
+              className="place-tag"
+              key={
+                typeof tag === "object"
+                  ? tag.id ?? index
+                  : tag
+              }
+            >
+              {typeof tag === "object"
+                ? tag.name
+                : tag}
             </span>
           ))}
         </div>

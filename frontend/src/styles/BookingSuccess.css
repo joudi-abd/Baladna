@@ -1,0 +1,421 @@
+/* =========================================
+   BOOKING SUCCESS PAGE
+========================================= */
+
+.booking-success-page {
+  min-height: calc(100vh - 80px);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  padding: 70px 24px 90px;
+  direction: rtl;
+  background:
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(31, 146, 114, 0.08),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 10% 90%,
+      rgba(31, 146, 114, 0.06),
+      transparent 30%
+    ),
+    #f8faf9;
+}
+
+/* =========================================
+   DECORATION
+========================================= */
+
+.booking-success-decoration {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.booking-success-decoration-1 {
+  width: 360px;
+  height: 360px;
+  top: -180px;
+  right: -120px;
+  background: rgba(31, 146, 114, 0.05);
+}
+
+.booking-success-decoration-2 {
+  width: 280px;
+  height: 280px;
+  bottom: -140px;
+  left: -100px;
+  background: rgba(31, 146, 114, 0.04);
+}
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.booking-success-container {
+  width: min(860px, 100%);
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+/* =========================================
+   SUCCESS ICON
+========================================= */
+
+.booking-success-icon-wrapper {
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(31, 146, 114, 0.1);
+  box-shadow:
+    0 0 0 14px rgba(31, 146, 114, 0.04),
+    0 18px 45px rgba(31, 146, 114, 0.12);
+}
+
+.booking-success-icon {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  background: #1f9272;
+  color: #fff;
+  box-shadow: 0 12px 25px rgba(31, 146, 114, 0.25);
+}
+
+.booking-success-icon svg {
+  stroke-width: 3;
+}
+
+/* =========================================
+   HEADING
+========================================= */
+
+.booking-success-heading {
+  max-width: 680px;
+  margin: 0 auto 38px;
+}
+
+.booking-success-eyebrow {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f9272;
+}
+
+.booking-success-heading h1 {
+  margin: 0 0 14px;
+  font-size: clamp(30px, 4vw, 44px);
+  line-height: 1.25;
+  font-weight: 800;
+  color: #17211d;
+}
+
+.booking-success-heading p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.9;
+  color: #6d7772;
+}
+
+/* =========================================
+   MAIN CARD
+========================================= */
+
+.booking-success-card {
+  text-align: right;
+  background: #fff;
+  border: 1px solid #e7ece9;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow:
+    0 20px 60px rgba(24, 44, 36, 0.08),
+    0 5px 18px rgba(24, 44, 36, 0.03);
+}
+
+/* =========================================
+   CARD HEADER
+========================================= */
+
+.booking-success-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.booking-success-card-header > div:first-child span {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #87918c;
+}
+
+.booking-success-card-header h2 {
+  margin: 0;
+  font-size: 23px;
+  line-height: 1.5;
+  color: #17211d;
+}
+
+.booking-success-number {
+  min-width: 120px;
+  text-align: left;
+  direction: rtl;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: #f4faf7;
+}
+
+.booking-success-number span {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: #7b8580;
+}
+
+.booking-success-number strong {
+  font-size: 18px;
+  color: #1f9272;
+}
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.booking-success-divider {
+  height: 1px;
+  margin: 26px 0;
+  background: #edf0ee;
+}
+
+/* =========================================
+   INFO GRID
+========================================= */
+
+.booking-success-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.booking-success-info-item {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 16px;
+  background: #fafcfb;
+  border: 1px solid #eff3f1;
+}
+
+.booking-success-info-icon {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  font-size: 21px;
+  color: #1f9272;
+  background: #eaf7f2;
+}
+
+.booking-success-info-item span {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 12px;
+  color: #8a938e;
+}
+
+.booking-success-info-item strong {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #24302b;
+}
+
+/* =========================================
+   VERIFICATION NOTICE
+========================================= */
+
+.booking-success-verification {
+  margin-top: 26px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 16px;
+  background: #f3f8f6;
+  border: 1px solid #e2eee9;
+}
+
+.booking-success-verification-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #dff2eb;
+  color: #1f9272;
+  font-size: 20px;
+}
+
+.booking-success-verification strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #26332e;
+  font-size: 14px;
+}
+
+.booking-success-verification p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.9;
+  color: #6f7974;
+}
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.booking-success-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.booking-success-primary-btn,
+.booking-success-secondary-btn {
+  min-height: 52px;
+  padding: 0 24px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.booking-success-primary-btn {
+  color: #fff;
+  background: #1f9272;
+  box-shadow: 0 10px 25px rgba(31, 146, 114, 0.2);
+}
+
+.booking-success-primary-btn:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(31, 146, 114, 0.26);
+}
+
+.booking-success-secondary-btn {
+  color: #30403a;
+  background: #fff;
+  border: 1px solid #dfe7e3;
+}
+
+.booking-success-secondary-btn:hover {
+  color: #1f9272;
+  transform: translateY(-2px);
+  background: #f8fbfa;
+}
+
+/* =========================================
+   FOOT NOTE
+========================================= */
+
+.booking-success-footer-note {
+  margin: 24px 0 0;
+  font-size: 13px;
+  color: #8a938e;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 700px) {
+  .booking-success-page {
+    padding: 45px 16px 65px;
+  }
+
+  .booking-success-card {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .booking-success-card-header {
+    flex-direction: column;
+  }
+
+  .booking-success-number {
+    width: 100%;
+    text-align: right;
+  }
+
+  .booking-success-info-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .booking-success-heading h1 {
+    font-size: 31px;
+  }
+
+  .booking-success-heading p {
+    font-size: 15px;
+  }
+
+  .booking-success-primary-btn,
+  .booking-success-secondary-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .booking-success-icon-wrapper {
+    width: 88px;
+    height: 88px;
+  }
+
+  .booking-success-icon {
+    width: 64px;
+    height: 64px;
+    font-size: 31px;
+  }
+
+  .booking-success-card-header h2 {
+    font-size: 19px;
+  }
+
+  .booking-success-info-item {
+    padding: 14px;
+  }
+}

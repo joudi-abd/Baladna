@@ -14,8 +14,16 @@ class GovernoratesTable
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->sortable()
+                    ->label('#'),
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('cities_count')
+                    ->counts('cities')
+                    ->label('Cities Count')
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

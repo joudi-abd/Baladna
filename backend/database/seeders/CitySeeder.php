@@ -3,36 +3,145 @@
 namespace Database\Seeders;
 
 use App\Models\City;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Governorate;
 use Illuminate\Database\Seeder;
 
 class CitySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // You can either hardcode cities or generate them dynamically
         $cities = [
-            ['name' => 'Damascus', 'governorate_id' => 1],
-            ['name' => 'Rif Dimashq', 'governorate_id' => 2],
-            ['name' => 'Aleppo', 'governorate_id' => 3],
-            ['name' => 'Homs', 'governorate_id' => 4],
-            ['name' => 'Hama', 'governorate_id' => 5],
-            ['name' => 'Latakia', 'governorate_id' => 6],
-            ['name' => 'Tartus', 'governorate_id' => 7],
-            ['name' => 'Idlib', 'governorate_id' => 8],
-            ['name' => 'Deir ez-Zor', 'governorate_id' => 9],
-            ['name' => 'Al-Hasakah', 'governorate_id' => 10],
-            ['name' => 'Raqqa', 'governorate_id' => 11],
-            ['name' => 'Daraa', 'governorate_id' => 12],
-            ['name' => 'As-Suwayda', 'governorate_id' => 13],
-            ['name' => 'Quneitra', 'governorate_id' => 14],
+
+            'دمشق' => [
+                'دمشق',
+                'اليرموك',
+                'جرمانا',
+                'القابون',
+                'المزة',
+                'الميدان',
+                'باب توما',
+                'باب شرقي',
+                'باب الجابية',
+                'باب السلام',
+                'باب مصلى',
+                'باب توينان',],
+
+            'ريف دمشق' => [
+                'معلولا',
+                'صيدنايا',
+                'النبك',
+                'يبرود',
+                'الزبداني',
+                'بلودان',
+            ],
+
+            'حلب' => [
+                'حلب',
+                'عينتاب',
+                'منبج',
+                'الباب',
+                'إعزاز',
+                'جرابلس',
+                'تل رفعت',
+                'عفرين',
+                'مارع',
+            ],
+
+            'حمص' => [
+                'حمص',
+                'تدمر',
+                'القصير',
+                'الرستن',
+                'تلكلخ',
+                'الحولة',
+            ],
+
+            'حماة' => [
+                'حماة',
+                'السقيلبية',
+                'مصياف',
+                'محردة',
+                'سلمية',
+                'اللطامنة',
+            ],
+
+            'اللاذقية' => [
+                'اللاذقية',
+                'جبلة',
+                'القرداحة',
+                'كسب',
+                'الحفة',
+
+            ],
+
+            'طرطوس' => [
+                'طرطوس',
+                'بانياس',
+                'صافيتا',
+                'الدريكيش',
+                'الشيخ بدر',
+            ],
+
+            'إدلب' => [
+                'إدلب',
+                'معرة النعمان',
+                'أريحا',
+                'جسر الشغور',
+                'كفرنبل',
+                'سراقب',
+            ],
+
+            'درعا' => [
+                'درعا',
+                'بصرى الشام',
+                'نوى',
+                'إزرع',
+            ],
+
+            'دير الزور' => [
+                'دير الزور',
+                'الميادين',
+                'البوكمال',
+            ],
+
+            'الحسكة' => [
+                'الحسكة',
+                'القامشلي',
+                'رأس العين',
+                'المالكية',
+            ],
+
+            'الرقة' => [
+                'الرقة',
+                'تل أبيض',
+                'الطبقة',
+            ],
+
+            'القنيطرة' => [
+                'القنيطرة',
+                'خان أرنبة',
+            ],
+
+            'السويداء' => [
+                'السويداء',
+                'شهبا',
+                'صلخد',
+            ],
         ];
 
-        foreach ($cities as $city) {
-            City::firstOrCreate(['name' => $city['name']], ['governorate_id' => $city['governorate_id']]);
+        foreach ($cities as $governorateName => $cityNames) {
+
+            $governorate = Governorate::firstOrCreate([
+                'name' => $governorateName,
+            ]);
+
+            foreach ($cityNames as $cityName) {
+
+                City::firstOrCreate([
+                    'name' => $cityName,
+                    'governorate_id' => $governorate->id,
+                ]);
+            }
         }
     }
 }

@@ -18,9 +18,9 @@ class GovernorateResource extends Resource
 {
     protected static ?string $model = Governorate::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedMap;
 
-    protected static ?string $recordTitleAttribute = 'Governorates';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {

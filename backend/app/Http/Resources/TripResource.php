@@ -43,7 +43,7 @@ class TripResource extends JsonResource
 
             'status'=>$this->status,
 
-            'cover_image'=>$this->cover_image,
+            'cover_image'=>$this->cover_image ? asset('storage/' . $this->cover_image) : null,
 
             'places'=>PlaceResource::collection(
                 $this->whenLoaded('places')

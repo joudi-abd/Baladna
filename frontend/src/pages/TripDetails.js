@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { FiImage, FiMapPin, FiArrowUpLeft } from "react-icons/fi";
 
@@ -9,22 +9,239 @@ import PlaceCard from "../components/PlaceCard";
 import TestimonialCard from "../components/TestimonialCard";
 import CarouselArrows from "../components/CarouselArrows";
 
-import { getTripDetails } from "../data/tripDetailsMockData";
-
+import { apiRequest } from "../api/api";
 import "../styles/TripDetails.css";
 
 const TripDetails = () => {
   const { id } = useParams();
 
-  const trip = useMemo(() => getTripDetails(id), [id]);
+  const [trip, setTrip] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!trip) {
+  useEffect(() => {
+    let cancelled = false;
+
+    const fetchTrip = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await apiRequest(`/trips/${id}`);
+
+        if (cancelled) return;
+
+        if (!response.ok) {
+          if (response.status === 404) {
+            setError("not_found");
+          } else {
+            setError("failed");
+          }
+
+          setTrip(null);
+          return;
+        }
+
+        const tripData = response.data?.data;
+
+        if (!tripData) {
+          setError("not_found");
+          setTrip(null);
+          return;
+        }
+
+        setTrip(tripData);
+      } catch (err) {
+        if (cancelled) return;
+
+        console.error("Failed to load trip details:", err);
+
+        setError("failed");
+        setTrip(null);
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchTrip();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
+
+  /*
+   * تجهيز الأماكن حتى تظل PlaceCard بنفس الـ HTML الحالي.
+   *
+   * API:
+   * cover_image
+   * city_id
+   * category_id
+   *
+   * PlaceCard:
+   * image
+   * city
+   * tags
+   */
+  const includedPlaces = useMemo(() => {
+    if (!Array.isArray(trip?.places)) {
+      return [];
+    }
+
+    return trip.places.map((place) => ({
+      ...place,
+
+      image: place.image || place.cover_image || null,
+
+      city:
+        typeof place.city === "string"
+          ? place.city
+          : place.city?.name || place.city_name || "",
+
+      tags: Array.isArray(place.tags) ? place.tags : [],
+    }));
+  }, [trip]);
+
+  /*
+   * تجهيز بيانات الـ summary بدون تغيير الـ JSX.
+   */
+  const summary = useMemo(() => {
+    if (!trip) {
+      return [];
+    }
+
+    return [
+      {
+        label: "السعر",
+        value:
+          trip.price !== null && trip.price !== undefined
+            ? `${Number(trip.price).toLocaleString("en-US")} ل.س`
+            : "-",
+        icon: "💰",
+      },
+      {
+        label: "مدة الرحلة",
+        value: trip.duration || "-",
+        icon: "🕒",
+      },
+      {
+        label: "المقاعد المتاحة",
+        value:
+          trip.available_seats !== null &&
+          trip.available_seats !== undefined
+            ? `${trip.available_seats}`
+            : "-",
+        icon: "🎟️",
+      },
+      {
+        label: "التقييم",
+        value:
+          trip.rating_avg !== null && trip.rating_avg !== undefined
+            ? Number(trip.rating_avg).toFixed(1)
+            : "0.0",
+        icon: "⭐",
+      },
+    ];
+  }, [trip]);
+
+  /*
+   * تجهيز معلومات الرحلة مع الحفاظ على نفس الـ JSX الموجود.
+   */
+  const tripView = useMemo(() => {
+    if (!trip) {
+      return null;
+    }
+
+    const city =
+      typeof trip.city === "string"
+        ? trip.city
+        : trip.city?.name ||
+          trip.city_name ||
+          "";
+
+    const meetingPoint =
+      typeof trip.meeting_point === "string"
+        ? trip.meeting_point
+        : trip.meeting_point?.name ||
+          trip.meeting_point_name ||
+          "";
+
+    const meetingTime =
+      typeof trip.meeting_point === "object" &&
+      trip.meeting_point !== null
+        ? trip.meeting_point.time || ""
+        : "";
+
+    return {
+      ...trip,
+
+      heroTitle: trip.title || "تفاصيل الرحلة",
+
+      heroSubtitle: trip.description || "",
+
+      city,
+
+      introDescription: trip.description || "",
+
+      summary,
+
+      meetingPoint: {
+        name: meetingPoint || "نقطة التجمع غير محددة",
+        time: meetingTime,
+      },
+
+      /*
+       * الـ API المقدم لا يحتوي على itinerary بشكل واضح.
+       */
+      itinerary: Array.isArray(trip.itinerary)
+        ? trip.itinerary
+        : [],
+
+      /*
+       * الـ API المقدم لا يحتوي على testimonials.
+       */
+      testimonials: Array.isArray(trip.testimonials)
+        ? trip.testimonials
+        : [],
+
+      includedPlaces,
+    };
+  }, [trip, summary, includedPlaces]);
+
+  /*
+   * Loading
+   */
+  if (loading) {
     return (
       <>
         <Header />
 
         <div className="trip-details-error">
-          <h2>لم يتم العثور على الرحلة</h2>
+          <h2>جاري تحميل تفاصيل الرحلة...</h2>
+        </div>
+
+        <Footer />
+      </>
+    );
+  }
+
+  /*
+   * Error / Not Found
+   */
+  if (!tripView) {
+    return (
+      <>
+        <Header />
+
+        <div className="trip-details-error">
+          <h2>
+            {error === "not_found"
+              ? "لم يتم العثور على الرحلة"
+              : "حدث خطأ أثناء تحميل الرحلة"}
+          </h2>
+
           <Link to="/trips">العودة إلى الرحلات</Link>
         </div>
 
@@ -34,7 +251,7 @@ const TripDetails = () => {
   }
 
   const mapsSearchUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    trip.meetingPoint.name
+    tripView.meetingPoint.name
   )}`;
 
   return (
@@ -63,17 +280,23 @@ const TripDetails = () => {
           </nav>
 
           <div className="trip-hero-content">
-            <h1>{trip.heroTitle}</h1>
-            <p>{trip.heroSubtitle}</p>
+            <h1>{tripView.heroTitle}</h1>
+
+            <p>{tripView.heroSubtitle}</p>
 
             <div className="trip-hero-meta">
               <span>
-                <FiMapPin /> مدينة {trip.city}
+                <FiMapPin />{" "}
+                {tripView.city
+                  ? `مدينة ${tripView.city}`
+                  : "المدينة غير محددة"}
               </span>
 
               <span className="trip-hero-meta-divider">|</span>
 
-              <span>{trip.summary[0].value}</span>
+              <span>
+                {tripView.summary[0]?.value || "-"}
+              </span>
             </div>
           </div>
         </section>
@@ -83,8 +306,9 @@ const TripDetails = () => {
         ========================= */}
 
         <section className="trip-details-section trip-intro-section">
-          <h2>{trip.heroTitle}</h2>
-          <p>{trip.introDescription}</p>
+          <h2>{tripView.heroTitle}</h2>
+
+          <p>{tripView.introDescription}</p>
         </section>
 
         {/* =========================
@@ -93,7 +317,7 @@ const TripDetails = () => {
 
         <section className="trip-details-section trip-summary-section">
           <div className="trip-summary-grid">
-            {trip.summary.map((stat) => (
+            {tripView.summary.map((stat) => (
               <TripStatCard
                 key={stat.label}
                 icon={stat.icon}
@@ -115,30 +339,46 @@ const TripDetails = () => {
               <h2>برنامج الرحلة</h2>
 
               <div className="itinerary-body">
+
                 <div className="itinerary-thumbnails">
-                  {trip.itinerary.map((step) => (
-                    <div className="itinerary-thumbnail" key={step.time}>
+                  {tripView.itinerary.map((step, index) => (
+                    <div
+                      className="itinerary-thumbnail"
+                      key={step.time || index}
+                    >
                       <FiImage />
                     </div>
                   ))}
                 </div>
 
                 <ol className="itinerary-list">
-                  {trip.itinerary.map((step) => (
-                    <li className="itinerary-item" key={step.time}>
-                      <span className="itinerary-dot" aria-hidden="true"></span>
+                  {tripView.itinerary.map((step, index) => (
+                    <li
+                      className="itinerary-item"
+                      key={step.time || index}
+                    >
+                      <span
+                        className="itinerary-dot"
+                        aria-hidden="true"
+                      ></span>
 
                       <div className="itinerary-item-content">
-                        <span className="itinerary-title">{step.title}</span>
+                        <span className="itinerary-title">
+                          {step.title}
+                        </span>
+
                         <span className="itinerary-description">
                           {step.description}
                         </span>
                       </div>
 
-                      <span className="itinerary-time">{step.time}</span>
+                      <span className="itinerary-time">
+                        {step.time}
+                      </span>
                     </li>
                   ))}
                 </ol>
+
               </div>
             </div>
 
@@ -147,8 +387,13 @@ const TripDetails = () => {
                 <FiMapPin /> نقطة التجمع
               </h2>
 
-              <p className="meeting-point-name">{trip.meetingPoint.name}</p>
-              <p className="meeting-point-time">{trip.meetingPoint.time}</p>
+              <p className="meeting-point-name">
+                {tripView.meetingPoint.name}
+              </p>
+
+              <p className="meeting-point-time">
+                {tripView.meetingPoint.time}
+              </p>
 
               <a
                 href={mapsSearchUrl}
@@ -170,7 +415,9 @@ const TripDetails = () => {
                   <FiMapPin />
                 </div>
 
-                <span className="trip-map-label">نقطة التجمع</span>
+                <span className="trip-map-label">
+                  نقطة التجمع
+                </span>
               </div>
             </div>
 
@@ -185,6 +432,7 @@ const TripDetails = () => {
           <div className="section-header">
             <div>
               <h2>الأماكن المضمنة ضمن الرحلة</h2>
+
               <p className="section-subtitle">
                 أماكن ومعالم سياحية مميزة تجمع بين الجمال والتراث والحضارة السورية العريقة ضمن الرحلة
               </p>
@@ -200,8 +448,11 @@ const TripDetails = () => {
           </div>
 
           <div className="cards-container">
-            {trip.includedPlaces.map((place) => (
-              <PlaceCard key={place.id} place={place} />
+            {tripView.includedPlaces.map((place) => (
+              <PlaceCard
+                key={place.id}
+                place={place}
+              />
             ))}
           </div>
         </section>
@@ -214,7 +465,10 @@ const TripDetails = () => {
           <div className="section-header">
             <div>
               <h2>آراء السياح عن الرحلة</h2>
-              <p className="section-subtitle">تجارب حقيقية من مستخدمي Baladna</p>
+
+              <p className="section-subtitle">
+                تجارب حقيقية من مستخدمي Baladna
+              </p>
             </div>
 
             <CarouselArrows
@@ -227,8 +481,11 @@ const TripDetails = () => {
           </div>
 
           <div className="reviews-grid">
-            {trip.testimonials.map((testimonial) => (
-              <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+            {tripView.testimonials.map((testimonial) => (
+              <TestimonialCard
+                key={testimonial.id}
+                testimonial={testimonial}
+              />
             ))}
           </div>
         </section>
@@ -238,9 +495,14 @@ const TripDetails = () => {
         ========================= */}
 
         <section className="trip-cta-section">
-          <p>هل أنت جاهز لتمضي رحلة مميزة في بلدنا ؟</p>
+          <p>
+            هل أنت جاهز لتمضي رحلة مميزة في بلدنا ؟
+          </p>
 
-          <Link to={`/booking/${trip.id}`} className="btn-book-trip-cta">
+          <Link
+            to={`/booking/${tripView.id}`}
+            className="btn-book-trip-cta"
+          >
             <FiArrowUpLeft />
             احجز رحلتك الآن
           </Link>

@@ -2,7 +2,6 @@ import { useState } from "react";
 import "../styles/register.css";
 import travel from "../assets/travel.jpg";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "../components/Header";
 
 import {
   HiOutlineUser,
@@ -11,6 +10,7 @@ import {
 } from "react-icons/hi";
 
 import { HiOutlinePhone } from "react-icons/hi2";
+import { apiRequest } from "../api/api";
 
 import {
   IoGlobeOutline,
@@ -30,50 +30,35 @@ function Register() {
   const submitRegister = async (e) => {
     e.preventDefault();
 
-    // التأكد من تطابق كلمتي المرور
     if (password !== confirm) {
       alert("كلمتا المرور غير متطابقتين");
       return;
     }
 
     try {
-      // إرسال البيانات إلى Laravel
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/register",
-        {
-          method: "POST",
+      const response = await apiRequest("/register", {
+        method: "POST",
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          password,
+          confirm
+        }),
+      });
 
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
+      const data = await response.data;
 
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            phone: phone,
-            password: password,
-            password_confirmation: confirm,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      // عرض النتيجة في Console للتأكد
       console.log("Status:", response.status);
       console.log("Response:", data);
 
-      // إذا كان التسجيل ناجحًا
       if (response.ok) {
         alert(data.message || "تم إنشاء الحساب بنجاح");
 
-        // حفظ Token إذا قام Laravel بإرساله
         if (data.token) {
           localStorage.setItem("token", data.token);
         }
 
-        // حفظ بيانات المستخدم إذا قام Laravel بإرسالها
         if (data.user) {
           localStorage.setItem(
             "user",
@@ -81,10 +66,8 @@ function Register() {
           );
         }
 
-        // الانتقال إلى صفحة تسجيل الدخول
         navigate("/login");
       } else {
-        // في حال وجود خطأ من Laravel
         alert(
           data.message ||
             "فشل إنشاء الحساب، يرجى التأكد من البيانات"
