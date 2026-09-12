@@ -101,6 +101,15 @@
   font-weight: 600;
 }
 
+.profile-btn {
+  background: #fff;
+  color: #2d8064;
+
+  border: 1px solid #2d8064;
+  padding: 11px 22px;
+  border-radius: 24px;
+  font-weight: 600;
+}
 .book-trip-btn:hover {
   background: #e7f3ee;
 }

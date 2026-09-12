@@ -442,13 +442,7 @@ function TripCard({ trip, onClick }) {
             className="btn-book-now"
             onClick={(event) => {
               event.stopPropagation();
-
-              if (
-                typeof onClick ===
-                "function"
-              ) {
-                onClick(trip);
-              }
+              navigate(`/booking/${trip.id}`);
             }}
           >
             احجز الآن

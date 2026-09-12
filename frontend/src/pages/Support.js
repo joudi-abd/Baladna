@@ -35,7 +35,6 @@ function Support() {
 
   return (
     <>
-    <Header />
 
     <div className="support-page">
 

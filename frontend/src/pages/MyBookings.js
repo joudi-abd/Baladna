@@ -148,11 +148,7 @@ function MyBookings() {
       /*
        * الصورة
        */
-      const image =
-        booking?.image ??
-        booking?.cover_image ??
-        trip?.cover_image ??
-        trip?.image ??
+      const image = trip?.cover_image ??
         null;
 
       /*
@@ -495,221 +491,190 @@ function MyBookings() {
    * ==========================================
    */
 
-  const fetchBookings =
-    useCallback(async () => {
-      setLoading(true);
+  const fetchBookings = useCallback(async () => {
+  setLoading(true);
 
-      try {
-        const params =
-          new URLSearchParams();
+  try {
+    // ==========================================
+    // UPCOMING
+    // ==========================================
+    if (activeStatus === "upcoming") {
+      const [pendingResult, confirmedResult] =
+        await Promise.all([
+          apiRequest(
+            `/my-bookings?status=pending&per_page=100&page=1`
+          ),
+          apiRequest(
+            `/my-bookings?status=confirmed&per_page=100&page=1`
+          ),
+        ]);
 
-        /*
-         * ======================================
-         * UPCOMING
-         * ======================================
-         *
-         * Laravel لا يقبل:
-         *
-         * status=upcoming
-         *
-         * لذلك لا نرسله.
-         */
+      console.log("PENDING:", pendingResult);
+      console.log("CONFIRMED:", confirmedResult);
 
-        if (
-          activeStatus !==
-          "upcoming"
-        ) {
-          if (
-            VALID_API_STATUSES.includes(
-              activeStatus
-            )
-          ) {
-            params.append(
-              "status",
-              activeStatus
-            );
-          }
-        }
-
-        /*
-         * Pagination
-         */
-
-        params.append(
-          "per_page",
-          String(PAGE_SIZE)
-        );
-
-        params.append(
-          "page",
-          String(currentPage)
-        );
-
-        const requestUrl =
-          `/my-bookings?${params.toString()}`;
-
-        console.log(
-          "MY BOOKINGS REQUEST:",
-          requestUrl
-        );
-
-        const result =
-          await apiRequest(
-            requestUrl
-          );
-
-        console.log(
-          "MY BOOKINGS RESPONSE:",
-          result
-        );
-
-        /*
-         * HTTP ERROR
-         */
-
-        if (!result.ok) {
-          throw new Error(
-            `حدث خطأ أثناء جلب الحجوزات (${result.status})`
-          );
-        }
-
-        const responseData =
-          result.data;
-
-        console.log(
-          "ACTIVE STATUS:",
-          activeStatus
-        );
-
-        console.log(
-          "BOOKINGS DATA:",
-          responseData?.data
-        );
-
-        /*
-         * ======================================
-         * API DATA
-         * ======================================
-         */
-
-        const apiBookings =
-          Array.isArray(
-            responseData?.data
-          )
-            ? responseData.data
-            : [];
-
-        let normalizedBookings =
-          apiBookings.map(
-            normalizeBooking
-          );
-
-        /*
-         * ======================================
-         * UPCOMING FILTER
-         * ======================================
-         */
-
-        if (
-          activeStatus ===
-          "upcoming"
-        ) {
-          const now =
-            new Date();
-
-          normalizedBookings =
-            normalizedBookings.filter(
-              (booking) => {
-                /*
-                 * الحالات التي تعتبر قادمة
-                 */
-                const validStatus =
-                  booking.status ===
-                    "pending" ||
-                  booking.status ===
-                    "confirmed";
-
-                if (
-                  !validStatus
-                ) {
-                  return false;
-                }
-
-                /*
-                 * التاريخ
-                 */
-                if (
-                  !booking.rawTripDate
-                ) {
-                  return false;
-                }
-
-                const tripDate =
-                  new Date(
-                    booking.rawTripDate
-                  );
-
-                if (
-                  Number.isNaN(
-                    tripDate.getTime()
-                  )
-                ) {
-                  return false;
-                }
-
-                return (
-                  tripDate >= now
-                );
-              }
-            );
-        }
-
-        /*
-         * ======================================
-         * SET BOOKINGS
-         * ======================================
-         */
-
-        setBookings(
-          normalizedBookings
-        );
-
-        /*
-         * ======================================
-         * LAST PAGE
-         * ======================================
-         */
-
-        const apiLastPage =
-          Number(
-            responseData?.meta
-              ?.last_page ??
-              responseData?.last_page ??
-              1
-          );
-
-        setLastPage(
-          apiLastPage > 0
-            ? apiLastPage
-            : 1
-        );
-      } catch (error) {
-        console.error(
-          "Error fetching bookings:",
-          error
-        );
-
-        setBookings([]);
-
-        setLastPage(1);
-      } finally {
-        setLoading(false);
+      if (!pendingResult.ok || !confirmedResult.ok) {
+        throw new Error("فشل جلب الحجوزات القادمة");
       }
-    }, [
-      activeStatus,
-      currentPage,
-      normalizeBooking,
-    ]);
+
+      const pendingBookings = Array.isArray(
+        pendingResult.data?.data
+      )
+        ? pendingResult.data.data
+        : [];
+
+      const confirmedBookings = Array.isArray(
+        confirmedResult.data?.data
+      )
+        ? confirmedResult.data.data
+        : [];
+
+      // دمج pending + confirmed
+      let normalizedBookings = [
+        ...pendingBookings,
+        ...confirmedBookings,
+      ].map(normalizeBooking);
+
+      // ==========================================
+      // FILTER BY TRIP DATE
+      // ==========================================
+      const now = new Date();
+
+      normalizedBookings =
+        normalizedBookings.filter((booking) => {
+          if (!booking.rawTripDate) {
+            return false;
+          }
+
+          const tripDate = new Date(
+            booking.rawTripDate
+          );
+
+          return (
+            !Number.isNaN(tripDate.getTime()) &&
+            tripDate >= now
+          );
+        });
+
+      // ==========================================
+      // SORT BY DATE
+      // ==========================================
+      normalizedBookings.sort((a, b) => {
+        const dateA = a.rawTripDate
+          ? new Date(a.rawTripDate).getTime()
+          : 0;
+
+        const dateB = b.rawTripDate
+          ? new Date(b.rawTripDate).getTime()
+          : 0;
+
+        return dateB - dateA;
+      });
+
+      console.log(
+        "UPCOMING BOOKINGS:",
+        normalizedBookings
+      );
+
+      setBookings(normalizedBookings);
+
+      // بما أننا جلبنا pending + confirmed معًا
+      setLastPage(1);
+
+      return;
+    }
+
+    // ==========================================
+    // OTHER STATUSES
+    // ==========================================
+    const params = new URLSearchParams();
+
+    if (VALID_API_STATUSES.includes(activeStatus)) {
+      params.append("status", activeStatus);
+    }
+
+    params.append(
+      "per_page",
+      String(PAGE_SIZE)
+    );
+
+    params.append(
+      "page",
+      String(currentPage)
+    );
+
+    const requestUrl =
+      `/my-bookings?${params.toString()}`;
+
+    console.log(
+      "MY BOOKINGS REQUEST:",
+      requestUrl
+    );
+
+    const result = await apiRequest(requestUrl);
+
+    console.log(
+      "MY BOOKINGS RESPONSE:",
+      result
+    );
+
+    if (!result.ok) {
+      throw new Error(
+        `حدث خطأ أثناء جلب الحجوزات (${result.status})`
+      );
+    }
+
+    const responseData = result.data;
+
+    console.log(
+      "ACTIVE STATUS:",
+      activeStatus
+    );
+
+    console.log(
+      "BOOKINGS DATA:",
+      responseData?.data
+    );
+
+    const apiBookings =
+      Array.isArray(responseData?.data)
+        ? responseData.data
+        : [];
+
+    const normalizedBookings =
+      apiBookings.map(normalizeBooking);
+
+    setBookings(normalizedBookings);
+
+    const apiLastPage =
+      Number(
+        responseData?.meta?.last_page ??
+          responseData?.last_page ??
+          1
+      );
+
+    setLastPage(
+      apiLastPage > 0
+        ? apiLastPage
+        : 1
+    );
+
+  } catch (error) {
+    console.error(
+      "Error fetching bookings:",
+      error
+    );
+
+    setBookings([]);
+    setLastPage(1);
+
+  } finally {
+    setLoading(false);
+  }
+}, [
+  activeStatus,
+  currentPage,
+  normalizeBooking,
+]);
 
   /*
    * ==========================================

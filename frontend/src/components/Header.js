@@ -125,6 +125,9 @@ const Header = () => {
           >
             احجز رحلتك
           </button>
+          <button type="button" className="profile-btn" onClick={() => navigate("/Profile")}>
+            الملف الشخصي
+          </button>
 
           {/* تسجيل الدخول / تسجيل الخروج */}
           {isLoggedIn ? (

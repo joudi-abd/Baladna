@@ -43,7 +43,7 @@ function Register() {
           email,
           phone,
           password,
-          confirm
+          password_confirmation:confirm
         }),
       });
 

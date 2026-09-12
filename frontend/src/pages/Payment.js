@@ -57,8 +57,8 @@ const METHOD_ICONS = {
  * Backend payment method
  */
 const PAYMENT_API_METHODS = {
-  shamCash: "sham_cash",
-  bank: "bank_transfer",
+  sham_cash: "sham_cash",
+  bank_transfer: "bank_transfer",
   cash: "cash_on_arrival",
 };
 

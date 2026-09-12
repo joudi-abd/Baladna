@@ -15,6 +15,8 @@ import BookingConfirmation from "./pages/BookingConfirmation";
 import Payment from "./pages/Payment";
 import ComingSoon from "./pages/ComingSoon";
 import BookingSuccess from "./pages/BookingSuccess";
+import Profile from './pages/Profile';
+
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
         <Route path="/exploration" element={<Exploration />}/>
         <Route path="/places/:id" element={<PlaceDetails />}/>
         <Route path="/bookings" element={<MyBookings />}/>
+        <Route path="/Profile" element={<Profile />} />
 
 
         {/* السطر الجديد الذي ستضيفه لصفحة الرحلات */}

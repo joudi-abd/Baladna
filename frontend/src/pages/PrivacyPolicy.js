@@ -6,7 +6,6 @@ import Header from "../components/Header";
 function PrivacyPolicy() {
   return (
     <>
-    <Header />
 
     <div className="privacy-page">
 
